@@ -1,5 +1,5 @@
-module github.com/Jaisheesh-2006/Mega-Project/apps/backend
+module github.com/Jaisheesh-2006/healthiswealth/backend
 
-go 1.21
+go 1.25.0
 
-require github.com/go-chi/chi/v5 v5.0.9
+require github.com/go-chi/chi/v5 v5.2.3
