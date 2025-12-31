@@ -2,9 +2,9 @@ openapi: 3.1.0
 info:
   title: Curated Health Products API
   version: 0.1.0
-  description: >-
-    Simplified backend surfaces for the curated health-products storefront. Add authentication,
-    catalog segmentation, and fulfillment flows in future iterations.
+  description: >
+    Minimal API for the curated health-products storefront (content + curation).
+    Commerce (orders) and auth are intentionally omitted in v0.1.
 servers:
   - url: http://localhost:8081
 paths:
@@ -23,27 +23,81 @@ paths:
                     type: string
                   service:
                     type: string
-  /products:
+                required:
+                  - status
+                  - service
+
+  /categories:
     get:
-      summary: List curated products
+      summary: List content categories
+      description: Returns categories used to drive SEO pages (e.g., toothpaste, cooking-oil)
       responses:
         "200":
-          description: Returns curated catalog
+          description: Array of categories
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
-  /products/{productID}:
+                  $ref: "#/components/schemas/CategorySummary"
+
+  /categories/{slug}:
     get:
-      summary: Retrieve a single product
+      summary: Category detail and curated picks
       parameters:
-        - name: productID
+        - name: slug
           in: path
+          required: true
           schema:
             type: string
+      responses:
+        "200":
+          description: Category page data (SEO long-form + curated list)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /products:
+    get:
+      summary: List curated products (filterable)
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+          description: category slug to filter by
+        - name: tag
+          in: query
+          schema:
+            type: string
+          description: filter by tag (e.g., "kids", "budget", "organic")
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: Returns curated catalog (summaries)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSummary"
+
+  /products/{slug}:
+    get:
+      summary: Retrieve a single product by slug (SEO-friendly)
+      parameters:
+        - name: slug
+          in: path
           required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Product detail
@@ -52,54 +106,174 @@ paths:
               schema:
                 $ref: "#/components/schemas/Product"
         "404":
-          description: Product not found
-  /orders:
-    post:
-      summary: Queue an order request
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrderRequest"
+          $ref: "#/components/responses/NotFound"
+
+  /methodology:
+    get:
+      summary: Public methodology - how products are evaluated
       responses:
-        "202":
-          description: Order accepted for processing
+        "200":
+          description: Methodology text and scoring rules
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderResponse"
+                $ref: "#/components/schemas/Methodology"
+
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
   schemas:
+    CategorySummary:
+      type: object
+      properties:
+        slug:
+          type: string
+          description: SEO-friendly identifier (e.g., "toothpaste")
+        title:
+          type: string
+        description:
+          type: string
+      required:
+        - slug
+        - title
+
+    Category:
+      type: object
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+        long_description:
+          type: string
+          description: SEO-rich long-form content (HTML or markdown)
+        criteria:
+          type: array
+          items:
+            type: string
+        curated_products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductSummary"
+      required:
+        - slug
+        - title
+        - long_description
+
+    ProductSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+          description: SEO slug used in URLs (required)
+        name:
+          type: string
+        brand:
+          type: string
+        score:
+          type: number
+          format: float
+          description: 0-100 aggregated score
+        short_reason:
+          type: string
+        price_range:
+          type: string
+      required:
+        - slug
+        - name
+        - score
+
     Product:
       type: object
       properties:
         id:
           type: string
+        slug:
+          type: string
+          description: SEO slug used in URLs
         name:
           type: string
-        description:
+        brand:
           type: string
-        tag:
+        category:
           type: string
-    OrderRequest:
+          description: category slug
+        score:
+          type: number
+          format: float
+        why_recommended:
+          type: array
+          items:
+            type: string
+        pros:
+          type: array
+          items:
+            type: string
+        cons:
+          type: array
+          items:
+            type: string
+        ingredients_summary:
+          type: string
+          description: short summary calling out key ingredients to prefer/avoid
+        certifications:
+          type: array
+          items:
+            type: string
+        buy_links:
+          type: array
+          items:
+            type: object
+            properties:
+              vendor:
+                type: string
+              url:
+                type: string
+        price_range:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: e.g., ["budget", "kids", "organic"]
+        last_reviewed:
+          type: string
+          format: date
+      required:
+        - slug
+        - name
+        - score
+
+    Methodology:
       type: object
       properties:
-        productId:
+        version:
           type: string
-        quantity:
-          type: integer
-          minimum: 1
-    OrderResponse:
+        summary:
+          type: string
+        scoring:
+          type: object
+          additionalProperties:
+            type: number
+            description: weight for each factor (e.g., "no_sulfates": 0.2)
+        last_updated:
+          type: string
+          format: date
+      required:
+        - version
+        - summary
+
+    Error:
       type: object
       properties:
         message:
           type: string
-        productId:
-          type: string
-        estimated:
-          type: string
-      required:
-        - message
-        - productId
-        - estimated
+
