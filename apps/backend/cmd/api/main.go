@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 )
 
 const Port = 8080
@@ -20,6 +21,16 @@ const Port = 8080
 func main() {
 	// Initialize router with middleware
 	router := chi.NewRouter()
+
+	// CORS must be at the very top of the middleware stack
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedMethods:   []string{"GET", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Content-Type"},
+		AllowCredentials: false,
+		MaxAge:           300,
+	}))
+
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
