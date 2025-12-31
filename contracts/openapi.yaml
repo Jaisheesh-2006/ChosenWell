@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: Curated Health Products API
+  version: 0.1.0
+  description: >-
+    Simplified backend surfaces for the curated health-products storefront. Add authentication,
+    catalog segmentation, and fulfillment flows in future iterations.
+servers:
+  - url: http://localhost:8081
+paths:
+  /health:
+    get:
+      summary: Service health check
+      responses:
+        "200":
+          description: Service status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  service:
+                    type: string
+  /products:
+    get:
+      summary: List curated products
+      responses:
+        "200":
+          description: Returns curated catalog
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /products/{productID}:
+    get:
+      summary: Retrieve a single product
+      parameters:
+        - name: productID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: Product detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+  /orders:
+    post:
+      summary: Queue an order request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderRequest"
+      responses:
+        "202":
+          description: Order accepted for processing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tag:
+          type: string
+    OrderRequest:
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+    OrderResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        productId:
+          type: string
+        estimated:
+          type: string
+      required:
+        - message
+        - productId
+        - estimated

@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./apps/backend
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=8081
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 10s
+      retries: 3
+      timeout: 5s
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: ./apps/frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_TELEMETRY_DISABLED=1
+    command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3000"]
