@@ -14,21 +14,38 @@ var ErrCategoryNotFound = errors.New("category not found")
 
 // categoryProductMap links category slugs to product slugs.
 var categoryProductMap = map[string][]string{
-	"oral-care":          {"non-toxic-toothpaste"},
-	"cooking-essentials": {"organic-ghee"},
-	"supplements":        {"magnesium-supplement"},
+	"toothpaste":  {"non-toxic-toothpaste"},
+	"cooking-oil": {"organic-ghee"},
+	"vitamins":    {"magnesium-supplement"},
 }
 
-// products holds the curated mock catalog.
-var products = []types.ProductDetail{
+// categoryLongDescriptions provides SEO content for each category.
+var categoryLongDescriptions = map[string]string{
+	"toothpaste": "Natural toothpaste options have evolved significantly, offering effective cleaning " +
+		"without harsh chemicals. We analyze fluoride alternatives, SLS-free formulas, and remineralizing " +
+		"ingredients to help you choose the best option for your family's oral health.",
+	"cooking-oil": "Cooking oils vary dramatically in their health profiles, smoke points, and nutritional " +
+		"benefits. Our analysis covers fatty acid composition, processing methods, and optimal cooking " +
+		"applications to guide your kitchen choices.",
+	"vitamins": "The supplement market is vast and often confusing. We evaluate bioavailability, dosing " +
+		"accuracy, third-party testing, and ingredient quality to identify supplements that actually deliver " +
+		"on their promises.",
+}
+
+// products holds the curated mock catalog (full detail).
+var products = []types.Product{
 	{
-		ID:          "prod-001",
-		Name:        "Non-Toxic Toothpaste",
-		Brand:       "PureSmile",
-		Slug:        "non-toxic-toothpaste",
-		HealthScore: 92,
-		WhyRecommended: "Formulated without fluoride, SLS, or artificial sweeteners. " +
-			"Uses hydroxyapatite for enamel remineralization and is safe for the whole family.",
+		ID:       "prod-001",
+		Slug:     "non-toxic-toothpaste",
+		Name:     "Non-Toxic Toothpaste",
+		Brand:    "PureSmile",
+		Category: "toothpaste",
+		Score:    92,
+		WhyRecommended: []string{
+			"Formulated without fluoride, SLS, or artificial sweeteners",
+			"Uses hydroxyapatite for enamel remineralization",
+			"Safe for the whole family including children",
+		},
 		Pros: []string{
 			"Hydroxyapatite strengthens enamel naturally",
 			"Free from harsh chemicals and artificial dyes",
@@ -37,18 +54,28 @@ var products = []types.ProductDetail{
 		Cons: []string{
 			"Premium price point compared to mainstream brands",
 		},
-		IngredientsAnalysis: "Calcium carbonate, hydroxyapatite, xylitol, coconut oil, " +
-			"peppermint essential oil. No parabens, no triclosan.",
-		AffiliateLink: "https://example.com/affiliate/non-toxic-toothpaste",
+		IngredientsSummary: "Calcium carbonate, hydroxyapatite, xylitol, coconut oil, peppermint essential oil. No parabens, no triclosan.",
+		Certifications:     []string{"EWG Verified", "Leaping Bunny"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example1"},
+			{Vendor: "iHerb", URL: "https://iherb.com/pr/example1"},
+		},
+		PriceRange:   "$12-18",
+		Tags:         []string{"fluoride-free", "kids-safe", "organic"},
+		LastReviewed: "2025-12-15",
 	},
 	{
-		ID:          "prod-002",
-		Name:        "Organic Ghee",
-		Brand:       "GrassRoots Dairy",
-		Slug:        "organic-ghee",
-		HealthScore: 95,
-		WhyRecommended: "Sourced from pasture-raised, grass-fed cows. Rich in fat-soluble vitamins A, D, E, and K2. " +
-			"High smoke point makes it ideal for cooking without oxidation.",
+		ID:       "prod-002",
+		Slug:     "organic-ghee",
+		Name:     "Organic Ghee",
+		Brand:    "GrassRoots Dairy",
+		Category: "cooking-oil",
+		Score:    95,
+		WhyRecommended: []string{
+			"Sourced from pasture-raised, grass-fed cows",
+			"Rich in fat-soluble vitamins A, D, E, and K2",
+			"High smoke point ideal for cooking without oxidation",
+		},
 		Pros: []string{
 			"High in butyrate for gut health support",
 			"Lactose and casein free—suitable for dairy-sensitive individuals",
@@ -57,18 +84,28 @@ var products = []types.ProductDetail{
 		Cons: []string{
 			"Calorie-dense; portion control recommended",
 		},
-		IngredientsAnalysis: "100% organic clarified butter from grass-fed cow milk. " +
-			"No additives, preservatives, or colorants.",
-		AffiliateLink: "https://example.com/affiliate/organic-ghee",
+		IngredientsSummary: "100% organic clarified butter from grass-fed cow milk. No additives, preservatives, or colorants.",
+		Certifications:     []string{"USDA Organic", "Non-GMO Project Verified"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Thrive Market", URL: "https://thrivemarket.com/p/example2"},
+			{Vendor: "Whole Foods", URL: "https://wholefoodsmarket.com/product/example2"},
+		},
+		PriceRange:   "$15-22",
+		Tags:         []string{"grass-fed", "organic", "keto-friendly"},
+		LastReviewed: "2025-12-10",
 	},
 	{
-		ID:          "prod-003",
-		Name:        "Magnesium Supplement",
-		Brand:       "VitalMin",
-		Slug:        "magnesium-supplement",
-		HealthScore: 88,
-		WhyRecommended: "Uses magnesium glycinate, one of the most bioavailable forms. " +
-			"Supports muscle relaxation, sleep quality, and stress resilience without GI upset.",
+		ID:       "prod-003",
+		Slug:     "magnesium-supplement",
+		Name:     "Magnesium Glycinate",
+		Brand:    "VitalMin",
+		Category: "vitamins",
+		Score:    88,
+		WhyRecommended: []string{
+			"Uses magnesium glycinate, one of the most bioavailable forms",
+			"Supports muscle relaxation, sleep quality, and stress resilience",
+			"Gentle on the GI system unlike oxide or citrate forms",
+		},
 		Pros: []string{
 			"Gentle on the stomach compared to oxide or citrate forms",
 			"Third-party tested for purity and potency",
@@ -77,31 +114,34 @@ var products = []types.ProductDetail{
 		Cons: []string{
 			"Requires 2 capsules per serving for full dose",
 		},
-		IngredientsAnalysis: "Magnesium glycinate (120 mg elemental Mg per capsule), " +
-			"hypromellose capsule. Free from gluten, soy, and artificial additives.",
-		AffiliateLink: "https://example.com/affiliate/magnesium-supplement",
+		IngredientsSummary: "Magnesium glycinate (120 mg elemental Mg per capsule), hypromellose capsule. Free from gluten, soy, and artificial additives.",
+		Certifications:     []string{"NSF Certified", "Vegan Certified"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example3"},
+			{Vendor: "Vitacost", URL: "https://vitacost.com/product/example3"},
+		},
+		PriceRange:   "$18-25",
+		Tags:         []string{"vegan", "sleep-support", "stress-relief"},
+		LastReviewed: "2025-12-01",
 	},
 }
 
 // categories maps to the product catalog above.
 var categories = []types.CategorySummary{
 	{
-		ID:      "cat-001",
-		Name:    "Oral Care",
-		Slug:    "oral-care",
-		IconURL: "/icons/oral-care.svg",
+		Slug:        "toothpaste",
+		Title:       "Toothpaste",
+		Description: "Natural and effective oral care products analyzed for safety and efficacy.",
 	},
 	{
-		ID:      "cat-002",
-		Name:    "Cooking Essentials",
-		Slug:    "cooking-essentials",
-		IconURL: "/icons/cooking.svg",
+		Slug:        "cooking-oil",
+		Title:       "Cooking Oils",
+		Description: "Heart-healthy oils compared for smoke point, nutrition, and cooking applications.",
 	},
 	{
-		ID:      "cat-003",
-		Name:    "Supplements",
-		Slug:    "supplements",
-		IconURL: "/icons/supplements.svg",
+		Slug:        "vitamins",
+		Title:       "Vitamins & Supplements",
+		Description: "Essential supplements evaluated for bioavailability and ingredient quality.",
 	},
 }
 
@@ -110,19 +150,7 @@ func GetCategories() []types.CategorySummary {
 	return categories
 }
 
-// GetProduct looks up a product by its slug.
-// Returns a pointer to the product if found, or ErrProductNotFound otherwise.
-func GetProduct(slug string) (*types.ProductDetail, error) {
-	for i := range products {
-		if products[i].Slug == slug {
-			return &products[i], nil
-		}
-	}
-	return nil, ErrProductNotFound
-}
-
 // GetCategory looks up a category by its slug.
-// Returns a pointer to the category if found, or ErrCategoryNotFound otherwise.
 func GetCategory(slug string) (*types.CategorySummary, error) {
 	for i := range categories {
 		if categories[i].Slug == slug {
@@ -132,21 +160,76 @@ func GetCategory(slug string) (*types.CategorySummary, error) {
 	return nil, ErrCategoryNotFound
 }
 
-// GetProductsByCategory returns all products belonging to a given category slug.
-func GetProductsByCategory(categorySlug string) []types.ProductDetail {
-	productSlugs, exists := categoryProductMap[categorySlug]
-	if !exists {
-		return []types.ProductDetail{}
+// GetCategoryDetail returns full category info including products.
+func GetCategoryDetail(slug string) (*types.Category, error) {
+	cat, err := GetCategory(slug)
+	if err != nil {
+		return nil, err
 	}
 
-	result := make([]types.ProductDetail, 0, len(productSlugs))
+	longDesc := categoryLongDescriptions[slug]
+	productSummaries := GetProductSummariesByCategory(slug)
+
+	return &types.Category{
+		Slug:            cat.Slug,
+		Title:           cat.Title,
+		LongDescription: longDesc,
+		Criteria:        []string{"Ingredients", "Certifications", "Value", "Effectiveness"},
+		CuratedProducts: productSummaries,
+	}, nil
+}
+
+// GetProduct looks up a product by its slug (full detail).
+func GetProduct(slug string) (*types.Product, error) {
+	for i := range products {
+		if products[i].Slug == slug {
+			return &products[i], nil
+		}
+	}
+	return nil, ErrProductNotFound
+}
+
+// GetAllProducts returns all products as summaries.
+func GetAllProducts() []types.ProductSummary {
+	summaries := make([]types.ProductSummary, 0, len(products))
+	for _, p := range products {
+		summaries = append(summaries, toProductSummary(p))
+	}
+	return summaries
+}
+
+// GetProductSummariesByCategory returns product summaries for a category.
+func GetProductSummariesByCategory(categorySlug string) []types.ProductSummary {
+	productSlugs, exists := categoryProductMap[categorySlug]
+	if !exists {
+		return []types.ProductSummary{}
+	}
+
+	result := make([]types.ProductSummary, 0, len(productSlugs))
 	for _, pSlug := range productSlugs {
-		for i := range products {
-			if products[i].Slug == pSlug {
-				result = append(result, products[i])
+		for _, p := range products {
+			if p.Slug == pSlug {
+				result = append(result, toProductSummary(p))
 				break
 			}
 		}
 	}
 	return result
+}
+
+// toProductSummary converts a full Product to a ProductSummary.
+func toProductSummary(p types.Product) types.ProductSummary {
+	shortReason := ""
+	if len(p.WhyRecommended) > 0 {
+		shortReason = p.WhyRecommended[0]
+	}
+	return types.ProductSummary{
+		ID:          p.ID,
+		Slug:        p.Slug,
+		Name:        p.Name,
+		Brand:       p.Brand,
+		Score:       p.Score,
+		ShortReason: shortReason,
+		PriceRange:  p.PriceRange,
+	}
 }

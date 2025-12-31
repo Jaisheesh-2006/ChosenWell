@@ -7,7 +7,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/mock"
-	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/types"
 )
 
 // GetCategories returns all product categories as JSON.
@@ -16,11 +15,11 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, categories, nil)
 }
 
-// GetCategory returns a single category with its products as JSON.
+// GetCategory returns a single category with its curated products as JSON.
 func GetCategory(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 
-	category, err := mock.GetCategory(slug)
+	category, err := mock.GetCategoryDetail(slug)
 	if err != nil {
 		if errors.Is(err, mock.ErrCategoryNotFound) {
 			errorJSON(w, http.StatusNotFound, "category not found")
@@ -30,12 +29,5 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	products := mock.GetProductsByCategory(slug)
-
-	response := types.CategoryDetail{
-		CategorySummary: *category,
-		Products:        products,
-	}
-
-	writeJSON(w, http.StatusOK, response, nil)
+	writeJSON(w, http.StatusOK, category, nil)
 }

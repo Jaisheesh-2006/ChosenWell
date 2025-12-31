@@ -18,7 +18,7 @@ import (
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/api"
 )
 
-const Port = 8080
+const Port = 8081
 
 func main() {
 	// Initialize router with middleware
@@ -86,6 +86,7 @@ func registerRoutes(router *chi.Mux) {
 	router.Get("/health", healthHandler)
 	router.Get("/categories", api.GetCategories)
 	router.Get("/categories/{slug}", api.GetCategory)
+	router.Get("/products", api.GetProducts)
 	router.Get("/products/{slug}", api.GetProduct)
 	router.Get("/methodology", api.GetMethodology)
 }
@@ -95,7 +96,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	response := map[string]string{"status": "ok"}
+	response := map[string]string{"status": "ok", "service": "health-products-api"}
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		log.Printf("Failed to encode health response: %v\n", err)
 	}

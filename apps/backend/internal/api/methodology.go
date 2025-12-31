@@ -4,46 +4,28 @@ import (
 	"net/http"
 )
 
-// ScoringCriterion describes one dimension of the health score.
-type ScoringCriterion struct {
-	Name        string `json:"name"`
-	Weight      int    `json:"weight"`
-	Description string `json:"description"`
-}
-
-// Methodology describes how products are evaluated and scored.
+// Methodology describes how products are evaluated and scored (matches OpenAPI).
 type Methodology struct {
-	Title       string             `json:"title"`
-	Description string             `json:"description"`
-	Criteria    []ScoringCriterion `json:"criteria"`
+	Version     string             `json:"version"`
+	Summary     string             `json:"summary"`
+	Scoring     map[string]float64 `json:"scoring"`
+	LastUpdated string             `json:"last_updated"`
 }
 
 // methodology is the static scoring explanation returned by the API.
 var methodology = Methodology{
-	Title: "Health Score Methodology",
-	Description: "Each product is evaluated across multiple dimensions by our team of " +
+	Version: "1.0",
+	Summary: "Each product is evaluated across multiple dimensions by our team of " +
 		"nutrition scientists and wellness researchers. The final score (0–100) reflects " +
-		"overall quality, safety, and alignment with evidence-based health principles.",
-	Criteria: []ScoringCriterion{
-		{
-			Name:   "Trust",
-			Weight: 30,
-			Description: "Brand transparency, third-party certifications, and supply chain " +
-				"traceability. We prioritize companies with open sourcing practices.",
-		},
-		{
-			Name:   "Ingredients",
-			Weight: 40,
-			Description: "Purity of ingredients, absence of harmful additives, and use of " +
-				"bioavailable forms. Organic, non-GMO, and sustainably sourced inputs score higher.",
-		},
-		{
-			Name:   "Effectiveness",
-			Weight: 30,
-			Description: "Clinical evidence, dosage adequacy, and real-world user feedback. " +
-				"Products must demonstrate tangible health benefits without overclaiming.",
-		},
+		"overall quality, safety, and alignment with evidence-based health principles. " +
+		"We assess Trust (brand transparency, certifications), Ingredients (purity, bioavailability), " +
+		"and Effectiveness (clinical evidence, real-world feedback).",
+	Scoring: map[string]float64{
+		"trust":         0.30,
+		"ingredients":   0.40,
+		"effectiveness": 0.30,
 	},
+	LastUpdated: "2025-12-15",
 }
 
 // GetMethodology returns the static scoring methodology as JSON.
