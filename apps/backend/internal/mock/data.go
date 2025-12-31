@@ -9,6 +9,16 @@ import (
 // ErrProductNotFound is returned when a product slug does not match any entry.
 var ErrProductNotFound = errors.New("product not found")
 
+// ErrCategoryNotFound is returned when a category slug does not match any entry.
+var ErrCategoryNotFound = errors.New("category not found")
+
+// categoryProductMap links category slugs to product slugs.
+var categoryProductMap = map[string][]string{
+	"oral-care":          {"non-toxic-toothpaste"},
+	"cooking-essentials": {"organic-ghee"},
+	"supplements":        {"magnesium-supplement"},
+}
+
 // products holds the curated mock catalog.
 var products = []types.ProductDetail{
 	{
@@ -109,4 +119,34 @@ func GetProduct(slug string) (*types.ProductDetail, error) {
 		}
 	}
 	return nil, ErrProductNotFound
+}
+
+// GetCategory looks up a category by its slug.
+// Returns a pointer to the category if found, or ErrCategoryNotFound otherwise.
+func GetCategory(slug string) (*types.CategorySummary, error) {
+	for i := range categories {
+		if categories[i].Slug == slug {
+			return &categories[i], nil
+		}
+	}
+	return nil, ErrCategoryNotFound
+}
+
+// GetProductsByCategory returns all products belonging to a given category slug.
+func GetProductsByCategory(categorySlug string) []types.ProductDetail {
+	productSlugs, exists := categoryProductMap[categorySlug]
+	if !exists {
+		return []types.ProductDetail{}
+	}
+
+	result := make([]types.ProductDetail, 0, len(productSlugs))
+	for _, pSlug := range productSlugs {
+		for i := range products {
+			if products[i].Slug == pSlug {
+				result = append(result, products[i])
+				break
+			}
+		}
+	}
+	return result
 }

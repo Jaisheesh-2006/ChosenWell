@@ -8,6 +8,12 @@ type CategorySummary struct {
 	IconURL string `json:"icon_url"`
 }
 
+// CategoryDetail includes category metadata along with its products.
+type CategoryDetail struct {
+	CategorySummary
+	Products []ProductDetail `json:"products"`
+}
+
 // ProductDetail represents a single curated health product with analysis.
 type ProductDetail struct {
 	ID                  string   `json:"id"`

@@ -14,6 +14,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+
+	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/api"
 )
 
 const Port = 8080
@@ -82,6 +84,10 @@ func shutdownServer(server *http.Server) {
 // registerRoutes registers all API endpoints.
 func registerRoutes(router *chi.Mux) {
 	router.Get("/health", healthHandler)
+	router.Get("/categories", api.GetCategories)
+	router.Get("/categories/{slug}", api.GetCategory)
+	router.Get("/products/{slug}", api.GetProduct)
+	router.Get("/methodology", api.GetMethodology)
 }
 
 // healthHandler returns the health status of the API.
