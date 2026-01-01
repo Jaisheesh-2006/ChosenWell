@@ -188,27 +188,48 @@ components:
         - title
 
     Category:
+     type: object
+     properties:
+      slug:
+        type: string
+      title:
+        type: string
+      long_description:
+        type: string
+        description: SEO-rich long-form content (HTML or markdown)
+      criteria:
+        $ref: "#/components/schemas/CategoryCriteria"
+      criteria_version:
+        type: string
+        description: Version of criteria used for this category
+      curated_products:
+        type: array
+        items:
+          $ref: "#/components/schemas/ProductSummary"
+     required:
+     - slug
+     - title
+     - long_description
+     - criteria
+    CategoryCriteria:
       type: object
       properties:
-        slug:
+       must_have:
+        type: array
+        items:
           type: string
-        title:
+       good_to_have:
+        type: array
+        items:
           type: string
-        long_description:
+       disqualifiers:
+        type: array
+        items:
           type: string
-          description: SEO-rich long-form content (HTML or markdown)
-        criteria:
-          type: array
-          items:
-            type: string
-        curated_products:
-          type: array
-          items:
-            $ref: "#/components/schemas/ProductSummary"
       required:
-        - slug
-        - title
-        - long_description
+       - must_have
+       - disqualifiers
+
 
     ProductSummary:
       type: object
@@ -236,70 +257,71 @@ components:
         - score
 
     Product:
-      type: object
-      properties:
-        id:
-          type: string
-        slug:
-          type: string
-          description: SEO slug used in URLs
-        name:
-          type: string
-        brand:
-          type: string
-        category:
-          type: string
-          description: category slug
-        score:
-          type: number
-          format: float
-        why_recommended:
-          type: array
-          items:
-            type: string
-        pros:
-          type: array
-          items:
-            type: string
-        cons:
-          type: array
-          items:
-            type: string
-        ingredients_summary:
-          type: string
-          description: short summary calling out key ingredients to prefer/avoid
-        certifications:
-          type: array
-          items:
-            type: string
-        buy_links:
-          type: array
-          items:
-            type: object
-            properties:
-              vendor:
-                type: string
-              url:
-                type: string
-        price_range:
-          type: string
-        prices:
-          type: array
-          items:
-            $ref: "#/components/schemas/LocalizedPrice"
-          description: Prices in different currencies/countries
-        tags:
-          type: array
-          items:
-            type: string
-          description: e.g., ["budget", "kids", "organic"]
-        last_reviewed:
-          type: string
-          format: date
-      required:
-        - slug
-        - name
-        - score
+     type: object
+     properties:
+       id:
+         type: string
+       slug:
+         type: string
+       name:
+         type: string
+       brand:
+         type: string
+       category:
+         type: string
+       score:
+         type: number
+         format: float
+       score_breakdown:
+         type: array
+         items:
+           $ref: "#/components/schemas/ScoreBreakdown"
+         description: Optional detailed scoring for transparency
+       why_recommended:
+         type: array
+         items:
+           type: string
+       pros:
+         type: array
+         items:
+           type: string
+       cons:
+         type: array
+         items:
+           type: string
+       ingredients_summary:
+         type: string
+       certifications:
+         type: array
+         items:
+           type: string
+       buy_links:
+         type: array
+         items:
+           type: object
+           properties:
+             vendor:
+               type: string
+             url:
+               type: string
+       price_range:
+         type: string
+       prices:
+         type: array
+         items:
+           $ref: "#/components/schemas/LocalizedPrice"
+       tags:
+         type: array
+         items:
+           type: string
+       last_reviewed:
+         type: string
+         format: date
+     required:
+       - slug
+       - name
+       - score
+
 
     LocalizedPrice:
       type: object
@@ -383,7 +405,23 @@ components:
       required:
         - version
         - summary
-
+    ScoreBreakdown:
+      type: object
+      properties:
+        factor:
+          type: string
+          description: Name of the scoring factor (e.g., ingredient_safety)
+        score:
+          type: number
+          format: float
+        max_score:
+          type: number
+          format: float
+      required:
+        - factor
+        - score
+        - max_score
+    
     Error:
       type: object
       properties:
