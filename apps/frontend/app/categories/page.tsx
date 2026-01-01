@@ -87,11 +87,11 @@ export default async function CategoriesPage() {
       )}
 
       {/* Info Section */}
-      <section className="mt-16 rounded-2xl border border-white/10 bg-slate-900/50 p-8">
-        <h2 className="text-xl font-semibold text-white">
+      <section className="mt-16 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
           How we organize categories
         </h2>
-        <p className="mt-4 text-slate-400">
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
           Each category page includes detailed criteria specific to that product
           type, a curated list of top-rated products, and long-form content
           explaining what to look for when shopping. Our experts research
