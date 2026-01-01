@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="text-center">
         <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-emerald-500/20">
           <svg
-            className="h-12 w-12 text-cyan-400"
+            className="h-12 w-12 text-cyan-600 dark:text-cyan-400"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -19,11 +19,11 @@ export default function NotFound() {
             />
           </svg>
         </div>
-        <p className="text-sm font-medium uppercase tracking-wider text-cyan-400">
+        <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
           404 Error
         </p>
-        <h1 className="mt-2 text-4xl font-bold text-white">Page not found</h1>
-        <p className="mt-4 max-w-md text-slate-400">
+        <h1 className="mt-2 text-4xl font-bold text-slate-900 dark:text-white">Page not found</h1>
+        <p className="mt-4 max-w-md text-slate-600 dark:text-slate-400">
           Sorry, we couldn&apos;t find the page you&apos;re looking for. It might have
           been moved, deleted, or never existed.
         </p>
@@ -49,7 +49,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             Browse Products
           </Link>
@@ -61,21 +61,21 @@ export default function NotFound() {
           <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">
             <Link
               href="/categories"
-              className="text-cyan-400 hover:text-cyan-300"
+              className="text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
             >
               Categories
             </Link>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-400 dark:text-slate-700">•</span>
             <Link
               href="/products"
-              className="text-cyan-400 hover:text-cyan-300"
+              className="text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
             >
               Products
             </Link>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-400 dark:text-slate-700">•</span>
             <Link
               href="/methodology"
-              className="text-cyan-400 hover:text-cyan-300"
+              className="text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
             >
               Methodology
             </Link>

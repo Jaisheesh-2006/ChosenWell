@@ -92,14 +92,14 @@ export default async function ProductsPage({
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold tracking-tight text-white">
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           {category
             ? `${categories.find((c) => c.slug === category)?.title || category} Products`
             : tag
               ? `${tag.charAt(0).toUpperCase() + tag.slice(1)} Products`
               : "All Products"}
         </h1>
-        <p className="mt-4 max-w-3xl text-lg text-slate-400">
+        <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
           {category || tag
             ? `Showing filtered results. ${sortedProducts.length} products found.`
             : "Browse our curated collection of health products, all evaluated with our transparent scoring methodology."}
@@ -111,8 +111,8 @@ export default async function ProductsPage({
         <aside className="w-full shrink-0 lg:w-64">
           <div className="sticky top-24 space-y-6">
             {/* Category Filter */}
-            <div className="rounded-2xl border border-white/10 bg-slate-900/50 p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Categories
               </h3>
               <div className="mt-4 space-y-2">
@@ -120,8 +120,8 @@ export default async function ProductsPage({
                   href="/products"
                   className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
                     !category
-                      ? "bg-cyan-500/20 text-cyan-400"
-                      : "text-slate-300 hover:bg-white/5 hover:text-white"
+                      ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
                   }`}
                 >
                   All Categories
@@ -132,8 +132,8 @@ export default async function ProductsPage({
                     href={`/products?category=${cat.slug}`}
                     className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
                       category === cat.slug
-                        ? "bg-cyan-500/20 text-cyan-400"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
                     }`}
                   >
                     {cat.title}
@@ -143,8 +143,8 @@ export default async function ProductsPage({
             </div>
 
             {/* Tag Filter */}
-            <div className="rounded-2xl border border-white/10 bg-slate-900/50 p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Popular Tags
               </h3>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -154,8 +154,8 @@ export default async function ProductsPage({
                     href={`/products?tag=${t}${category ? `&category=${category}` : ""}`}
                     className={`rounded-full border px-3 py-1 text-sm transition-colors ${
                       tag === t
-                        ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-400"
-                        : "border-slate-700 text-slate-400 hover:border-slate-600 hover:text-white"
+                        ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                        : "border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-700 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-white"
                     }`}
                   >
                     {t}
@@ -168,7 +168,7 @@ export default async function ProductsPage({
             {(category || tag) && (
               <Link
                 href="/products"
-                className="flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-white/10"
+                className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-slate-100 px-4 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
               >
                 <svg
                   className="h-4 w-4"
@@ -194,11 +194,11 @@ export default async function ProductsPage({
           {sortedProducts.length > 0 ? (
             <>
               <div className="mb-6 flex items-center justify-between">
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {sortedProducts.length} product
                   {sortedProducts.length !== 1 ? "s" : ""} found
                 </p>
-                <p className="text-sm text-slate-500">Sorted by score</p>
+                <p className="text-sm text-slate-500 dark:text-slate-500">Sorted by score</p>
               </div>
               <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {sortedProducts.map((product) => (

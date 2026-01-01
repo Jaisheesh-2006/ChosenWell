@@ -62,10 +62,10 @@ export default async function CategoriesPage() {
 
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-white">
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Product Categories
         </h1>
-        <p className="mt-4 max-w-3xl text-lg text-slate-400">
+        <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
           Explore our curated collection of health products organized by
           category. Each category features in-depth analysis and our top picks
           based on ingredients, certifications, and value.

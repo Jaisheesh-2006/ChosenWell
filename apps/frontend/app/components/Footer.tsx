@@ -15,7 +15,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-slate-950">
+    <footer className="border-t border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand */}
@@ -36,9 +36,9 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <span className="text-xl font-bold text-white">HealthIsWealth</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">HealthIsWealth</span>
             </Link>
-            <p className="mt-4 max-w-md text-sm text-slate-400">
+            <p className="mt-4 max-w-md text-sm text-slate-600 dark:text-slate-400">
               Your trusted source for curated health product comparisons. We
               analyze ingredients, certifications, and value to help you make
               informed decisions for your wellness journey.
@@ -47,7 +47,7 @@ export default function Footer() {
 
           {/* Explore Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
               Explore
             </h3>
             <ul className="mt-4 space-y-3">
@@ -55,7 +55,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 transition-colors hover:text-white"
+                    className="text-sm text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                   >
                     {link.name}
                   </Link>
@@ -66,7 +66,7 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
               Company
             </h3>
             <ul className="mt-4 space-y-3">
@@ -74,7 +74,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 transition-colors hover:text-white"
+                    className="text-sm text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                   >
                     {link.name}
                   </Link>
@@ -85,8 +85,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <p className="text-center text-sm text-slate-500">
+        <div className="mt-12 border-t border-slate-200 pt-8 dark:border-white/10">
+          <p className="text-center text-sm text-slate-500 dark:text-slate-500">
             © {new Date().getFullYear()} HealthIsWealth. All rights reserved.
           </p>
         </div>

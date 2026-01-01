@@ -91,7 +91,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.brand}
               </p>
             )}
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               {product.name}
             </h1>
 
@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             {/* Price */}
             {product.price_range && (
-              <p className="mt-4 text-2xl font-semibold text-emerald-400">
+              <p className="mt-4 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
                 {product.price_range}
               </p>
             )}
@@ -125,9 +125,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Why Recommended */}
           {product.why_recommended && product.why_recommended.length > 0 && (
             <section>
-              <h2 className="flex items-center gap-2 text-xl font-semibold text-white">
+              <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
                 <svg
-                  className="h-6 w-6 text-cyan-400"
+                  className="h-6 w-6 text-cyan-600 dark:text-cyan-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -145,7 +145,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.why_recommended.map((reason, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-400"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-600 dark:text-cyan-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2}
@@ -157,7 +157,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="text-slate-300">{reason}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{reason}</span>
                   </li>
                 ))}
               </ul>
@@ -169,7 +169,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Pros */}
             {product.pros && product.pros.length > 0 && (
               <section className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
-                <h3 className="flex items-center gap-2 font-semibold text-emerald-400">
+                <h3 className="flex items-center gap-2 font-semibold text-emerald-600 dark:text-emerald-400">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -187,7 +187,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </h3>
                 <ul className="mt-4 space-y-2">
                   {product.pros.map((pro, index) => (
-                    <li key={index} className="text-sm text-slate-300">
+                    <li key={index} className="text-sm text-slate-600 dark:text-slate-300">
                       • {pro}
                     </li>
                   ))}
@@ -198,7 +198,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Cons */}
             {product.cons && product.cons.length > 0 && (
               <section className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6">
-                <h3 className="flex items-center gap-2 font-semibold text-amber-400">
+                <h3 className="flex items-center gap-2 font-semibold text-amber-600 dark:text-amber-400">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -216,7 +216,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </h3>
                 <ul className="mt-4 space-y-2">
                   {product.cons.map((con, index) => (
-                    <li key={index} className="text-sm text-slate-300">
+                    <li key={index} className="text-sm text-slate-600 dark:text-slate-300">
                       • {con}
                     </li>
                   ))}
@@ -228,9 +228,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Ingredients Summary */}
           {product.ingredients_summary && (
             <section>
-              <h2 className="flex items-center gap-2 text-xl font-semibold text-white">
+              <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
                 <svg
-                  className="h-6 w-6 text-cyan-400"
+                  className="h-6 w-6 text-cyan-600 dark:text-cyan-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -244,8 +244,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </svg>
                 Ingredients Analysis
               </h2>
-              <div className="mt-4 rounded-2xl border border-white/10 bg-slate-900/50 p-6">
-                <p className="text-slate-300">{product.ingredients_summary}</p>
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+                <p className="text-slate-600 dark:text-slate-300">{product.ingredients_summary}</p>
               </div>
             </section>
           )}
@@ -255,8 +255,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <aside className="space-y-6">
           {/* Buy Links */}
           {product.buy_links && product.buy_links.length > 0 && (
-            <section className="rounded-2xl border border-white/10 bg-slate-900/50 p-6">
-              <h3 className="font-semibold text-white">Where to Buy</h3>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+              <h3 className="font-semibold text-slate-900 dark:text-white">Where to Buy</h3>
               <div className="mt-4 space-y-3">
                 {product.buy_links.map((link, index) => (
                   <a
@@ -264,9 +264,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-cyan-500/30 hover:bg-white/10"
+                    className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 transition-colors hover:border-cyan-500/50 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:hover:border-cyan-500/30 dark:hover:bg-white/10"
                   >
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-slate-900 dark:text-white">
                       {link.vendor || "Buy Now"}
                     </span>
                     <svg
@@ -290,13 +290,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Certifications */}
           {product.certifications && product.certifications.length > 0 && (
-            <section className="rounded-2xl border border-white/10 bg-slate-900/50 p-6">
-              <h3 className="font-semibold text-white">Certifications</h3>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+              <h3 className="font-semibold text-slate-900 dark:text-white">Certifications</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {product.certifications.map((cert) => (
                   <span
                     key={cert}
-                    className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-400"
+                    className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-600 dark:text-emerald-400"
                   >
                     <svg
                       className="h-4 w-4"
@@ -320,9 +320,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Last Reviewed */}
           {product.last_reviewed && (
-            <section className="rounded-2xl border border-white/10 bg-slate-900/50 p-6">
-              <h3 className="font-semibold text-white">Last Reviewed</h3>
-              <p className="mt-2 text-slate-400">
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+              <h3 className="font-semibold text-slate-900 dark:text-white">Last Reviewed</h3>
+              <p className="mt-2 text-slate-500 dark:text-slate-400">
                 {new Date(product.last_reviewed).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -336,11 +336,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {product.category && (
             <Link
               href={`/categories/${product.category}`}
-              className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900/50 p-6 transition-colors hover:border-cyan-500/30"
+              className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-colors hover:border-cyan-500/50 dark:border-white/10 dark:bg-slate-900/50 dark:hover:border-cyan-500/30"
             >
               <div>
                 <p className="text-sm text-slate-500">Category</p>
-                <p className="font-medium text-white">
+                <p className="font-medium text-slate-900 dark:text-white">
                   {product.category.charAt(0).toUpperCase() +
                     product.category.slice(1)}
                 </p>

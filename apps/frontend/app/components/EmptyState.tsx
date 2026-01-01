@@ -6,10 +6,10 @@ interface EmptyStateProps {
 
 export default function EmptyState({ title, description, icon }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-700 bg-slate-900/30 px-6 py-16 text-center">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900/30">
       {icon || (
         <svg
-          className="h-12 w-12 text-slate-600"
+          className="h-12 w-12 text-slate-400 dark:text-slate-600"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -22,7 +22,7 @@ export default function EmptyState({ title, description, icon }: EmptyStateProps
           />
         </svg>
       )}
-      <h3 className="mt-4 text-lg font-medium text-slate-300">{title}</h3>
+      <h3 className="mt-4 text-lg font-medium text-slate-700 dark:text-slate-300">{title}</h3>
       <p className="mt-2 text-sm text-slate-500">{description}</p>
     </div>
   );
