@@ -98,6 +98,12 @@ paths:
           required: true
           schema:
             type: string
+        - name: country
+          in: query
+          schema:
+            type: string
+            default: US
+          description: ISO country code for localized pricing (e.g., US, IN, GB)
       responses:
         "200":
           description: Product detail
@@ -107,6 +113,44 @@ paths:
                 $ref: "#/components/schemas/Product"
         "404":
           $ref: "#/components/responses/NotFound"
+
+  /products/{slug}/similar:
+    get:
+      summary: Get similar products based on category, tags, and attributes
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 6
+          description: Maximum number of similar products to return
+      responses:
+        "200":
+          description: Array of similar products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSummary"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /currencies:
+    get:
+      summary: Get supported currencies and exchange rates
+      responses:
+        "200":
+          description: List of supported currencies with exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrencyList"
 
   /methodology:
     get:
@@ -239,6 +283,11 @@ components:
                 type: string
         price_range:
           type: string
+        prices:
+          type: array
+          items:
+            $ref: "#/components/schemas/LocalizedPrice"
+          description: Prices in different currencies/countries
         tags:
           type: array
           items:
@@ -251,6 +300,70 @@ components:
         - slug
         - name
         - score
+
+    LocalizedPrice:
+      type: object
+      properties:
+        country:
+          type: string
+          description: ISO country code (e.g., US, IN, GB)
+        currency:
+          type: string
+          description: Currency code (e.g., USD, INR, GBP)
+        currency_symbol:
+          type: string
+          description: Currency symbol (e.g., $, ₹, £)
+        min_price:
+          type: number
+          format: float
+        max_price:
+          type: number
+          format: float
+        formatted:
+          type: string
+          description: Pre-formatted price string (e.g., "$29-35")
+      required:
+        - country
+        - currency
+        - min_price
+
+    CurrencyList:
+      type: object
+      properties:
+        base_currency:
+          type: string
+          default: USD
+        currencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Currency"
+      required:
+        - currencies
+
+    Currency:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Currency code (e.g., USD, INR, GBP)
+        symbol:
+          type: string
+          description: Currency symbol (e.g., $, ₹, £)
+        name:
+          type: string
+          description: Full currency name (e.g., US Dollar)
+        country:
+          type: string
+          description: Primary country code (e.g., US, IN, GB)
+        exchange_rate:
+          type: number
+          format: float
+          description: Exchange rate relative to base currency (USD)
+      required:
+        - code
+        - symbol
+        - country
+        - exchange_rate
 
     Methodology:
       type: object

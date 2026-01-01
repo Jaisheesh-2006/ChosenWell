@@ -29,6 +29,15 @@ export interface BuyLink {
   url?: string;
 }
 
+export interface LocalizedPrice {
+  country: string; // ISO country code (e.g., US, IN, GB)
+  currency: string; // Currency code (e.g., USD, INR, GBP)
+  currency_symbol?: string; // Currency symbol (e.g., $, ₹, £)
+  min_price: number;
+  max_price?: number;
+  formatted?: string; // Pre-formatted price string (e.g., "$29-35")
+}
+
 export interface Product {
   id?: string;
   slug: string;
@@ -43,8 +52,22 @@ export interface Product {
   certifications?: string[];
   buy_links?: BuyLink[];
   price_range?: string;
+  prices?: LocalizedPrice[]; // Prices in different currencies/countries
   tags?: string[]; // e.g., ["budget", "kids", "organic"]
   last_reviewed?: string; // date format
+}
+
+export interface Currency {
+  code: string; // Currency code (e.g., USD, INR, GBP)
+  symbol: string; // Currency symbol (e.g., $, ₹, £)
+  name?: string; // Full currency name (e.g., US Dollar)
+  country: string; // Primary country code (e.g., US, IN, GB)
+  exchange_rate: number; // Exchange rate relative to base currency (USD)
+}
+
+export interface CurrencyList {
+  base_currency?: string;
+  currencies: Currency[];
 }
 
 export interface Methodology {

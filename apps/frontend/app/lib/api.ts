@@ -5,6 +5,7 @@ import {
   Product,
   Methodology,
   HealthStatus,
+  CurrencyList,
 } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8081";
@@ -63,8 +64,30 @@ export async function getProducts(
   return fetchApi<ProductSummary[]>(endpoint);
 }
 
-export async function getProductBySlug(slug: string): Promise<Product> {
-  return fetchApi<Product>(`/products/${encodeURIComponent(slug)}`);
+export async function getProductBySlug(
+  slug: string,
+  country?: string
+): Promise<Product> {
+  const params = country ? `?country=${encodeURIComponent(country)}` : "";
+  return fetchApi<Product>(
+    `/products/${encodeURIComponent(slug)}${params}`
+  );
+}
+
+// Similar products
+export async function getSimilarProducts(
+  slug: string,
+  limit?: number
+): Promise<ProductSummary[]> {
+  const params = limit ? `?limit=${limit}` : "";
+  return fetchApi<ProductSummary[]>(
+    `/products/${encodeURIComponent(slug)}/similar${params}`
+  );
+}
+
+// Currencies
+export async function getCurrencies(): Promise<CurrencyList> {
+  return fetchApi<CurrencyList>("/currencies");
 }
 
 // Methodology

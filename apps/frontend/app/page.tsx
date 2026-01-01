@@ -3,6 +3,7 @@ import { getCategories, getProducts } from "./lib/api";
 import { CategorySummary, ProductSummary } from "./lib/types";
 import ProductCard from "./components/ProductCard";
 import CategoryCard from "./components/CategoryCard";
+import HomeRecentlyViewed from "./components/HomeRecentlyViewed";
 
 // Fallback data for when API is unavailable
 const fallbackProducts: ProductSummary[] = [
@@ -269,6 +270,9 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Recently Viewed Products */}
+      <HomeRecentlyViewed />
 
       {/* CTA Section */}
       <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-8 md:p-12">
