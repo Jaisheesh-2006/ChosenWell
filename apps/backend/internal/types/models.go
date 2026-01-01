@@ -26,13 +26,31 @@ type Category struct {
 
 // ProductSummary is a brief view of a product for listings.
 type ProductSummary struct {
-	ID          string  `json:"id,omitempty"`
-	Slug        string  `json:"slug"`
-	Name        string  `json:"name"`
-	Brand       string  `json:"brand,omitempty"`
-	Score       float64 `json:"score"`
-	ShortReason string  `json:"short_reason,omitempty"`
-	PriceRange  string  `json:"price_range,omitempty"`
+	ID          string       `json:"id,omitempty"`
+	Slug        string       `json:"slug"`
+	Name        string       `json:"name"`
+	Brand       string       `json:"brand,omitempty"`
+	Score       float64      `json:"score"`
+	ShortReason string       `json:"short_reason,omitempty"`
+	PriceRange  string       `json:"price_range,omitempty"`
+	BudgetTier  string       `json:"budget_tier,omitempty"`
+	Tags        *ProductTags `json:"tags,omitempty"`
+}
+
+// ProductTags contains structured tags for filtering.
+// Each tag must be explainable on product page.
+type ProductTags struct {
+	Concern    []string `json:"concern,omitempty"`    // Max 1-2: dandruff, hair_fall, dry_frizzy, oily_scalp, sensitive_scalp
+	Philosophy []string `json:"philosophy,omitempty"` // Max 1-2: ayurvedic, certified_organic, modern_clean, zero_chemical, solid_bar
+	Budget     string   `json:"budget,omitempty"`     // Exactly one: premium, mid_range, affordable
+	Usage      []string `json:"usage,omitempty"`      // Max 1: daily_use, alternate_day, weekly_detox
+}
+
+// TagExplanation explains why a specific tag was assigned.
+type TagExplanation struct {
+	Tag         string `json:"tag"`
+	TagType     string `json:"tag_type"` // concern, philosophy, budget, usage
+	Explanation string `json:"explanation"`
 }
 
 // BuyLink represents a vendor purchase link.
@@ -75,8 +93,33 @@ type Product struct {
 	BuyLinks           []BuyLink        `json:"buy_links,omitempty"`
 	PriceRange         string           `json:"price_range,omitempty"`
 	Prices             []LocalizedPrice `json:"prices,omitempty"`
-	Tags               []string         `json:"tags,omitempty"`
+	Tags               *ProductTags     `json:"tags,omitempty"`
+	TagExplanations    []TagExplanation `json:"tag_explanations,omitempty"`
 	LastReviewed       string           `json:"last_reviewed,omitempty"`
+}
+
+// ProductListResponse wraps product list with metadata.
+type ProductListResponse struct {
+	Products       []ProductSummary  `json:"products"`
+	Total          int               `json:"total"`
+	FiltersApplied map[string]string `json:"filters_applied,omitempty"`
+	EditorialNote  string            `json:"editorial_note,omitempty"`
+}
+
+// FilterOption represents a single filter choice with count.
+type FilterOption struct {
+	Value string `json:"value"`
+	Label string `json:"label"`
+	Count int    `json:"count"`
+}
+
+// FilterOptions contains available filters for a category.
+type FilterOptions struct {
+	Category   string         `json:"category"`
+	Concern    []FilterOption `json:"concern,omitempty"`
+	Philosophy []FilterOption `json:"philosophy,omitempty"`
+	Budget     []FilterOption `json:"budget,omitempty"`
+	Usage      []FilterOption `json:"usage,omitempty"`
 }
 
 // Currency represents a supported currency with exchange rate.

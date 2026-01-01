@@ -9,20 +9,67 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/mock"
+	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/types"
 )
+
+// ProductFilters represents the filter parameters for product queries.
+type ProductFilters struct {
+	Category   string
+	Concern    []string
+	Philosophy []string
+	Budget     string
+	Usage      []string
+	SortBy     string
+	Order      string
+	Page       int
+	Limit      int
+}
+
+// parseProductFilters extracts filter parameters from the request.
+func parseProductFilters(r *http.Request) ProductFilters {
+	query := r.URL.Query()
+
+	page := 1
+	if pageStr := query.Get("page"); pageStr != "" {
+		if parsed, err := strconv.Atoi(pageStr); err == nil && parsed > 0 {
+			page = parsed
+		}
+	}
+
+	limit := 20
+	if limitStr := query.Get("limit"); limitStr != "" {
+		if parsed, err := strconv.Atoi(limitStr); err == nil && parsed > 0 && parsed <= 100 {
+			limit = parsed
+		}
+	}
+
+	return ProductFilters{
+		Category:   query.Get("category"),
+		Concern:    query["concern"],
+		Philosophy: query["philosophy"],
+		Budget:     query.Get("budget"),
+		Usage:      query["usage"],
+		SortBy:     query.Get("sortBy"),
+		Order:      query.Get("order"),
+		Page:       page,
+		Limit:      limit,
+	}
+}
 
 // GetProducts returns a list of product summaries, optionally filtered.
 func GetProducts(w http.ResponseWriter, r *http.Request) {
+	filters := parseProductFilters(r)
+
+	result := mock.GetFilteredProducts(filters.Category, filters.Concern, filters.Philosophy, filters.Budget, filters.Usage, filters.SortBy, filters.Order, filters.Page, filters.Limit)
+
+	writeJSON(w, http.StatusOK, result, nil)
+}
+
+// GetAvailableFilters returns the available filter options for products.
+func GetAvailableFilters(w http.ResponseWriter, r *http.Request) {
 	categorySlug := r.URL.Query().Get("category")
-
-	var products interface{}
-	if categorySlug != "" {
-		products = mock.GetProductSummariesByCategory(categorySlug)
-	} else {
-		products = mock.GetAllProducts()
-	}
-
-	writeJSON(w, http.StatusOK, products, nil)
+	filters := mock.GetAvailableFilters(categorySlug)
+	writeJSON(w, http.StatusOK, filters, nil)
 }
 
 // GetProduct returns a single product by slug as JSON.
@@ -70,4 +117,13 @@ func GetSimilarProducts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, similar, nil)
+}
+
+// ProductListResponse wraps the product list with pagination info.
+type ProductListResponse struct {
+	Products   []types.ProductSummary `json:"products"`
+	TotalCount int                    `json:"totalCount"`
+	Page       int                    `json:"page"`
+	Limit      int                    `json:"limit"`
+	TotalPages int                    `json:"totalPages"`
 }

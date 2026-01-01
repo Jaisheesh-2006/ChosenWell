@@ -62,32 +62,105 @@ paths:
 
   /products:
     get:
-      summary: List curated products (filterable)
+      summary: List curated products (filterable by structured tags)
+      description: |
+        Returns curated products with powerful filtering. Tags are structured into categories:
+        - **concern**: Primary hair/scalp concern (dandruff_safe, hair_fall_support, dry_frizzy, oily_scalp, sensitive_scalp)
+        - **philosophy**: Ingredient philosophy (ayurvedic, certified_organic, modern_clean, zero_chemical, solid_bar)
+        - **budget**: Price tier (premium, mid_range, affordable)
+        - **usage**: Usage pattern (daily_use, alternate_day, weekly_detox)
       parameters:
         - name: category
           in: query
           schema:
             type: string
-          description: category slug to filter by
-        - name: tag
+          description: Category slug to filter by (e.g., "shampoo", "toothpaste")
+        - name: concern
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Primary concern tags - can specify multiple (any match)
+        - name: philosophy
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Ingredient philosophy tags - can specify multiple (any match)
+        - name: budget
           in: query
           schema:
             type: string
-          description: filter by tag (e.g., "kids", "budget", "organic")
+            enum: [premium, mid_range, affordable]
+          description: Budget tier (exactly one per product)
+        - name: usage
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Recommended usage pattern - can specify multiple (any match)
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [score, name]
+            default: score
+          description: Sort field
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+          description: Sort order
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+          description: Page number for pagination
         - name: limit
           in: query
           schema:
             type: integer
-            default: 50
+            default: 20
+            maximum: 100
+          description: Maximum products per page
       responses:
         "200":
-          description: Returns curated catalog (summaries)
+          description: Returns curated catalog (summaries) with available filters
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ProductSummary"
+                $ref: "#/components/schemas/ProductListResponse"
+
+  /products/filters:
+    get:
+      summary: Get available filter options
+      description: Returns available tags and their counts for building filter UI. Optionally filter by category.
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional category slug to get filters for (returns all filters if omitted)
+      responses:
+        "200":
+          description: Available filters with counts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilterOptions"
 
   /products/{slug}:
     get:
@@ -251,10 +324,114 @@ components:
           type: string
         price_range:
           type: string
+        budget_tier:
+          type: string
+          enum: [premium, mid_range, affordable]
+          description: Budget classification (exactly one per product)
+        tags:
+          $ref: "#/components/schemas/ProductTags"
       required:
         - slug
         - name
         - score
+
+    ProductTags:
+      type: object
+      description: Structured tags for filtering - each tag must be explainable on product page
+      properties:
+        concern:
+          type: array
+          items:
+            type: string
+            enum: [dandruff, hair_fall, dry_frizzy, oily_scalp, sensitive_scalp]
+          maxItems: 2
+          description: Primary concern tags (max 1-2) - only if product is explicitly strong here
+        philosophy:
+          type: array
+          items:
+            type: string
+            enum: [ayurvedic, certified_organic, modern_clean, zero_chemical, solid_bar]
+          maxItems: 2
+          description: Ingredient philosophy (1-2 tags)
+        budget:
+          type: string
+          enum: [premium, mid_range, affordable]
+          description: Budget tier (exactly one, no ambiguity)
+        usage:
+          type: array
+          items:
+            type: string
+            enum: [daily_use, alternate_day, weekly_detox]
+          maxItems: 1
+          description: Recommended usage pattern
+
+    ProductListResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductSummary"
+        totalCount:
+          type: integer
+          description: Total products matching filters
+        page:
+          type: integer
+          description: Current page number
+        limit:
+          type: integer
+          description: Products per page
+        totalPages:
+          type: integer
+          description: Total number of pages
+      required:
+        - products
+        - totalCount
+        - page
+        - limit
+        - totalPages
+
+    FilterOptions:
+      type: object
+      description: Available filter options for a category with counts
+      properties:
+        concerns:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilterOption"
+        philosophies:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilterOption"
+        budgets:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilterOption"
+        usages:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilterOption"
+      required:
+        - concerns
+        - philosophies
+        - budgets
+        - usages
+
+    FilterOption:
+      type: object
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+          description: Human-readable label
+        count:
+          type: integer
+          description: Number of products with this tag
+      required:
+        - value
+        - label
+        - count
 
     Product:
      type: object
@@ -311,9 +488,12 @@ components:
          items:
            $ref: "#/components/schemas/LocalizedPrice"
        tags:
+         $ref: "#/components/schemas/ProductTags"
+       tag_explanations:
          type: array
          items:
-           type: string
+           $ref: "#/components/schemas/TagExplanation"
+         description: Why each tag was assigned - critical for trust
        last_reviewed:
          type: string
          format: date
@@ -321,6 +501,23 @@ components:
        - slug
        - name
        - score
+
+    TagExplanation:
+      type: object
+      description: Explains why a specific tag was assigned to this product
+      properties:
+        tag:
+          type: string
+        tag_type:
+          type: string
+          enum: [concern, philosophy, budget, usage]
+        explanation:
+          type: string
+          description: Brief reason why this product earned this tag
+      required:
+        - tag
+        - tag_type
+        - explanation
 
 
     LocalizedPrice:

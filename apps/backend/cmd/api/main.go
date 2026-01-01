@@ -87,6 +87,7 @@ func registerRoutes(router *chi.Mux) {
 	router.Get("/categories", api.GetCategories)
 	router.Get("/categories/{slug}", api.GetCategory)
 	router.Get("/products", api.GetProducts)
+	router.Get("/products/filters", api.GetAvailableFilters)
 	router.Get("/products/{slug}", api.GetProduct)
 	router.Get("/products/{slug}/similar", api.GetSimilarProducts)
 	router.Get("/currencies", api.GetCurrencies)

@@ -3,32 +3,105 @@
 -- Created: 2025-12-31
 
 -- Insert categories (only toothpaste and shampoo)
-INSERT INTO categories (slug, title, description, long_description) VALUES
+INSERT INTO categories (slug, title, description, long_description, criteria_version) VALUES
 (
     'toothpaste',
     'Toothpaste',
     'Natural and effective oral care products analyzed for safety and efficacy.',
-    'Natural toothpaste options have evolved significantly, offering effective cleaning without harsh chemicals. We analyze fluoride alternatives, SLS-free formulas, and remineralizing ingredients to help you choose the best option for your family''s oral health.'
+    'Natural toothpaste options have evolved significantly, offering effective cleaning without harsh chemicals. We analyze fluoride alternatives, SLS-free formulas, and remineralizing ingredients to help you choose the best option for your family''s oral health.',
+    '1.0'
 ),
 (
     'shampoo',
     'Shampoo',
     'Clean hair care products evaluated for scalp health and ingredient safety.',
-    'The shampoo market is filled with products containing sulfates, parabens, and synthetic fragrances. We evaluate ingredient safety, scalp compatibility, and effectiveness to help you find shampoos that clean without compromising your hair or health.'
+    'India''s shampoo market is crowded, confusing, and often misleading. Most products are designed to look effective in the short term—high foam, instant smoothness—while quietly compromising long-term scalp and hair health. Our role is simple: act as a strict filter. If a shampoo appears on this platform, it has cleared a bar that most mass-market products do not.',
+    '1.0'
 );
 
--- Insert category criteria
-INSERT INTO category_criteria (category_id, criterion, display_order)
-SELECT c.id, criterion, ord
+-- =====================
+-- CATEGORY CRITERIA (Structured: must_have, good_to_have, disqualifiers)
+-- =====================
+
+-- Toothpaste: Must Have
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'must_have', criterion, ord
 FROM categories c
 CROSS JOIN (VALUES 
-    ('Ingredients', 1),
-    ('Certifications', 2),
-    ('Value', 3),
-    ('Effectiveness', 4)
-) AS criteria(criterion, ord);
+    ('Free from SLS (Sodium Lauryl Sulfate)', 1),
+    ('No artificial sweeteners or colors', 2),
+    ('Third-party tested for safety', 3)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'toothpaste';
 
--- Insert certifications
+-- Toothpaste: Good to Have
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'good_to_have', criterion, ord
+FROM categories c
+CROSS JOIN (VALUES 
+    ('Contains remineralizing ingredients (hydroxyapatite, calcium)', 1),
+    ('Natural flavoring from essential oils', 2),
+    ('EWG Verified or similar certification', 3)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'toothpaste';
+
+-- Toothpaste: Disqualifiers
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'disqualifiers', criterion, ord
+FROM categories c
+CROSS JOIN (VALUES 
+    ('Contains triclosan', 1),
+    ('Contains artificial dyes (Blue 1, Red 40, etc.)', 2),
+    ('Contains microbeads or microplastics', 3)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'toothpaste';
+
+-- Shampoo: Must Have (from evaluation criteria document)
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'must_have', criterion, ord
+FROM categories c
+CROSS JOIN (VALUES 
+    ('Uses approved gentle cleansing agents only (Decyl Glucoside, Sodium Cocoyl Glutamate, Sodium Lauroyl Sarcosinate, Sodium Cocoyl Isethionate, Reetha/Shikakai)', 1),
+    ('Full INCI ingredient disclosure - no hidden ''Base Q.S.''', 2),
+    ('BIS safety standards compliance (pH balance, heavy metal limits)', 3),
+    ('Scalp-compatible pH (~5.5)', 4),
+    ('Low irritation potential surfactants', 5),
+    ('Biodegradable cleansing agents', 6)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'shampoo';
+
+-- Shampoo: Good to Have (from evaluation criteria document)
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'good_to_have', criterion, ord
+FROM categories c
+CROSS JOIN (VALUES 
+    ('Contains verified Ayurvedic ingredients (Bhringraj - supports hair growth cycles)', 1),
+    ('Contains Amla - antioxidant protection, hair fall support', 2),
+    ('Contains Shikakai - natural cleanser with acidic pH', 3),
+    ('Contains Reetha - mild, hypoallergenic cleansing', 4),
+    ('Contains Neem - antifungal, dandruff control', 5),
+    ('ECOCERT / COSMOS certification', 6),
+    ('BDIH Certified Natural Cosmetics', 7),
+    ('Export-grade GMP standards', 8)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'shampoo';
+
+-- Shampoo: Disqualifiers (from evaluation criteria document - automatic exclusions)
+INSERT INTO category_criteria (category_id, criteria_type, criterion, display_order)
+SELECT c.id, 'disqualifiers', criterion, ord
+FROM categories c
+CROSS JOIN (VALUES 
+    ('Sulfates (SLS/SLES) - disrupts scalp''s natural lipid barrier, causes dryness, irritation, rebound oiliness, and long-term scalp inflammation', 1),
+    ('Formaldehyde releasers (DMDM Hydantoin, Diazolidinyl Urea) - linked to contact dermatitis, allergic sensitization, and hair fall', 2),
+    ('Parabens - endocrine disruptors (xenoestrogens) with hormonal health concerns from cumulative exposure', 3),
+    ('Hidden or undisclosed ''Base Q.S.'' ingredients - prevents verification of safety claims', 4),
+    ('Token herbs added for marketing on top of harsh synthetic base', 5),
+    ('Ayurvedic claims without full INCI disclosure', 6),
+    ('SLES with 1,4-dioxane contamination risk (probable carcinogen)', 7)
+) AS criteria(criterion, ord)
+WHERE c.slug = 'shampoo';
+
+-- Insert certifications (including those from shampoo criteria document)
 INSERT INTO certifications (name, description) VALUES
 ('EWG Verified', 'Environmental Working Group verified for safety'),
 ('Leaping Bunny', 'Cruelty-free certified'),
@@ -36,9 +109,14 @@ INSERT INTO certifications (name, description) VALUES
 ('Non-GMO Project Verified', 'Verified non-GMO ingredients'),
 ('NSF Certified', 'NSF International certified for quality'),
 ('Vegan Certified', 'Certified vegan product'),
-('Made Safe', 'Made Safe certified for non-toxic ingredients');
+('Made Safe', 'Made Safe certified for non-toxic ingredients'),
+('ECOCERT', 'ECOCERT certified natural and organic cosmetics'),
+('COSMOS', 'COSMOS standard for organic and natural cosmetics'),
+('BDIH', 'BDIH Certified Natural Cosmetics (German certification)'),
+('BIS Compliant', 'Bureau of Indian Standards safety compliance'),
+('GMP Certified', 'Good Manufacturing Practice certified');
 
--- Insert tags
+-- Insert tags (including shampoo-specific tags)
 INSERT INTO tags (name, slug) VALUES
 ('Fluoride-Free', 'fluoride-free'),
 ('Kids Safe', 'kids-safe'),
@@ -48,7 +126,13 @@ INSERT INTO tags (name, slug) VALUES
 ('Sensitive Scalp', 'sensitive-scalp'),
 ('Color Safe', 'color-safe'),
 ('Vegan', 'vegan'),
-('Budget', 'budget');
+('Budget', 'budget'),
+('Ayurvedic', 'ayurvedic'),
+('SLS-Free', 'sls-free'),
+('Silicone-Free', 'silicone-free'),
+('pH Balanced', 'ph-balanced'),
+('Dandruff Control', 'dandruff-control'),
+('Hair Fall Control', 'hair-fall-control');
 
 -- =====================
 -- TOOTHPASTE PRODUCTS
