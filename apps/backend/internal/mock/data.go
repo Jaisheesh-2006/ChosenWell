@@ -28,6 +28,54 @@ var categoryLongDescriptions = map[string]string{
 		"shampoos that clean without compromising your hair or health.",
 }
 
+// categoryCriteria defines evaluation criteria for each category.
+var categoryCriteria = map[string]types.CategoryCriteria{
+	"toothpaste": {
+		MustHave: []string{
+			"Free from SLS (Sodium Lauryl Sulfate)",
+			"No artificial sweeteners or colors",
+			"Third-party tested for safety",
+		},
+		GoodToHave: []string{
+			"Contains remineralizing ingredients (hydroxyapatite, calcium)",
+			"Natural flavoring from essential oils",
+			"EWG Verified or similar certification",
+		},
+		Disqualifiers: []string{
+			"Contains triclosan",
+			"Contains artificial dyes (Blue 1, Red 40, etc.)",
+			"Contains microbeads or microplastics",
+		},
+	},
+	"shampoo": {
+		MustHave: []string{
+			"Sulfate-free formula",
+			"Paraben-free",
+			"pH balanced for scalp health",
+		},
+		GoodToHave: []string{
+			"Contains natural moisturizers (aloe, jojoba, argan)",
+			"Fragrance from essential oils only",
+			"Cruelty-free certification",
+		},
+		Disqualifiers: []string{
+			"Contains silicones that cause buildup",
+			"Contains formaldehyde-releasing preservatives",
+			"Contains synthetic fragrances linked to irritation",
+		},
+	},
+}
+
+// supportedCurrencies lists all supported currencies with exchange rates.
+var supportedCurrencies = []types.Currency{
+	{Code: "USD", Symbol: "$", Name: "US Dollar", Country: "US", ExchangeRate: 1.0},
+	{Code: "INR", Symbol: "₹", Name: "Indian Rupee", Country: "IN", ExchangeRate: 83.12},
+	{Code: "GBP", Symbol: "£", Name: "British Pound", Country: "GB", ExchangeRate: 0.79},
+	{Code: "EUR", Symbol: "€", Name: "Euro", Country: "EU", ExchangeRate: 0.92},
+	{Code: "CAD", Symbol: "C$", Name: "Canadian Dollar", Country: "CA", ExchangeRate: 1.36},
+	{Code: "AUD", Symbol: "A$", Name: "Australian Dollar", Country: "AU", ExchangeRate: 1.53},
+}
+
 // products holds the curated mock catalog (full detail).
 var products = []types.Product{
 	// =====================
@@ -40,6 +88,11 @@ var products = []types.Product{
 		Brand:    "PureSmile",
 		Category: "toothpaste",
 		Score:    92,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 95, MaxScore: 100},
+			{Factor: "effectiveness", Score: 88, MaxScore: 100},
+			{Factor: "certifications", Score: 92, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Formulated without fluoride, SLS, or artificial sweeteners",
 			"Uses hydroxyapatite for enamel remineralization",
@@ -59,7 +112,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example1"},
 			{Vendor: "iHerb", URL: "https://iherb.com/pr/example1"},
 		},
-		PriceRange:   "$12-18",
+		PriceRange: "$12-18",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 12, MaxPrice: 18, Formatted: "$12-18"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 997, MaxPrice: 1496, Formatted: "₹997-1496"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 9.48, MaxPrice: 14.22, Formatted: "£9-14"},
+		},
 		Tags:         []string{"fluoride-free", "kids-safe", "organic"},
 		LastReviewed: "2025-12-15",
 	},
@@ -70,6 +128,11 @@ var products = []types.Product{
 		Brand:    "BrightNaturals",
 		Category: "toothpaste",
 		Score:    87,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 85, MaxScore: 100},
+			{Factor: "effectiveness", Score: 90, MaxScore: 100},
+			{Factor: "certifications", Score: 86, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Activated charcoal provides gentle whitening",
 			"No harsh bleaching agents or peroxides",
@@ -89,7 +152,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example2"},
 			{Vendor: "Target", URL: "https://target.com/p/example2"},
 		},
-		PriceRange:   "$10-14",
+		PriceRange: "$10-14",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 10, MaxPrice: 14, Formatted: "$10-14"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 831, MaxPrice: 1164, Formatted: "₹831-1164"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 7.90, MaxPrice: 11.06, Formatted: "£8-11"},
+		},
 		Tags:         []string{"fluoride-free", "vegan"},
 		LastReviewed: "2025-12-10",
 	},
@@ -100,6 +168,11 @@ var products = []types.Product{
 		Brand:    "LittleTeeth",
 		Category: "toothpaste",
 		Score:    90,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 94, MaxScore: 100},
+			{Factor: "effectiveness", Score: 85, MaxScore: 100},
+			{Factor: "certifications", Score: 91, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Safe-to-swallow formula perfect for toddlers learning to brush",
 			"Natural strawberry flavor kids actually enjoy",
@@ -119,7 +192,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example3"},
 			{Vendor: "Walmart", URL: "https://walmart.com/ip/example3"},
 		},
-		PriceRange:   "$8-12",
+		PriceRange: "$8-12",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 8, MaxPrice: 12, Formatted: "$8-12"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 665, MaxPrice: 997, Formatted: "₹665-997"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 6.32, MaxPrice: 9.48, Formatted: "£6-9"},
+		},
 		Tags:         []string{"fluoride-free", "kids-safe", "organic"},
 		LastReviewed: "2025-12-08",
 	},
@@ -133,6 +211,11 @@ var products = []types.Product{
 		Brand:    "CleanRoots",
 		Category: "shampoo",
 		Score:    91,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 93, MaxScore: 100},
+			{Factor: "effectiveness", Score: 89, MaxScore: 100},
+			{Factor: "certifications", Score: 91, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Coconut-derived cleansers provide effective yet gentle cleansing",
 			"Perfect for daily use without stripping natural oils",
@@ -152,7 +235,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example4"},
 			{Vendor: "Thrive Market", URL: "https://thrivemarket.com/p/example4"},
 		},
-		PriceRange:   "$14-18",
+		PriceRange: "$14-18",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 14, MaxPrice: 18, Formatted: "$14-18"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 1164, MaxPrice: 1496, Formatted: "₹1164-1496"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 11.06, MaxPrice: 14.22, Formatted: "£11-14"},
+		},
 		Tags:         []string{"sulfate-free", "paraben-free", "vegan"},
 		LastReviewed: "2025-12-12",
 	},
@@ -163,6 +251,11 @@ var products = []types.Product{
 		Brand:    "ScalpCare Pro",
 		Category: "shampoo",
 		Score:    89,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 88, MaxScore: 100},
+			{Factor: "effectiveness", Score: 92, MaxScore: 100},
+			{Factor: "certifications", Score: 87, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Tea tree oil provides natural antifungal properties",
 			"Targets dandruff and dry scalp effectively",
@@ -182,7 +275,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example5"},
 			{Vendor: "Ulta", URL: "https://ulta.com/p/example5"},
 		},
-		PriceRange:   "$18-24",
+		PriceRange: "$18-24",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 18, MaxPrice: 24, Formatted: "$18-24"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 1496, MaxPrice: 1995, Formatted: "₹1496-1995"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 14.22, MaxPrice: 18.96, Formatted: "£14-19"},
+		},
 		Tags:         []string{"sulfate-free", "sensitive-scalp", "paraben-free"},
 		LastReviewed: "2025-12-05",
 	},
@@ -193,6 +291,11 @@ var products = []types.Product{
 		Brand:    "VibrantLocks",
 		Category: "shampoo",
 		Score:    86,
+		ScoreBreakdown: []types.ScoreBreakdown{
+			{Factor: "ingredient_safety", Score: 84, MaxScore: 100},
+			{Factor: "effectiveness", Score: 89, MaxScore: 100},
+			{Factor: "certifications", Score: 85, MaxScore: 100},
+		},
 		WhyRecommended: []string{
 			"Quinoa protein helps seal color into hair shaft",
 			"UV protection from sunflower seed extract",
@@ -212,7 +315,12 @@ var products = []types.Product{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example6"},
 			{Vendor: "Sephora", URL: "https://sephora.com/product/example6"},
 		},
-		PriceRange:   "$16-22",
+		PriceRange: "$16-22",
+		Prices: []types.LocalizedPrice{
+			{Country: "US", Currency: "USD", CurrencySymbol: "$", MinPrice: 16, MaxPrice: 22, Formatted: "$16-22"},
+			{Country: "IN", Currency: "INR", CurrencySymbol: "₹", MinPrice: 1330, MaxPrice: 1829, Formatted: "₹1330-1829"},
+			{Country: "GB", Currency: "GBP", CurrencySymbol: "£", MinPrice: 12.64, MaxPrice: 17.38, Formatted: "£13-17"},
+		},
 		Tags:         []string{"sulfate-free", "color-safe", "vegan"},
 		LastReviewed: "2025-12-01",
 	},
@@ -255,13 +363,15 @@ func GetCategoryDetail(slug string) (*types.Category, error) {
 	}
 
 	longDesc := categoryLongDescriptions[slug]
+	criteria := categoryCriteria[slug]
 	productSummaries := GetProductSummariesByCategory(slug)
 
 	return &types.Category{
 		Slug:            cat.Slug,
 		Title:           cat.Title,
 		LongDescription: longDesc,
-		Criteria:        []string{"Ingredients", "Certifications", "Value", "Effectiveness"},
+		Criteria:        criteria,
+		CriteriaVersion: "1.0",
 		CuratedProducts: productSummaries,
 	}, nil
 }
@@ -318,5 +428,44 @@ func toProductSummary(p types.Product) types.ProductSummary {
 		Score:       p.Score,
 		ShortReason: shortReason,
 		PriceRange:  p.PriceRange,
+	}
+}
+
+// GetSimilarProducts returns products similar to the given product slug.
+func GetSimilarProducts(slug string, limit int) ([]types.ProductSummary, error) {
+	product, err := GetProduct(slug)
+	if err != nil {
+		return nil, err
+	}
+
+	if limit <= 0 {
+		limit = 6
+	}
+
+	var similar []types.ProductSummary
+	for _, p := range products {
+		// Skip the same product
+		if p.Slug == slug {
+			continue
+		}
+
+		// Include products from the same category
+		if p.Category == product.Category {
+			similar = append(similar, toProductSummary(p))
+		}
+
+		if len(similar) >= limit {
+			break
+		}
+	}
+
+	return similar, nil
+}
+
+// GetCurrencies returns all supported currencies with exchange rates.
+func GetCurrencies() types.CurrencyList {
+	return types.CurrencyList{
+		BaseCurrency: "USD",
+		Currencies:   supportedCurrencies,
 	}
 }

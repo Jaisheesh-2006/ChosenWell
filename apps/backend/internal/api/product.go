@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi/v5"
 
@@ -42,4 +43,31 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, product, nil)
+}
+
+// GetSimilarProducts returns products similar to the given product.
+func GetSimilarProducts(w http.ResponseWriter, r *http.Request) {
+	slug := chi.URLParam(r, "slug")
+
+	// Parse limit query param, default to 6
+	limit := 6
+	if limitStr := r.URL.Query().Get("limit"); limitStr != "" {
+		if parsed, err := strconv.Atoi(limitStr); err == nil && parsed > 0 {
+			limit = parsed
+		}
+	}
+
+	similar, err := mock.GetSimilarProducts(slug, limit)
+	if err != nil {
+		if errors.Is(err, mock.ErrProductNotFound) {
+			errorJSON(w, http.StatusNotFound, "product not found")
+			return
+		}
+
+		log.Printf("Error fetching similar products for %q: %v\\n", slug, err)
+		errorJSON(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, similar, nil)
 }
