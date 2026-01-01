@@ -1,5 +1,25 @@
 version: "3.9"
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: healthiswealth-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-healthuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-healthpass}
+      POSTGRES_DB: ${POSTGRES_DB:-healthiswealth}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./apps/database/migrations:/docker-entrypoint-initdb.d/migrations:ro
+      - ./apps/database/init-db.sh:/docker-entrypoint-initdb.d/00-init-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-healthuser} -d ${POSTGRES_DB:-healthiswealth}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend:
     build:
       context: ./apps/backend
@@ -7,11 +27,16 @@ services:
       - "8081:8081"
     environment:
       - PORT=8081
+      - DATABASE_URL=postgresql://healthuser:healthpass@postgres:5432/healthiswealth
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
       interval: 10s
       retries: 3
       timeout: 5s
+
   frontend:
     depends_on:
       - backend
@@ -21,4 +46,8 @@ services:
       - "3000:3000"
     environment:
       - NEXT_TELEMETRY_DISABLED=1
+      - NEXT_PUBLIC_API_URL=http://backend:8081
     command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3000"]
+
+volumes:
+  postgres_data:

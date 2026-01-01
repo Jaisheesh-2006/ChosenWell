@@ -45,6 +45,22 @@ coverage.*
 # (Usually nothing to ignore, but keep local override files out of git)
 docker-compose.override.yml
 
+# --- Database ---
+apps/database/.env
+!apps/database/.env.example
+
+# PostgreSQL data (if running locally without Docker)
+apps/database/data/
+apps/database/pgdata/
+
+# Database dumps and backups
+apps/database/*.dump
+apps/database/*.sql.gz
+apps/database/backups/
+
+# pgAdmin session data
+apps/database/pgadmin/
+
 # --- Misc ---
 .tmp/
 tmp/

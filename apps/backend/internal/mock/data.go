@@ -14,9 +14,8 @@ var ErrCategoryNotFound = errors.New("category not found")
 
 // categoryProductMap links category slugs to product slugs.
 var categoryProductMap = map[string][]string{
-	"toothpaste":  {"non-toxic-toothpaste"},
-	"cooking-oil": {"organic-ghee"},
-	"vitamins":    {"magnesium-supplement"},
+	"toothpaste": {"non-toxic-toothpaste", "charcoal-whitening-toothpaste", "kids-strawberry-toothpaste"},
+	"shampoo":    {"gentle-daily-shampoo", "scalp-therapy-shampoo", "color-protect-shampoo"},
 }
 
 // categoryLongDescriptions provides SEO content for each category.
@@ -24,16 +23,16 @@ var categoryLongDescriptions = map[string]string{
 	"toothpaste": "Natural toothpaste options have evolved significantly, offering effective cleaning " +
 		"without harsh chemicals. We analyze fluoride alternatives, SLS-free formulas, and remineralizing " +
 		"ingredients to help you choose the best option for your family's oral health.",
-	"cooking-oil": "Cooking oils vary dramatically in their health profiles, smoke points, and nutritional " +
-		"benefits. Our analysis covers fatty acid composition, processing methods, and optimal cooking " +
-		"applications to guide your kitchen choices.",
-	"vitamins": "The supplement market is vast and often confusing. We evaluate bioavailability, dosing " +
-		"accuracy, third-party testing, and ingredient quality to identify supplements that actually deliver " +
-		"on their promises.",
+	"shampoo": "The shampoo market is filled with products containing sulfates, parabens, and synthetic " +
+		"fragrances. We evaluate ingredient safety, scalp compatibility, and effectiveness to help you find " +
+		"shampoos that clean without compromising your hair or health.",
 }
 
 // products holds the curated mock catalog (full detail).
 var products = []types.Product{
+	// =====================
+	// TOOTHPASTE PRODUCTS
+	// =====================
 	{
 		ID:       "prod-001",
 		Slug:     "non-toxic-toothpaste",
@@ -66,62 +65,155 @@ var products = []types.Product{
 	},
 	{
 		ID:       "prod-002",
-		Slug:     "organic-ghee",
-		Name:     "Organic Ghee",
-		Brand:    "GrassRoots Dairy",
-		Category: "cooking-oil",
-		Score:    95,
+		Slug:     "charcoal-whitening-toothpaste",
+		Name:     "Charcoal Whitening Toothpaste",
+		Brand:    "BrightNaturals",
+		Category: "toothpaste",
+		Score:    87,
 		WhyRecommended: []string{
-			"Sourced from pasture-raised, grass-fed cows",
-			"Rich in fat-soluble vitamins A, D, E, and K2",
-			"High smoke point ideal for cooking without oxidation",
+			"Activated charcoal provides gentle whitening",
+			"No harsh bleaching agents or peroxides",
+			"Natural antibacterial properties from tea tree oil",
 		},
 		Pros: []string{
-			"High in butyrate for gut health support",
-			"Lactose and casein free—suitable for dairy-sensitive individuals",
-			"Stable at high temperatures, perfect for sautéing and frying",
+			"Visibly whiter teeth within 2 weeks",
+			"Charcoal absorbs stains and toxins",
+			"Fresh spearmint taste without artificial sweeteners",
 		},
 		Cons: []string{
-			"Calorie-dense; portion control recommended",
+			"Charcoal can be messy during application",
 		},
-		IngredientsSummary: "100% organic clarified butter from grass-fed cow milk. No additives, preservatives, or colorants.",
-		Certifications:     []string{"USDA Organic", "Non-GMO Project Verified"},
+		IngredientsSummary: "Activated bamboo charcoal, baking soda, coconut oil, tea tree oil, spearmint. No artificial colors or preservatives.",
+		Certifications:     []string{"Vegan Certified", "Leaping Bunny"},
 		BuyLinks: []types.BuyLink{
-			{Vendor: "Thrive Market", URL: "https://thrivemarket.com/p/example2"},
-			{Vendor: "Whole Foods", URL: "https://wholefoodsmarket.com/product/example2"},
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example2"},
+			{Vendor: "Target", URL: "https://target.com/p/example2"},
 		},
-		PriceRange:   "$15-22",
-		Tags:         []string{"grass-fed", "organic", "keto-friendly"},
+		PriceRange:   "$10-14",
+		Tags:         []string{"fluoride-free", "vegan"},
 		LastReviewed: "2025-12-10",
 	},
 	{
 		ID:       "prod-003",
-		Slug:     "magnesium-supplement",
-		Name:     "Magnesium Glycinate",
-		Brand:    "VitalMin",
-		Category: "vitamins",
-		Score:    88,
+		Slug:     "kids-strawberry-toothpaste",
+		Name:     "Kids Strawberry Toothpaste",
+		Brand:    "LittleTeeth",
+		Category: "toothpaste",
+		Score:    90,
 		WhyRecommended: []string{
-			"Uses magnesium glycinate, one of the most bioavailable forms",
-			"Supports muscle relaxation, sleep quality, and stress resilience",
-			"Gentle on the GI system unlike oxide or citrate forms",
+			"Safe-to-swallow formula perfect for toddlers learning to brush",
+			"Natural strawberry flavor kids actually enjoy",
+			"Xylitol helps prevent cavities naturally",
 		},
 		Pros: []string{
-			"Gentle on the stomach compared to oxide or citrate forms",
-			"Third-party tested for purity and potency",
-			"Vegan capsules with no fillers or flow agents",
+			"Kids love the natural strawberry taste",
+			"Safe if accidentally swallowed",
+			"Gentle formula for developing teeth and gums",
 		},
 		Cons: []string{
-			"Requires 2 capsules per serving for full dose",
+			"May not appeal to kids who prefer traditional mint",
 		},
-		IngredientsSummary: "Magnesium glycinate (120 mg elemental Mg per capsule), hypromellose capsule. Free from gluten, soy, and artificial additives.",
-		Certifications:     []string{"NSF Certified", "Vegan Certified"},
+		IngredientsSummary: "Xylitol, calcium carbonate, organic strawberry flavor, aloe vera, vitamin E. Fluoride-free and SLS-free.",
+		Certifications:     []string{"EWG Verified", "Made Safe"},
 		BuyLinks: []types.BuyLink{
 			{Vendor: "Amazon", URL: "https://amazon.com/dp/example3"},
-			{Vendor: "Vitacost", URL: "https://vitacost.com/product/example3"},
+			{Vendor: "Walmart", URL: "https://walmart.com/ip/example3"},
 		},
-		PriceRange:   "$18-25",
-		Tags:         []string{"vegan", "sleep-support", "stress-relief"},
+		PriceRange:   "$8-12",
+		Tags:         []string{"fluoride-free", "kids-safe", "organic"},
+		LastReviewed: "2025-12-08",
+	},
+	// =====================
+	// SHAMPOO PRODUCTS
+	// =====================
+	{
+		ID:       "prod-004",
+		Slug:     "gentle-daily-shampoo",
+		Name:     "Gentle Daily Shampoo",
+		Brand:    "CleanRoots",
+		Category: "shampoo",
+		Score:    91,
+		WhyRecommended: []string{
+			"Coconut-derived cleansers provide effective yet gentle cleansing",
+			"Perfect for daily use without stripping natural oils",
+			"Chamomile and aloe soothe the scalp",
+		},
+		Pros: []string{
+			"Gentle enough for sensitive scalps",
+			"Leaves hair soft without residue",
+			"Pleasant natural scent from essential oils",
+		},
+		Cons: []string{
+			"May not lather as much as sulfate-based shampoos",
+		},
+		IngredientsSummary: "Aloe vera juice, coconut-derived cleansers, chamomile extract, jojoba oil, vitamin B5. No sulfates, parabens, or silicones.",
+		Certifications:     []string{"EWG Verified", "Leaping Bunny", "Vegan Certified"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example4"},
+			{Vendor: "Thrive Market", URL: "https://thrivemarket.com/p/example4"},
+		},
+		PriceRange:   "$14-18",
+		Tags:         []string{"sulfate-free", "paraben-free", "vegan"},
+		LastReviewed: "2025-12-12",
+	},
+	{
+		ID:       "prod-005",
+		Slug:     "scalp-therapy-shampoo",
+		Name:     "Scalp Therapy Shampoo",
+		Brand:    "ScalpCare Pro",
+		Category: "shampoo",
+		Score:    89,
+		WhyRecommended: []string{
+			"Tea tree oil provides natural antifungal properties",
+			"Targets dandruff and dry scalp effectively",
+			"Dermatologist-tested for sensitive scalps",
+		},
+		Pros: []string{
+			"Noticeably reduces flaking within first week",
+			"Cooling peppermint sensation soothes itchiness",
+			"Works well for various scalp conditions",
+		},
+		Cons: []string{
+			"Tea tree scent may be strong for some users",
+		},
+		IngredientsSummary: "Tea tree oil, salicylic acid (plant-derived), zinc pyrithione, peppermint oil, oat extract. Dermatologist tested.",
+		Certifications:     []string{"Made Safe", "Leaping Bunny"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example5"},
+			{Vendor: "Ulta", URL: "https://ulta.com/p/example5"},
+		},
+		PriceRange:   "$18-24",
+		Tags:         []string{"sulfate-free", "sensitive-scalp", "paraben-free"},
+		LastReviewed: "2025-12-05",
+	},
+	{
+		ID:       "prod-006",
+		Slug:     "color-protect-shampoo",
+		Name:     "Color Protect Shampoo",
+		Brand:    "VibrantLocks",
+		Category: "shampoo",
+		Score:    86,
+		WhyRecommended: []string{
+			"Quinoa protein helps seal color into hair shaft",
+			"UV protection from sunflower seed extract",
+			"Argan oil adds shine without weighing hair down",
+		},
+		Pros: []string{
+			"Color stays vibrant 40% longer than with regular shampoo",
+			"Adds noticeable shine and softness",
+			"Works well with all hair types",
+		},
+		Cons: []string{
+			"Higher price point than drugstore alternatives",
+		},
+		IngredientsSummary: "Quinoa protein, sunflower seed extract, argan oil, vitamin E, hibiscus extract. Sulfate-free and color-safe formula.",
+		Certifications:     []string{"Vegan Certified", "Leaping Bunny"},
+		BuyLinks: []types.BuyLink{
+			{Vendor: "Amazon", URL: "https://amazon.com/dp/example6"},
+			{Vendor: "Sephora", URL: "https://sephora.com/product/example6"},
+		},
+		PriceRange:   "$16-22",
+		Tags:         []string{"sulfate-free", "color-safe", "vegan"},
 		LastReviewed: "2025-12-01",
 	},
 }
@@ -134,14 +226,9 @@ var categories = []types.CategorySummary{
 		Description: "Natural and effective oral care products analyzed for safety and efficacy.",
 	},
 	{
-		Slug:        "cooking-oil",
-		Title:       "Cooking Oils",
-		Description: "Heart-healthy oils compared for smoke point, nutrition, and cooking applications.",
-	},
-	{
-		Slug:        "vitamins",
-		Title:       "Vitamins & Supplements",
-		Description: "Essential supplements evaluated for bioavailability and ingredient quality.",
+		Slug:        "shampoo",
+		Title:       "Shampoo",
+		Description: "Clean hair care products evaluated for scalp health and ingredient safety.",
 	},
 }
 
