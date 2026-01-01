@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -53,7 +54,7 @@ export default function Header() {
         <div className="hidden lg:flex lg:items-center lg:gap-4">
           <Link
             href="/products"
-            className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-white/20"
+            className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-white/20 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20"
           >
             <svg
               className="h-4 w-4"
@@ -70,6 +71,7 @@ export default function Header() {
             </svg>
             Search products
           </Link>
+          <ThemeToggle />
         </div>
 
         {/* Mobile menu button */}
@@ -113,7 +115,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-white/10 bg-slate-950 lg:hidden">
+        <div className="border-t border-white/10 bg-slate-950 dark:bg-slate-950 lg:hidden">
           <div className="space-y-1 px-4 pb-4 pt-2">
             {navigation.map((item) => (
               <Link
@@ -125,6 +127,9 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
+            <div className="flex items-center gap-4 border-t border-white/10 px-3 pt-4">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}

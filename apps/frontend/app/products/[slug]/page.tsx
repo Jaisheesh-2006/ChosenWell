@@ -6,6 +6,7 @@ import { Product } from "../../lib/types";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ScoreBadge from "../../components/ScoreBadge";
 import TagBadge from "../../components/TagBadge";
+import ProductClientWrapper from "../../components/ProductClientWrapper";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -390,6 +391,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
             },
           }),
         }}
+      />
+
+      {/* Client-side components: Similar products, Recently viewed, and tracking */}
+      <ProductClientWrapper
+        product={{
+          slug: product.slug,
+          name: product.name,
+          brand: product.brand,
+          score: product.score,
+          short_reason: product.why_recommended?.[0],
+          price_range: product.price_range,
+        }}
+        slug={product.slug}
       />
     </div>
   );

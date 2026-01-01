@@ -5,28 +5,58 @@
 @layer base {
   body {
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background-color: #020617;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom scrollbar */
+  /* Dark mode (default) */
+  .dark body,
+  body {
+    background-color: #020617;
+    color: #e2e8f0;
+  }
+
+  /* Light mode */
+  .light body {
+    background-color: #f8fafc;
+    color: #1e293b;
+  }
+
+  /* Custom scrollbar - Dark mode */
+  .dark ::-webkit-scrollbar,
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
+  .dark ::-webkit-scrollbar-track,
   ::-webkit-scrollbar-track {
     background: #0f172a;
   }
 
+  .dark ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-thumb {
     background: #334155;
     border-radius: 4px;
   }
 
+  .dark ::-webkit-scrollbar-thumb:hover,
   ::-webkit-scrollbar-thumb:hover {
     background: #475569;
+  }
+
+  /* Custom scrollbar - Light mode */
+  .light ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  .light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  .light ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
   }
 }
 
@@ -63,6 +93,10 @@
     @apply focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950;
   }
 
+  .light .focus-ring {
+    @apply focus:ring-offset-slate-50;
+  }
+
   /* Card hover effect */
   .card-hover {
     @apply transition-all duration-200 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/5;
@@ -75,12 +109,55 @@
 
   /* Prose customization for markdown content */
   .prose-custom {
-    @apply prose prose-invert prose-lg max-w-none;
-    @apply prose-headings:text-white prose-headings:font-bold;
-    @apply prose-p:text-slate-300;
-    @apply prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline;
-    @apply prose-strong:text-white;
-    @apply prose-ul:text-slate-300 prose-ol:text-slate-300;
-    @apply prose-li:marker:text-cyan-400;
+    @apply max-w-none text-lg;
+  }
+
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3,
+  .prose-custom h4 {
+    @apply font-bold text-white;
+  }
+
+  .prose-custom p {
+    @apply text-slate-300;
+  }
+
+  .prose-custom a {
+    @apply text-cyan-400 no-underline hover:underline;
+  }
+
+  .prose-custom strong {
+    @apply text-white;
+  }
+
+  .prose-custom ul,
+  .prose-custom ol {
+    @apply text-slate-300;
+  }
+
+  /* Light mode prose */
+  .light .prose-custom h1,
+  .light .prose-custom h2,
+  .light .prose-custom h3,
+  .light .prose-custom h4 {
+    @apply text-slate-900;
+  }
+
+  .light .prose-custom p {
+    @apply text-slate-600;
+  }
+
+  .light .prose-custom a {
+    @apply text-cyan-600;
+  }
+
+  .light .prose-custom strong {
+    @apply text-slate-900;
+  }
+
+  .light .prose-custom ul,
+  .light .prose-custom ol {
+    @apply text-slate-600;
   }
 }
