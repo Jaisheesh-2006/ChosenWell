@@ -50,12 +50,12 @@ function RecentlyViewedContent({
   return (
     <section className="mt-16">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white dark:text-white">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
           Recently Viewed
         </h2>
         <button
           onClick={clearHistory}
-          className="text-sm text-slate-400 transition-colors hover:text-cyan-400 dark:text-slate-400 dark:hover:text-cyan-400"
+          className="text-sm text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
         >
           Clear history
         </button>

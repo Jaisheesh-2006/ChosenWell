@@ -51,10 +51,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-slate-950 text-slate-100 antialiased dark:bg-slate-950 dark:text-slate-100 light:bg-white light:text-slate-900 transition-colors">
+      <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased transition-colors dark:bg-slate-950 dark:text-slate-100">
         <Providers>
           <Header />
-          <main className="flex-1 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 light:from-slate-50 light:via-white light:to-slate-50">
+          <main className="flex-1 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             {children}
           </main>
           <Footer />

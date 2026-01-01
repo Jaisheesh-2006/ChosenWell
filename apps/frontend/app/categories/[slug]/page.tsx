@@ -85,7 +85,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       {/* Header */}
       <header className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-white">
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           {category.title}
         </h1>
 
@@ -95,7 +95,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {category.criteria.map((criterion) => (
               <span
                 key={criterion}
-                className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-400"
+                className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-600 dark:text-emerald-400"
               >
                 <svg
                   className="mr-1.5 h-4 w-4"
@@ -120,7 +120,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Long description - SEO rich content */}
       <section className="mb-16">
         <div
-          className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-slate-300 prose-a:text-cyan-400 prose-strong:text-white"
+          className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-cyan-600 prose-strong:text-slate-900 dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-slate-300 dark:prose-a:text-cyan-400 dark:prose-strong:text-white"
           dangerouslySetInnerHTML={{ __html: category.long_description }}
         />
       </section>
@@ -129,10 +129,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <section>
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-cyan-400">
+            <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
               Our Picks
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-white">
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
               Top {category.title} Products
             </h2>
           </div>

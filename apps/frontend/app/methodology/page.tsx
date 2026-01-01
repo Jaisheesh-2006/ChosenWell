@@ -56,20 +56,20 @@ export default async function MethodologyPage() {
 
       {/* Header */}
       <header className="mb-12">
-        <p className="text-sm font-medium uppercase tracking-wider text-cyan-400">
+        <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
           Version {methodology.version}
         </p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-white">
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Our Methodology
         </h1>
-        <p className="mt-6 text-xl text-slate-300">{methodology.summary}</p>
+        <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">{methodology.summary}</p>
       </header>
 
       {/* Scoring Breakdown */}
       {scoringFactors.length > 0 && (
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-white">Scoring Breakdown</h2>
-          <p className="mt-4 text-slate-400">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Scoring Breakdown</h2>
+          <p className="mt-4 text-slate-600 dark:text-slate-400">
             Each product is evaluated across multiple factors, with weights
             assigned based on importance to overall product quality and safety.
           </p>
@@ -78,12 +78,12 @@ export default async function MethodologyPage() {
             {scoringFactors.map((factor) => (
               <div key={factor.name} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-white">{factor.name}</span>
-                  <span className="text-sm text-slate-400">
+                  <span className="font-medium text-slate-900 dark:text-white">{factor.name}</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     {factor.percentage}%
                   </span>
                 </div>
-                <div className="h-3 overflow-hidden rounded-full bg-slate-800">
+                <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500"
                     style={{ width: `${factor.percentage}%` }}
@@ -97,7 +97,7 @@ export default async function MethodologyPage() {
 
       {/* Detailed Explanation */}
       <section className="mb-16 space-y-8">
-        <h2 className="text-2xl font-bold text-white">What We Evaluate</h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">What We Evaluate</h2>
 
         <div className="grid gap-6 sm:grid-cols-2">
           {[
@@ -144,15 +144,15 @@ export default async function MethodologyPage() {
           ].map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-white/10 bg-slate-900/50 p-6"
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-400">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-600 dark:text-cyan-400">
                 {item.icon}
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-white">
+              <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-400">{item.description}</p>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
             </div>
           ))}
         </div>
@@ -160,8 +160,8 @@ export default async function MethodologyPage() {
 
       {/* Score Ranges */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-white">Understanding Scores</h2>
-        <p className="mt-4 text-slate-400">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Understanding Scores</h2>
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
           Our 0-100 scoring system is designed to be intuitive and actionable.
         </p>
 
@@ -206,7 +206,7 @@ export default async function MethodologyPage() {
           ].map((tier) => (
             <div
               key={tier.range}
-              className="flex items-center gap-4 rounded-xl border border-white/10 bg-slate-900/30 p-4"
+              className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900/30"
             >
               <div
                 className={`flex h-12 w-16 items-center justify-center rounded-lg bg-gradient-to-br ${tier.color} text-sm font-bold text-white`}
@@ -214,8 +214,8 @@ export default async function MethodologyPage() {
                 {tier.range}
               </div>
               <div>
-                <p className="font-medium text-white">{tier.label}</p>
-                <p className="text-sm text-slate-400">{tier.description}</p>
+                <p className="font-medium text-slate-900 dark:text-white">{tier.label}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">{tier.description}</p>
               </div>
             </div>
           ))}
@@ -224,10 +224,10 @@ export default async function MethodologyPage() {
 
       {/* Last Updated */}
       {methodology.last_updated && (
-        <section className="mb-16 rounded-2xl border border-white/10 bg-slate-900/50 p-6">
-          <p className="text-sm text-slate-400">
+        <section className="mb-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             This methodology was last updated on{" "}
-            <span className="text-white">
+            <span className="text-slate-900 dark:text-white">
               {new Date(methodology.last_updated).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -240,10 +240,10 @@ export default async function MethodologyPage() {
 
       {/* CTA */}
       <section className="rounded-2xl bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 p-8 text-center">
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
           Ready to find better products?
         </h2>
-        <p className="mt-4 text-slate-400">
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
           Browse our curated collection of health products, all evaluated with
           this methodology.
         </p>
@@ -269,7 +269,7 @@ export default async function MethodologyPage() {
           </Link>
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             View Categories
           </Link>

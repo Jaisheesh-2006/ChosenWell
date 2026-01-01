@@ -41,7 +41,7 @@ export default function ScoreBadge({ score, size = "md" }: ScoreBadgeProps) {
       >
         {Math.round(score)}
       </div>
-      <span className={`text-slate-400 ${labelSizeClasses[size]}`}>
+      <span className={`text-slate-500 dark:text-slate-400 ${labelSizeClasses[size]}`}>
         {getScoreLabel(score)}
       </span>
     </div>

@@ -76,19 +76,19 @@ export default async function HomePage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600/30 via-emerald-600/20 to-slate-900 p-8 md:p-12 lg:p-16">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600/20 via-emerald-600/10 to-slate-100 p-8 dark:from-cyan-600/30 dark:via-emerald-600/20 dark:to-slate-900 md:p-12 lg:p-16">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="relative z-10 max-w-3xl">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-cyan-300">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
             Curated Health Products
           </p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">
             Make informed choices for your{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-500 to-emerald-500 bg-clip-text text-transparent dark:from-cyan-400 dark:to-emerald-400">
               wellness journey
             </span>
           </h1>
-          <p className="mt-6 text-lg text-slate-300 sm:text-xl">
+          <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 sm:text-xl">
             We analyze ingredients, certifications, and value to bring you
             unbiased product comparisons. Every product is scored on a
             transparent 0-100 scale.
@@ -115,7 +115,7 @@ export default async function HomePage() {
             </Link>
             <Link
               href="/methodology"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/50 px-6 py-3 font-semibold text-slate-700 backdrop-blur-sm transition-all hover:bg-white dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
             >
               Our Methodology
             </Link>
@@ -163,15 +163,15 @@ export default async function HomePage() {
         ].map((feature) => (
           <div
             key={feature.title}
-            className="rounded-2xl border border-white/10 bg-slate-900/50 p-6"
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-400">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-600 dark:text-cyan-400">
               {feature.icon}
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-white">
+            <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
               {feature.title}
             </h3>
-            <p className="mt-2 text-sm text-slate-400">{feature.description}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{feature.description}</p>
           </div>
         ))}
       </section>
@@ -180,16 +180,16 @@ export default async function HomePage() {
       <section className="mt-20">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-cyan-400">
+            <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
               Top Rated
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-white">
+            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
               Featured Products
             </h2>
           </div>
           <Link
             href="/products"
-            className="hidden items-center gap-1 text-sm font-medium text-slate-400 transition-colors hover:text-white sm:flex"
+            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
           >
             View all products
             <svg
@@ -239,14 +239,14 @@ export default async function HomePage() {
       <section className="mt-20">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
+            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Browse by
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-white">Categories</h2>
+            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">Categories</h2>
           </div>
           <Link
             href="/categories"
-            className="hidden items-center gap-1 text-sm font-medium text-slate-400 transition-colors hover:text-white sm:flex"
+            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
           >
             View all categories
             <svg
@@ -275,19 +275,19 @@ export default async function HomePage() {
       <HomeRecentlyViewed />
 
       {/* CTA Section */}
-      <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-8 md:p-12">
+      <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 p-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:p-12">
         <div className="flex flex-col items-center text-center">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
             How do we evaluate products?
           </h2>
-          <p className="mt-4 max-w-2xl text-slate-400">
+          <p className="mt-4 max-w-2xl text-slate-600 dark:text-slate-400">
             Our methodology is completely transparent. We evaluate products
             based on ingredients, certifications, third-party testing, and value
             for money. Learn exactly how we score each product.
           </p>
           <Link
             href="/methodology"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 font-semibold text-white transition-all hover:bg-white/20"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 font-semibold text-white transition-all hover:bg-slate-800 dark:bg-white/10 dark:hover:bg-white/20"
           >
             Read Our Methodology
             <svg
