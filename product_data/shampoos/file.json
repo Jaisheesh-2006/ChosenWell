@@ -1,146 +1,10 @@
 [
   {
-    "slug": "forest-essentials-bhringraj-shikakai-cleanser",
-    "name": "Hair Cleanser Bhringraj & Shikakai",
+    "slug": "forest-essentials-bhringraj-shikakai-hair-cleanser",
+    "name": "Forest Essentials Hair Cleanser, Bhringraj & Shikakai",
     "brand": "Forest Essentials",
-    "category_slug": "shampoo",
-    "image_url": "https://www.forestessentialsindia.com/media/catalog/product/h/a/hair-cleanser-bhringraj-shikakai-200ml.jpg",
-
-    "status": "active",
-    "editorial_pick": true,
-    "safe_starting_point": false,
-
-    "score": 90,
-    "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
-
-    "primary_concerns": ["dandruff_safe", "sensitive_scalp", "dry_frizzy"],
-    "philosophy_tags": ["ayurvedic", "premium_clean"],
-    "usage_pattern": "alternate_day",
-    "price_tier": "premium",
-
-    "short_reason": "Gentle Ayurvedic cleanser suitable for sensitive and dandruff-prone scalps.",
-    "why_recommended": [
-      "Uses reetha and shikakai for non-stripping cleansing",
-      "Supports scalp balance without medicated actives",
-      "No dependency or rebound dryness"
-    ],
-    "pros": ["Extremely gentle", "Long-term safe"],
-    "cons": ["Premium price point"],
-
-    "ingredient_summary": "Bhringraj, Shikakai, Neem, Reetha, Wheat Protein",
-    "certifications": ["AYUSH"],
-    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
-
-    "buy_links": [
-      {
-        "vendor": "Amazon",
-        "url": "https://www.amazon.in/Forest-Essentials-Cleanser-Bhringraj-Shikakai/dp/B07JGXQY8M",
-        "link_type": "affiliate"
-      },
-      {
-        "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/forest-essentials-hair-cleanser-bhringraj-shikakai/p/itm123456",
-        "link_type": "affiliate"
-      }
-    ]
-  },
-  {
-    "slug": "sadhev-ayurvedic-anti-dandruff-shampoo",
-    "name": "Ayurvedic Anti-Dandruff Shampoo",
-    "brand": "Sadhev",
-    "category_slug": "shampoo",
-    "image_url": "https://sadhev.com/cdn/shop/products/anti-dandruff-shampoo.jpg",
-
-    "status": "active",
-    "editorial_pick": false,
-    "safe_starting_point": true,
-
-    "score": 78,
-    "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
-
-    "primary_concerns": ["dandruff_safe"],
-    "philosophy_tags": ["ayurvedic"],
-    "usage_pattern": "alternate_day",
-    "price_tier": "mid_range",
-
-    "short_reason": "Ayurvedic dandruff control without harsh antifungals.",
-    "why_recommended": [
-      "Neem-based antifungal support",
-      "Mild surfactants suitable for repeated use"
-    ],
-    "pros": ["Therapeutic focus", "Good value"],
-    "cons": ["Not deeply conditioning"],
-
-    "ingredient_summary": "Neem, Rosemary, Bakuchi",
-    "certifications": [],
-    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
-
-    "buy_links": [
-      {
-        "vendor": "Amazon",
-        "url": "https://www.amazon.in/Sadhev-Ayurvedic-Anti-Dandruff-Shampoo/dp/B08XXX123",
-        "link_type": "affiliate"
-      },
-      {
-        "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/sadhev-ayurvedic-anti-dandruff-shampoo/p/itm234567",
-        "link_type": "affiliate"
-      }
-    ]
-  },
-  {
-    "slug": "just-herbs-amla-neem-shampoo",
-    "name": "8-in-1 Root Nourishing Amla Neem Shampoo",
-    "brand": "Just Herbs",
-    "category_slug": "shampoo",
-    "image_url": "https://justherbs.in/cdn/shop/products/8-in-1-root-nourishing-amla-neem-shampoo.jpg",
-
-    "status": "active",
-    "editorial_pick": false,
-    "safe_starting_point": true,
-
-    "score": 72,
-    "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
-
-    "primary_concerns": ["dandruff_safe", "oily_scalp"],
-    "philosophy_tags": ["ayurvedic"],
-    "usage_pattern": "daily_use",
-    "price_tier": "affordable",
-
-    "short_reason": "Affordable herbal shampoo for dandruff maintenance.",
-    "why_recommended": [
-      "Neem and amla for scalp balance",
-      "Mild decyl glucoside base"
-    ],
-    "pros": ["Budget-friendly", "Easy daily use"],
-    "cons": ["Not ideal for severe dandruff"],
-
-    "ingredient_summary": "Neem, Amla, Hibiscus",
-    "certifications": [],
-    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
-
-    "buy_links": [
-      {
-        "vendor": "Amazon",
-        "url": "https://www.amazon.in/Just-Herbs-Nourishing-Shampoo-200ml/dp/B09XXX456",
-        "link_type": "affiliate"
-      },
-      {
-        "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/just-herbs-8-in-1-amla-neem-shampoo/p/itm345678",
-        "link_type": "affiliate"
-      }
-    ]
-  },
-  {
-    "slug": "soultree-licorice-bhringraj-shampoo",
-    "name": "Licorice Hair Repair Shampoo with Bhringraj",
-    "brand": "SoulTree",
-    "category_slug": "shampoo",
-    "image_url": "https://soultree.in/cdn/shop/products/licorice-hair-repair-shampoo-bhringraj.jpg",
+    "category_slug": "hair-cleanser",
+    "image_url": "./images/forest_essentials_bhringraj_shikakai_hair_cleanser.jpg",
 
     "status": "active",
     "editorial_pick": true,
@@ -148,214 +12,387 @@
 
     "score": 88,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2025-11-01",
 
-    "primary_concerns": ["hair_fall_support"],
-    "philosophy_tags": ["ayurvedic", "certified_organic"],
-    "usage_pattern": "alternate_day",
+    "primary_concerns": ["hair_thinning", "hair_fall", "dandruff_control"],
+    "philosophy_tags": ["ayurvedic", "sulphate_free", "natural_herbal"],
+    "usage_pattern": "2-3_times_per_week",
     "price_tier": "premium",
 
-    "short_reason": "Certified organic shampoo focused on reducing hair fall.",
-    "why_recommended": [
-      "BDIH certified formulation",
-      "Bhringraj supports growth cycle"
-    ],
-    "pros": ["Highest trust signal", "Excellent ingredient transparency"],
-    "cons": ["Premium pricing"],
+    "short_reason": "Ayurvedic, sulphate-free cleanser aimed at reducing hair fall and supporting scalp health without harsh stripping.",
 
-    "ingredient_summary": "Bhringraj, Licorice, Aloe Vera",
-    "certifications": ["BDIH"],
-    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+    "why_recommended": [
+      "Formulated with traditional Ayurvedic herbs like bhringraj and shikakai.",
+      "SLS/SLES free and gentle for regular cleansing without dryness. :contentReference[oaicite:0]{index=0}",
+      "Supports reduction in hair thinning, breakage and promotes scalp nourishment. :contentReference[oaicite:1]{index=1}"
+    ],
+
+    "pros": [
+      "Herbal formulation",
+      "Gentle cleansing",
+      "Supports hair strength"
+    ],
+    "cons": ["Premium pricing", "Herbal scent not for everyone"],
+
+    "ingredient_summary": "Shikakai, Bhringraj, Reetha, Coconut Milk, Hydrolyzed Wheat Protein, Licorice, Kalonji Seed Oil",
+    "certifications": ["Ayurvedic formulation"],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Mineral Oil"],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/SoulTree-Licorice-Repair-Shampoo-Bhringraj/dp/B0AXXX789",
+        "url": "https://a.co/d/3rWo6GR",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/soultree-licorice-bhringraj-shampoo/p/itm456789",
+        "url": "https://www.flipkart.com/",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "just-herbs-amla-neem-shampoo",
+    "name": "8-in-1 Root Nourishing Amla & Neem Shampoo",
+    "brand": "Just Herbs",
+    "category_slug": "shampoo",
+    "image_url": "./images/just_herbs_8_in_1_shampoo.jpg",
+
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+
+    "score": 82,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+
+    "primary_concerns": ["dandruff_safe", "hair_fall", "oily_scalp"],
+    "philosophy_tags": [
+      "ayurvedic",
+      "sulphate_free",
+      "preservative_transparent"
+    ],
+    "usage_pattern": "2-3_times_per_week",
+    "price_tier": "mid_range",
+
+    "short_reason": "Herbal, ingredient-transparent anti-hairfall/dandruff shampoo (amla + neem) that is SLS/SLES- and paraben-free and uses mild surfactants—suitable as a safe starting point.",
+    "why_recommended": [
+      "Brand and product pages list active botanicals (Amla, Neem, Hibiscus, Henna, Fenugreek, Vetiver, Wheatgerm oil, Soy Lecithin).",
+      "Explicit claims and listings show the product is free from SLS/SLES and parabens (reduces stripping and long-term scalp risk).",
+      "Formulation is plant-forward and positioned for routine use for oily/dandruff-prone scalps."
+    ],
+    "pros": [
+      "Transparent ingredient listing",
+      "SLS/SLES & paraben free claims",
+      "Relevant herbal actives for dandruff/hair fall"
+    ],
+    "cons": [
+      "No major ECOCERT/COSMOS certification visible",
+      "May include mild synthetic emulsifiers (standard on mid-range herbals)"
+    ],
+
+    "ingredient_summary": "Amla (Emblica officinalis), Hibiscus, Henna (Lawsonia inermis), Fenugreek (Trigonella), Neem (Azadirachta indica), Vetiver, Wheatgerm Oil, Soy Lecithin; water, mild surfactant system and mild preservatives (per brand/retailer ingredient listings).",
+    "certifications": [],
+    "excluded_ingredients": [
+      "SLS",
+      "SLES",
+      "Parabens",
+      "PEG/PPG",
+      "Petrochemicals"
+    ],
+
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/guRv2SD",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "soultree-licorice-bhringraj-shampoo",
+    "name": "SoulTree Licorice (Mulethi) Hair Repair Shampoo with Strengthening Bhringraj",
+    "brand": "SoulTree",
+    "category_slug": "shampoo",
+    "image_url": "./images/soultree_licorice_bhringraj_shampoo.jpg",
+
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+
+    "score": 90,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+
+    "primary_concerns": ["hair_fall_support", "dull_damaged"],
+    "philosophy_tags": ["ayurvedic", "certified_natural"],
+    "usage_pattern": "2-3_times_per_week",
+    "price_tier": "premium",
+
+    "short_reason": "BDIH-certified, herb-forward shampoo using mild, low-irritation surfactants (coco/decyl glucosides, sodium cocoyl glutamate) and preservative systems that avoid sulfates, parabens and harsh formaldehyde releasers.",
+    "why_recommended": [
+      "Full ingredient panel published (no hidden ‘base q.s.’).",
+      "Cleansing uses mild, low-irritation surfactants (Coco glucoside, Lauryl glucoside, Sodium cocoyl glutamate) rather than SLS/SLES.",
+      "Contains functional Ayurvedic botanicals (Glycyrrhiza glabra — Licorice, Eclipta alba — Bhringraj, Shikakai, Amla, Hibiscus, Henna) that support scalp health and hair strength.",
+      "Certified ‘Natural’ under BDIH (European natural cosmetics standard) — a strong trust signal for formulation and ingredient sourcing."
+    ],
+    "pros": [
+      "BDIH certified (natural) — strong trust signal",
+      "Transparent INCI / ingredients on product page",
+      "Mild surfactants and mild preservative system (sodium benzoate, potassium sorbate)"
+    ],
+    "cons": [
+      "Contains perfume (fragrance) with Linalool/Limonene — potential irritant for very sensitive scalps",
+      "Premium price point"
+    ],
+
+    "ingredient_summary": "Key ingredients: Aqua; Coco-glucoside; Lauryl glucoside; Sodium cocoyl glutamate; Glyceryl oleate; Betaine; Glycerine; Coco-caprylate/caprate; Caprylyl/Capryl glucoside; Glycyrrhiza glabra (Licorice)*; Eclipta alba (Bhringraj)*; Acacia concinna (Shikakai)*; Emblica officinalis (Amla)*; Hibiscus rosa-sinensis*; Lawsonia inermis (Henna)*; Aloe barbadensis*; Hydrolysed wheat protein; Preservatives: Sodium benzoate, Potassium sorbate; Perfume (contains Linalool, Limonene).",
+    "certifications": ["BDIH"],
+    "excluded_ingredients": [
+      "SLS",
+      "SLES",
+      "Parabens",
+      "Silicones",
+      "Mineral oil / Petrolatum",
+      "Phthalates",
+      "Formaldehyde releasers"
+    ],
+
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/60xTpP8",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]
   },
   {
     "slug": "kama-ayurveda-bringadi-cleanser",
-    "name": "Bringadi Hair Cleanser",
+    "name": "Bringadi Hair Cleanser (Bringadi Nourishing Shampoo)",
     "brand": "Kama Ayurveda",
     "category_slug": "shampoo",
-    "image_url": "https://kamaayurveda.com/cdn/shop/products/bringadi-hair-cleanser.jpg",
+    "image_url": "./images/kama_ayurveda_bringadi_cleanser.jpg",
 
     "status": "active",
-    "editorial_pick": false,
-    "safe_starting_point": false,
+    "editorial_pick": true,
+    "safe_starting_point": true,
 
-    "score": 80,
+    "score": 88,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2026-01-02",
 
-    "primary_concerns": ["hair_fall_support", "dry_frizzy"],
-    "philosophy_tags": ["ayurvedic", "modern_clean"],
-    "usage_pattern": "alternate_day",
-    "price_tier": "mid_range",
+    "primary_concerns": ["hair_fall_support", "dandruff_safe", "oily_scalp"],
+    "philosophy_tags": ["ayurvedic", "high_natural_origin"],
+    "usage_pattern": "2-3_times_per_week",
+    "price_tier": "premium",
 
-    "short_reason": "Mild, clinically positioned cleanser for fragile hair.",
+    "short_reason": "96% natural-origin, herb-forward cleanser using mild, low-irritation surfactants and published INCI — suitable for long-term scalp health and for coloured/chemically treated hair.",
     "why_recommended": [
-      "Amino-acid surfactants",
-      "Suitable for chemically treated hair"
+      "Full INCI published; surfactants are mild glucosides and cocoyl glutamate rather than sulfates.",
+      "Contains functional Ayurvedic actives (Bhringraj, Amla, Indigo, Licorice, Shikakai) with evidence/use for scalp health and hair strength.",
+      "Brand claims clinical benefit on sebum reduction and hair-fall metrics; product marketed for treated/coloured hair (lower risk of stripping)."
     ],
-    "pros": ["Very gentle", "Balanced formulation"],
-    "cons": ["Moderate conditioning only"],
+    "pros": [
+      "Transparent INCI / no hidden 'base q.s.'",
+      "Mild, approved surfactant system",
+      "Ayurvedic actives with supporting formulation logic"
+    ],
+    "cons": [
+      "Premium price point",
+      "Contains fragrance (may include fragrance allergens) — potential for very sensitive scalps"
+    ],
 
-    "ingredient_summary": "Bringadi herbs, Aloe, essential oils",
+    "ingredient_summary": "Key INCI highlights: Aqua; Lauryl Glucoside; Disodium Cocoyl Glutamate; Sodium Cocoamphoacetate; Glycerin; Betaine; Glyceryl Oleate; Hydrolysed Soy Protein; D-Panthenol; Botanical extracts — Eclipta alba (Bhringraj), Emblica officinalis (Amla), Indigofera tinctoria (Indigo), Glycyrrhiza glabra (Licorice), Acacia concinna (Shikakai), Hibiscus rosa-sinensis; Preservatives: Sodium Benzoate, Potassium Sorbate; Buffer: Citric Acid; Perfume (may list Linalool/Limonene).",
     "certifications": [],
     "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/Kama-Ayurveda-Bringadi-Hair-Cleanser/dp/B0BXXX012",
+        "url": "https://amzn.in/d/6mmpChY",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/kama-ayurveda-bringadi-cleanser/p/itm567890",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]
   },
   {
     "slug": "vilvah-goat-milk-shampoo",
-    "name": "Goat Milk Shampoo",
+    "name": "Goat Milk Shampoo (with Ceramides & Pea Protein)",
     "brand": "Vilvah",
     "category_slug": "shampoo",
-    "image_url": "https://vilvahstore.com/cdn/shop/products/goat-milk-shampoo.jpg",
+    "image_url": "./images/vilvah_goat_milk_shampoo.jpg",
 
     "status": "active",
     "editorial_pick": false,
     "safe_starting_point": true,
 
-    "score": 76,
+    "score": 80,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2026-01-02",
 
-    "primary_concerns": ["hair_fall_support", "oily_scalp"],
-    "philosophy_tags": ["modern_clean"],
-    "usage_pattern": "alternate_day",
+    "primary_concerns": ["dry_frizzy", "hair_fall_support"],
+    "philosophy_tags": ["modern_clean", "pH_balanced", "sulphate_free"],
+    "usage_pattern": "2-3_times_per_week",
     "price_tier": "affordable",
 
-    "short_reason": "Gentle, pH-balanced shampoo ideal for reducing breakage.",
+    "short_reason": "pH-balanced, sulphate-free, goat-milk shampoo with ceramides and pea protein — gentle surfactant system and published INCI make it a safe starting point for dry, frizzy, or fragile hair.",
     "why_recommended": [
-      "Goat milk lipids reduce breakage",
-      "Excellent transition shampoo"
+      "Brand publishes ingredient panel and markets the product as pH-balanced and sulphate-free (transparent).",
+      "Key functional actives — Goat Milk, Ceramides, Pea Protein — support moisture, barrier repair and reduced breakage.",
+      "Uses mild surfactants (cocamidopropyl hydroxysultaine, cocamidopropyl betaine, coco-glucoside) rather than SLS/SLES."
     ],
-    "pros": ["Gentle", "Affordable"],
-    "cons": ["Not for severe dandruff"],
+    "pros": [
+      "Transparent INCI available",
+      "Mild surfactant system and pH-balanced",
+      "Functional actives for moisturizing & frizz control"
+    ],
+    "cons": [
+      "Contains fragrance (possible allergen for very sensitive scalps)",
+      "Not positioned as anti-dandruff — limited efficacy for severe fungal dandruff"
+    ],
 
-    "ingredient_summary": "Goat milk, pea protein, mild surfactants",
+    "ingredient_summary": "Aqua; Goat Milk (farm fresh); Jasmine Hydrosol; Cocamidopropyl Hydroxysultaine; Cocamidopropyl Betaine; Coco-Glucoside; Glycerin; Pea Protein; Ceramides; Hydrolysed Wheat Protein; Botanical extracts; Preservative: Sodium Benzoate / Potassium Sorbate (per product label images).",
     "certifications": [],
-    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+    "excluded_ingredients": [
+      "SLS",
+      "SLES",
+      "Parabens",
+      "Formaldehyde releasers"
+    ],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/Vilvah-Goat-Milk-Shampoo/dp/B0CXXX345",
+        "url": "https://amzn.in/d/bGnBqar",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/vilvah-goat-milk-shampoo/p/itm678901",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]
   },
   {
     "slug": "arata-super-shampoo",
-    "name": "Super Shampoo",
+    "name": "Arata Super Shampoo (Onion + Argan + Apple Cider Vinegar)",
     "brand": "Arata",
     "category_slug": "shampoo",
-    "image_url": "https://arata.in/cdn/shop/products/super-shampoo.jpg",
+    "image_url": "./images/arata_super_shampoo.jpg",
 
     "status": "active",
     "editorial_pick": false,
-    "safe_starting_point": false,
+    "safe_starting_point": true,
 
-    "score": 74,
+    "score": 84,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2026-01-02",
 
-    "primary_concerns": ["dry_frizzy"],
-    "philosophy_tags": ["modern_clean"],
-    "usage_pattern": "alternate_day",
+    "primary_concerns": ["hair_fall_support", "dandruff_safe", "dry_frizzy"],
+    "philosophy_tags": ["modern_clean", "sulphate_free"],
+    "usage_pattern": "2-3_times_per_week",
     "price_tier": "affordable",
 
-    "short_reason": "Modern clean shampoo designed for urban hair stress.",
+    "short_reason": "Mild, pH-friendly shampoo with onion oil, argan oil and apple-cider vinegar; published INCI shows low-irritation surfactants and mild preservatives, making it a safe starting point for hair-fall and scalp balance.",
     "why_recommended": [
-      "SCI-based creamy foam",
-      "Apple cider vinegar for cuticle sealing"
+      "Full ingredient list published on the brand page (transparent INCI).",
+      "Uses gentle surfactants (Sodium Cocoyl Isethionate, Sodium Cocoyl Glycinate, Cocamidopropyl Betaine) instead of SLS/SLES.",
+      "Contains functional actives relevant to hair fall and scalp microbiome balance (Onion oil, Argan oil, Apple Cider Vinegar)."
     ],
-    "pros": ["Good sensory experience"],
-    "cons": ["Less therapeutic"],
+    "pros": [
+      "Transparent INCI / no hidden 'base q.s.'",
+      "Mild surfactant system (SCI / glycinates / betaines)",
+      "Functional botanicals and vinegar for pH/scalp support"
+    ],
+    "cons": [
+      "Contains fragrance; may have fragrance allergens for very sensitive scalps",
+      "Not ECOCERT/BDIH certified (no major natural cert shown)"
+    ],
 
-    "ingredient_summary": "Onion oil, argan oil, apple cider vinegar",
+    "ingredient_summary": "Purified Water; Sodium Cocoyl Isethionate; Glycerin; Sodium Cocoyl Glycinate; Cocamidopropyl Betaine; Guar Hydroxypropyltrimonium Chloride; Aloe Vera Extract; Bhringraj (Eclipta alba) Extract; Hydrolysed Pea Protein; Apple Cider Vinegar; Argania spinosa (Argan) Oil; Caprylhydroxamic Acid; Sodium Benzoate; Onion (Allium cepa) Oil; Fragrance (contains typical fragrance allergens).",
     "certifications": [],
     "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/Arata-Super-Shampoo-Natural/dp/B0DXXX678",
+        "url": "https://amzn.in/d/axLaYgb",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/arata-super-shampoo/p/itm789012",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]
   },
   {
     "slug": "tribe-concepts-hair-cleanser-powder",
-    "name": "Hair Cleanser Powder",
+    "name": "Organic Hair Cleanser (Powdered Shikakai, Amla & Hibiscus)",
     "brand": "The Tribe Concepts",
     "category_slug": "shampoo",
-    "image_url": "https://thetribeconcepts.com/cdn/shop/products/hair-cleanser-powder.jpg",
+    "image_url": "./images/tribe_concepts_hair_cleanser_powder.jpg",
 
     "status": "active",
     "editorial_pick": false,
-    "safe_starting_point": false,
+    "safe_starting_point": true,
 
-    "score": 70,
+    "score": 78,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2026-01-02",
 
-    "primary_concerns": ["sensitive_scalp"],
-    "philosophy_tags": ["zero_chemical", "ayurvedic"],
+    "primary_concerns": ["sensitive_scalp", "gentle_cleansing"],
+    "philosophy_tags": ["zero_chemical", "ayurvedic", "powder_cleanser"],
     "usage_pattern": "weekly_detox",
     "price_tier": "mid_range",
 
-    "short_reason": "Ultra-pure botanical cleanser for sensitive users.",
+    "short_reason": "100% botanical powdered cleanser (Shikakai, Amla, Hibiscus) with full ingredient transparency — chemical-free and suitable as a gentle weekly detox.",
     "why_recommended": [
-      "No preservatives or surfactants",
-      "Traditional cleansing method"
+      "Pure botanical powders (Shikakai, Amla, Hibiscus and similar) — no synthetic surfactants or preservatives listed.",
+      "Explicit product & brand claims: 'chemical-free', 'paraben, sulphate and SLS free' and sourcing transparency from Godavari farms.",
+      "Good match for sensitive scalps or users seeking a zero-chemical weekly cleanse."
     ],
-    "pros": ["Maximum purity"],
-    "cons": ["Inconvenient", "Not for heavy oil"],
+    "pros": [
+      "Maximum ingredient purity",
+      "Transparent botanical ingredient list",
+      "Eco / sustainable packaging positioning"
+    ],
+    "cons": [
+      "Inconvenient for daily use",
+      "Limited efficacy for heavy/oily scalps or severe fungal dandruff"
+    ],
 
-    "ingredient_summary": "Reetha, Shikakai, Amla",
+    "ingredient_summary": "Powdered Reetha / Shikakai, Amla, Hibiscus and other dried botanical powders (handpicked organic herbs sourced from Godavari region).",
     "certifications": [],
-    "excluded_ingredients": ["All synthetic surfactants", "Preservatives"],
+    "excluded_ingredients": [
+      "All synthetic surfactants (SLS/SLES)",
+      "Parabens",
+      "Preservatives / Formaldehyde releasers"
+    ],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/Tribe-Concepts-Hair-Cleanser-Powder/dp/B0EXXX901",
+        "url": "https://amzn.in/d/2YoSmJk",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/tribe-concepts-hair-cleanser-powder/p/itm890123",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]
@@ -365,42 +402,55 @@
     "name": "Murumuru Butter Shampoo Bar",
     "brand": "Earth Rhythm",
     "category_slug": "shampoo",
-    "image_url": "https://earthrhythm.com/cdn/shop/products/murumuru-butter-shampoo-bar.jpg",
+    "image_url": "./images/earth_rhythm_murumuru_shampoo_bar.jpg",
 
     "status": "active",
     "editorial_pick": false,
-    "safe_starting_point": false,
+    "safe_starting_point": true,
 
-    "score": 75,
+    "score": 82,
     "score_version": "v1",
-    "last_reviewed_at": "2025-01-01",
+    "last_reviewed_at": "2026-01-02",
 
-    "primary_concerns": ["dry_frizzy"],
-    "philosophy_tags": ["solid_bar", "modern_clean"],
-    "usage_pattern": "alternate_day",
+    "primary_concerns": ["dry_frizzy", "travel_friendly"],
+    "philosophy_tags": ["solid_bar", "modern_clean", "pH_balanced"],
+    "usage_pattern": "2-3_times_per_week",
     "price_tier": "mid_range",
 
-    "short_reason": "Plastic-free shampoo bar suitable for Indian water.",
+    "short_reason": "Plastic-free, SCI-based shampoo bar centered on murumuru butter — gentle, pH-friendly cleansing suitable for dry or frizzy hair and for travel.",
     "why_recommended": [
-      "SCI-based, not soap",
-      "Travel-friendly and eco-conscious"
+      "Typically formulated with Sodium Cocoyl Isethionate (SCI) or similar mild surfactants rather than soap or SLS, which reduces scalp irritation and works in Indian water profiles.",
+      "Murumuru butter provides conditioning lipids that help with dry, frizzy hair without leaving heavy silicone residue.",
+      "Solid bar format reduces plastic waste and is travel/convenience friendly while still offering a pH-balanced cleansing experience."
     ],
-    "pros": ["Low waste"],
-    "cons": ["Learning curve"],
+    "pros": [
+      "Low waste / plastic-free",
+      "SCI / mild surfactant based (gentle)",
+      "Conditioning murumuru butter for dry hair"
+    ],
+    "cons": [
+      "Learning curve for bar use and lathering",
+      "May contain fragrance — potential allergen for ultra-sensitive scalps"
+    ],
 
-    "ingredient_summary": "Murumuru butter, vitamin E, SCI",
+    "ingredient_summary": "Key functional ingredients (typical): Murumuru butter; mild solid surfactant (e.g. Sodium Cocoyl Isethionate); glycerin; conditioning fatty alcohols/esters; botanical oils or butters; tocopherol (vitamin E); preservative system appropriate for solids (if any); fragrance. — **Confirm exact INCI on label.**",
     "certifications": [],
-    "excluded_ingredients": ["Soap base", "SLS", "Parabens"],
+    "excluded_ingredients": [
+      "Soap base (alkaline soap)",
+      "SLS",
+      "SLES",
+      "Parabens"
+    ],
 
     "buy_links": [
       {
         "vendor": "Amazon",
-        "url": "https://www.amazon.in/Earth-Rhythm-Murumuru-Shampoo-Bar/dp/B0FXXX234",
+        "url": "https://amzn.in/d/fWlyCj7",
         "link_type": "affiliate"
       },
       {
         "vendor": "Flipkart",
-        "url": "https://www.flipkart.com/earth-rhythm-murumuru-shampoo-bar/p/itm901234",
+        "url": "https://www.flipkart.com/",
         "link_type": "affiliate"
       }
     ]

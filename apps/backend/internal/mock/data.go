@@ -897,7 +897,6 @@ func toProductSummary(p types.Product) types.ProductSummary {
 		Brand:       p.Brand,
 		Score:       p.Score,
 		ShortReason: shortReason,
-		PriceRange:  p.PriceRange,
 	}
 }
 

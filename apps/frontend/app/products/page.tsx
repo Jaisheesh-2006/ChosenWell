@@ -21,41 +21,7 @@ interface ProductsPageProps {
   searchParams: Promise<{ category?: string; tag?: string }>;
 }
 
-// Fallback data
-const fallbackProducts: ProductSummary[] = [
-  {
-    slug: "rejuve-herbal-elixir",
-    name: "Rejuve+ Herbal Elixir",
-    brand: "NatureCo",
-    score: 92,
-    short_reason: "Botanicals for calm, clarity, and core strength.",
-    price_range: "$29-35",
-  },
-  {
-    slug: "oceanic-collagen-blend",
-    name: "Oceanic Collagen Blend",
-    brand: "SeaWell",
-    score: 88,
-    short_reason:
-      "Marine-sourced collagen plus vitamin C to support skin resilience.",
-    price_range: "$45-55",
-  },
-  {
-    slug: "grounded-adaptogenic-ritual",
-    name: "Grounded Adaptogenic Ritual",
-    brand: "EarthBlend",
-    score: 85,
-    short_reason: "Functional cacao blend for stress reset moments.",
-    price_range: "$22-28",
-  },
-];
-
-const fallbackCategories: CategorySummary[] = [
-  { slug: "toothpaste", title: "Toothpaste" },
-  { slug: "cooking-oil", title: "Cooking Oils" },
-  { slug: "vitamins", title: "Vitamins" },
-  { slug: "supplements", title: "Supplements" },
-];
+// No fallback data - only use database
 
 const popularTags = ["organic", "budget", "kids", "vegan", "gluten-free"];
 
@@ -66,13 +32,14 @@ async function getProductsPageData(category?: string, tag?: string) {
       getCategories(),
     ]);
     return {
-      products: products.length > 0 ? products : fallbackProducts,
-      categories: categories.length > 0 ? categories : fallbackCategories,
+      products,
+      categories,
     };
-  } catch {
+  } catch (error) {
+    console.error("Error fetching products data:", error);
     return {
-      products: fallbackProducts,
-      categories: fallbackCategories,
+      products: [],
+      categories: [],
     };
   }
 }
@@ -94,10 +61,12 @@ export default async function ProductsPage({
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           {category
-            ? `${categories.find((c) => c.slug === category)?.title || category} Products`
+            ? `${
+                categories.find((c) => c.slug === category)?.title || category
+              } Products`
             : tag
-              ? `${tag.charAt(0).toUpperCase() + tag.slice(1)} Products`
-              : "All Products"}
+            ? `${tag.charAt(0).toUpperCase() + tag.slice(1)} Products`
+            : "All Products"}
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
           {category || tag
@@ -151,7 +120,9 @@ export default async function ProductsPage({
                 {popularTags.map((t) => (
                   <Link
                     key={t}
-                    href={`/products?tag=${t}${category ? `&category=${category}` : ""}`}
+                    href={`/products?tag=${t}${
+                      category ? `&category=${category}` : ""
+                    }`}
                     className={`rounded-full border px-3 py-1 text-sm transition-colors ${
                       tag === t
                         ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
@@ -198,7 +169,9 @@ export default async function ProductsPage({
                   {sortedProducts.length} product
                   {sortedProducts.length !== 1 ? "s" : ""} found
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-500">Sorted by score</p>
+                <p className="text-sm text-slate-500 dark:text-slate-500">
+                  Sorted by score
+                </p>
               </div>
               <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {sortedProducts.map((product) => (

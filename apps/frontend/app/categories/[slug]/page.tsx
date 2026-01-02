@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug, getCategories } from "../../lib/api";
 import { Category } from "../../lib/types";
 import ProductCard from "../../components/ProductCard";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import EmptyState from "../../components/EmptyState";
+import CriteriaSection from "../../components/CriteriaSection";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -47,15 +49,7 @@ export async function generateMetadata({
   }
 }
 
-// Fallback data
-const fallbackCategory: Category = {
-  slug: "example",
-  title: "Example Category",
-  long_description:
-    "This is a placeholder category. The actual content will be loaded from the API when available.",
-  criteria: ["Quality ingredients", "Third-party tested", "Good value"],
-  curated_products: [],
-};
+// No fallback data - only use database
 
 async function getCategoryData(slug: string): Promise<Category | null> {
   try {
@@ -125,6 +119,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         />
       </section>
 
+      {/* How we evaluate - Criteria content */}
+      {category.criteria_content && (
+        <CriteriaSection
+          title={category.title}
+          content={category.criteria_content}
+        />
+      )}
+
       {/* Curated Products */}
       <section>
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -184,7 +186,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               No products yet
             </h3>
             <p className="mt-2 text-slate-600 dark:text-slate-400">
-              We&apos;re still curating products for this category. Check back soon!
+              We&apos;re still curating products for this category. Check back
+              soon!
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
@@ -212,7 +215,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               Explore more
             </h3>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-              Discover products across all categories or learn about our methodology.
+              Discover products across all categories or learn about our
+              methodology.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

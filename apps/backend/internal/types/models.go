@@ -20,6 +20,7 @@ type Category struct {
 	Title           string           `json:"title"`
 	LongDescription string           `json:"long_description"`
 	Criteria        CategoryCriteria `json:"criteria"`
+	CriteriaContent string           `json:"criteria_content,omitempty"`
 	CriteriaVersion string           `json:"criteria_version,omitempty"`
 	CuratedProducts []ProductSummary `json:"curated_products,omitempty"`
 }
@@ -30,9 +31,9 @@ type ProductSummary struct {
 	Slug        string       `json:"slug"`
 	Name        string       `json:"name"`
 	Brand       string       `json:"brand,omitempty"`
+	ImageURL    string       `json:"image_url,omitempty"`
 	Score       float64      `json:"score"`
 	ShortReason string       `json:"short_reason,omitempty"`
-	PriceRange  string       `json:"price_range,omitempty"`
 	BudgetTier  string       `json:"budget_tier,omitempty"`
 	Tags        *ProductTags `json:"tags,omitempty"`
 }
@@ -82,6 +83,7 @@ type Product struct {
 	Slug               string           `json:"slug"`
 	Name               string           `json:"name"`
 	Brand              string           `json:"brand,omitempty"`
+	ImageURL           string           `json:"image_url,omitempty"`
 	Category           string           `json:"category,omitempty"`
 	Score              float64          `json:"score"`
 	ScoreBreakdown     []ScoreBreakdown `json:"score_breakdown,omitempty"`
@@ -135,4 +137,12 @@ type Currency struct {
 type CurrencyList struct {
 	BaseCurrency string     `json:"base_currency"`
 	Currencies   []Currency `json:"currencies"`
+}
+
+// Methodology describes how products are evaluated and scored.
+type Methodology struct {
+	Version     string             `json:"version"`
+	Summary     string             `json:"summary"`
+	Scoring     map[string]float64 `json:"scoring,omitempty"`
+	LastUpdated string             `json:"last_updated,omitempty"`
 }

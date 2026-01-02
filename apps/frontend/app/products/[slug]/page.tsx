@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "../../lib/api";
 import { Product } from "../../lib/types";
@@ -34,7 +35,9 @@ export async function generateMetadata({
     const product = await getProductBySlug(slug);
     return {
       title: `${product.name}${product.brand ? ` by ${product.brand}` : ""}`,
-      description: `${product.name} review and analysis. Score: ${product.score}/100. ${product.why_recommended?.join(" ") || ""}`,
+      description: `${product.name} review and analysis. Score: ${
+        product.score
+      }/100. ${product.why_recommended?.join(" ") || ""}`,
       openGraph: {
         title: `${product.name} | HealthIsWealth`,
         description: `${product.name} - Score: ${product.score}/100. Read our detailed analysis.`,
@@ -84,37 +87,53 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       {/* Product Header */}
       <header className="mb-12">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <div className="flex-1">
-            {product.brand && (
-              <p className="text-sm font-medium uppercase tracking-wider text-slate-500">
-                {product.brand}
-              </p>
-            )}
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              {product.name}
-            </h1>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+          {/* Product Image */}
+          {product.image_url && (
+            <div className="relative h-72 w-full lg:h-80 lg:w-80 flex-shrink-0 rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/60 overflow-hidden">
+              <Image
+                src={product.image_url}
+                alt={product.name}
+                fill
+                className="object-contain p-6"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                priority
+              />
+            </div>
+          )}
 
-            {/* Tags */}
-            {product.tags && product.tags.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {product.tags.map((tag) => (
-                  <TagBadge key={tag} tag={tag} />
-                ))}
-              </div>
-            )}
+          <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex-1">
+              {product.brand && (
+                <p className="text-sm font-medium uppercase tracking-wider text-slate-500">
+                  {product.brand}
+                </p>
+              )}
+              <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                {product.name}
+              </h1>
 
-            {/* Price */}
-            {product.price_range && (
-              <p className="mt-4 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
-                {product.price_range}
-              </p>
-            )}
-          </div>
+              {/* Tags */}
+              {product.tags && product.tags.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {product.tags.map((tag) => (
+                    <TagBadge key={tag} tag={tag} />
+                  ))}
+                </div>
+              )}
 
-          {/* Score */}
-          <div className="flex-shrink-0">
-            <ScoreBadge score={product.score} size="lg" />
+              {/* Price */}
+              {product.price_range && (
+                <p className="mt-4 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
+                  {product.price_range}
+                </p>
+              )}
+            </div>
+
+            {/* Score */}
+            <div className="flex-shrink-0">
+              <ScoreBadge score={product.score} size="lg" />
+            </div>
           </div>
         </div>
       </header>
@@ -157,7 +176,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="text-slate-600 dark:text-slate-300">{reason}</span>
+                    <span className="text-slate-600 dark:text-slate-300">
+                      {reason}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -187,7 +208,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </h3>
                 <ul className="mt-4 space-y-2">
                   {product.pros.map((pro, index) => (
-                    <li key={index} className="text-sm text-slate-600 dark:text-slate-300">
+                    <li
+                      key={index}
+                      className="text-sm text-slate-600 dark:text-slate-300"
+                    >
                       • {pro}
                     </li>
                   ))}
@@ -216,7 +240,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </h3>
                 <ul className="mt-4 space-y-2">
                   {product.cons.map((con, index) => (
-                    <li key={index} className="text-sm text-slate-600 dark:text-slate-300">
+                    <li
+                      key={index}
+                      className="text-sm text-slate-600 dark:text-slate-300"
+                    >
                       • {con}
                     </li>
                   ))}
@@ -245,7 +272,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 Ingredients Analysis
               </h2>
               <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-                <p className="text-slate-600 dark:text-slate-300">{product.ingredients_summary}</p>
+                <p className="text-slate-600 dark:text-slate-300">
+                  {product.ingredients_summary}
+                </p>
               </div>
             </section>
           )}
@@ -256,7 +285,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Buy Links */}
           {product.buy_links && product.buy_links.length > 0 && (
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">Where to Buy</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white">
+                Where to Buy
+              </h3>
               <div className="mt-4 space-y-3">
                 {product.buy_links.map((link, index) => (
                   <a
@@ -291,7 +322,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Certifications */}
           {product.certifications && product.certifications.length > 0 && (
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">Certifications</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white">
+                Certifications
+              </h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {product.certifications.map((cert) => (
                   <span
@@ -321,7 +354,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Last Reviewed */}
           {product.last_reviewed && (
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">Last Reviewed</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white">
+                Last Reviewed
+              </h3>
               <p className="mt-2 text-slate-500 dark:text-slate-400">
                 {new Date(product.last_reviewed).toLocaleDateString("en-US", {
                   year: "numeric",

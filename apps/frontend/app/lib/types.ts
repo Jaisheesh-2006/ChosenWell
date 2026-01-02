@@ -11,6 +11,7 @@ export interface Category {
   title: string;
   long_description: string; // SEO-rich long-form content (HTML or markdown)
   criteria?: string[];
+  criteria_content?: string; // Full criteria content in markdown
   curated_products?: ProductSummary[];
 }
 
@@ -19,9 +20,18 @@ export interface ProductSummary {
   slug: string;
   name: string;
   brand?: string;
+  image_url?: string;
   score: number; // 0-100 aggregated score
   short_reason?: string;
-  price_range?: string;
+  budget_tier?: string;
+  tags?: ProductTags;
+}
+
+export interface ProductTags {
+  concern?: string[];
+  philosophy?: string[];
+  budget?: string;
+  usage?: string[];
 }
 
 export interface BuyLink {
@@ -43,6 +53,7 @@ export interface Product {
   slug: string;
   name: string;
   brand?: string;
+  image_url?: string;
   category?: string; // category slug
   score: number;
   why_recommended?: string[];
@@ -53,7 +64,7 @@ export interface Product {
   buy_links?: BuyLink[];
   price_range?: string;
   prices?: LocalizedPrice[]; // Prices in different currencies/countries
-  tags?: string[]; // e.g., ["budget", "kids", "organic"]
+  tags?: ProductTags;
   last_reviewed?: string; // date format
 }
 

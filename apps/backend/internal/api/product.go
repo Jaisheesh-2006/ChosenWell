@@ -1,14 +1,13 @@
 package api
 
 import (
-	"errors"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/mock"
+	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/db"
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/types"
 )
 
@@ -60,15 +59,36 @@ func parseProductFilters(r *http.Request) ProductFilters {
 func GetProducts(w http.ResponseWriter, r *http.Request) {
 	filters := parseProductFilters(r)
 
-	result := mock.GetFilteredProducts(filters.Category, filters.Concern, filters.Philosophy, filters.Budget, filters.Usage, filters.SortBy, filters.Order, filters.Page, filters.Limit)
-
+	dbFilters := db.ProductFilters{
+		Category:   filters.Category,
+		Concern:    filters.Concern,
+		Philosophy: filters.Philosophy,
+		Budget:     filters.Budget,
+		Usage:      filters.Usage,
+		SortBy:     filters.SortBy,
+		Order:      filters.Order,
+		Page:       filters.Page,
+		Limit:      filters.Limit,
+	}
+	result, err := repo.GetProducts(r.Context(), dbFilters)
+	if err != nil {
+		log.Printf("Database error getting products: %v", err)
+		errorJSON(w, http.StatusInternalServerError, "failed to fetch products")
+		return
+	}
 	writeJSON(w, http.StatusOK, result, nil)
 }
 
 // GetAvailableFilters returns the available filter options for products.
 func GetAvailableFilters(w http.ResponseWriter, r *http.Request) {
 	categorySlug := r.URL.Query().Get("category")
-	filters := mock.GetAvailableFilters(categorySlug)
+
+	filters, err := repo.GetAvailableFilters(r.Context(), categorySlug)
+	if err != nil {
+		log.Printf("Database error getting filters: %v", err)
+		errorJSON(w, http.StatusInternalServerError, "failed to fetch filters")
+		return
+	}
 	writeJSON(w, http.StatusOK, filters, nil)
 }
 
@@ -76,19 +96,16 @@ func GetAvailableFilters(w http.ResponseWriter, r *http.Request) {
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 
-	product, err := mock.GetProduct(slug)
+	product, err := repo.GetProduct(r.Context(), slug)
 	if err != nil {
-		if errors.Is(err, mock.ErrProductNotFound) {
-			errorJSON(w, http.StatusNotFound, "product not found")
-			return
-		}
-
-		// Unexpected error
-		log.Printf("Error fetching product %q: %v\\n", slug, err)
-		errorJSON(w, http.StatusInternalServerError, "internal server error")
+		log.Printf("Database error getting product %s: %v", slug, err)
+		errorJSON(w, http.StatusInternalServerError, "failed to fetch product")
 		return
 	}
-
+	if product == nil {
+		errorJSON(w, http.StatusNotFound, "product not found")
+		return
+	}
 	writeJSON(w, http.StatusOK, product, nil)
 }
 
@@ -104,18 +121,12 @@ func GetSimilarProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	similar, err := mock.GetSimilarProducts(slug, limit)
+	similar, err := repo.GetSimilarProducts(r.Context(), slug, limit)
 	if err != nil {
-		if errors.Is(err, mock.ErrProductNotFound) {
-			errorJSON(w, http.StatusNotFound, "product not found")
-			return
-		}
-
-		log.Printf("Error fetching similar products for %q: %v\\n", slug, err)
-		errorJSON(w, http.StatusInternalServerError, "internal server error")
+		log.Printf("Database error getting similar products for %s: %v", slug, err)
+		errorJSON(w, http.StatusInternalServerError, "failed to fetch similar products")
 		return
 	}
-
 	writeJSON(w, http.StatusOK, similar, nil)
 }
 

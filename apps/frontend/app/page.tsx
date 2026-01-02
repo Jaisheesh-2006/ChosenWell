@@ -5,52 +5,7 @@ import ProductCard from "./components/ProductCard";
 import CategoryCard from "./components/CategoryCard";
 import HomeRecentlyViewed from "./components/HomeRecentlyViewed";
 
-// Fallback data for when API is unavailable
-const fallbackProducts: ProductSummary[] = [
-  {
-    slug: "rejuve-herbal-elixir",
-    name: "Rejuve+ Herbal Elixir",
-    brand: "NatureCo",
-    score: 92,
-    short_reason: "Botanicals for calm, clarity, and core strength.",
-    price_range: "$29-35",
-  },
-  {
-    slug: "oceanic-collagen-blend",
-    name: "Oceanic Collagen Blend",
-    brand: "SeaWell",
-    score: 88,
-    short_reason:
-      "Marine-sourced collagen plus vitamin C to support skin resilience.",
-    price_range: "$45-55",
-  },
-  {
-    slug: "grounded-adaptogenic-ritual",
-    name: "Grounded Adaptogenic Ritual",
-    brand: "EarthBlend",
-    score: 85,
-    short_reason: "Functional cacao blend for stress reset moments.",
-    price_range: "$22-28",
-  },
-];
-
-const fallbackCategories: CategorySummary[] = [
-  {
-    slug: "toothpaste",
-    title: "Toothpaste",
-    description: "Natural and effective oral care products analyzed for safety.",
-  },
-  {
-    slug: "cooking-oil",
-    title: "Cooking Oils",
-    description: "Heart-healthy oils compared for smoke point and nutrition.",
-  },
-  {
-    slug: "vitamins",
-    title: "Vitamins",
-    description: "Essential supplements evaluated for bioavailability.",
-  },
-];
+// No fallback data - only use database
 
 async function getHomePageData() {
   try {
@@ -59,13 +14,14 @@ async function getHomePageData() {
       getCategories(),
     ]);
     return {
-      products: products.length > 0 ? products : fallbackProducts,
-      categories: categories.length > 0 ? categories : fallbackCategories,
+      products,
+      categories,
     };
-  } catch {
+  } catch (error) {
+    console.error("Error fetching home page data:", error);
     return {
-      products: fallbackProducts,
-      categories: fallbackCategories,
+      products: [],
+      categories: [],
     };
   }
 }
@@ -132,8 +88,18 @@ export default async function HomePage() {
         {[
           {
             icon: (
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                />
               </svg>
             ),
             title: "Transparent Scoring",
@@ -142,8 +108,18 @@ export default async function HomePage() {
           },
           {
             icon: (
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+                />
               </svg>
             ),
             title: "Ingredient Analysis",
@@ -152,8 +128,18 @@ export default async function HomePage() {
           },
           {
             icon: (
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             ),
             title: "Value Comparison",
@@ -171,7 +157,9 @@ export default async function HomePage() {
             <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
               {feature.title}
             </h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{feature.description}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              {feature.description}
+            </p>
           </div>
         ))}
       </section>
@@ -242,7 +230,9 @@ export default async function HomePage() {
             <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Browse by
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">Categories</h2>
+            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
+              Categories
+            </h2>
           </div>
           <Link
             href="/categories"

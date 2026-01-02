@@ -16,17 +16,31 @@ import (
 	"github.com/go-chi/cors"
 
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/api"
+	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/db"
 )
 
 const Port = 8081
 
 func main() {
+	// Initialize database connection
+	repo, err := db.New()
+	if err != nil {
+		log.Printf("Warning: Failed to connect to database: %v. Using mock data.\n", err)
+		repo = nil
+	} else {
+		defer repo.Close()
+		log.Println("Connected to PostgreSQL database")
+	}
+
+	// Set repository for API handlers
+	api.SetRepository(repo)
+
 	// Initialize router with middleware
 	router := chi.NewRouter()
 
 	// CORS must be at the very top of the middleware stack
 	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedOrigins:   []string{"http://localhost:3000", "http://127.0.0.1:3000"},
 		AllowedMethods:   []string{"GET", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type"},
 		AllowCredentials: false,

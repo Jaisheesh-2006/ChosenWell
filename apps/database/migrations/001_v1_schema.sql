@@ -111,6 +111,7 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     brand VARCHAR(255) NOT NULL,
     category_slug VARCHAR(100) NOT NULL REFERENCES categories(slug) ON DELETE RESTRICT,
+    image_url VARCHAR(500),
     
     -- Editorial control
     status product_status NOT NULL DEFAULT 'draft',

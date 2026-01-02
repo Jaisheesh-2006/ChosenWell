@@ -16,40 +16,14 @@ export const metadata: Metadata = {
   },
 };
 
-// Fallback categories when API is unavailable
-const fallbackCategories: CategorySummary[] = [
-  {
-    slug: "toothpaste",
-    title: "Toothpaste",
-    description:
-      "Natural and effective oral care products analyzed for safety and efficacy.",
-  },
-  {
-    slug: "cooking-oil",
-    title: "Cooking Oils",
-    description:
-      "Heart-healthy oils compared for smoke point, nutrition, and purity.",
-  },
-  {
-    slug: "vitamins",
-    title: "Vitamins",
-    description:
-      "Essential vitamin supplements evaluated for bioavailability and quality.",
-  },
-  {
-    slug: "supplements",
-    title: "Supplements",
-    description:
-      "Dietary supplements reviewed for ingredient quality and third-party testing.",
-  },
-];
+// No fallback data - only use database
 
 async function getCategoriesData(): Promise<CategorySummary[]> {
   try {
-    const categories = await getCategories();
-    return categories.length > 0 ? categories : fallbackCategories;
-  } catch {
-    return fallbackCategories;
+    return await getCategories();
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
   }
 }
 

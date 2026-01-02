@@ -43,6 +43,11 @@ export interface GetProductsParams {
   limit?: number;
 }
 
+interface ProductsResponse {
+  products: ProductSummary[];
+  total?: number;
+}
+
 export async function getProducts(
   params?: GetProductsParams
 ): Promise<ProductSummary[]> {
@@ -61,7 +66,8 @@ export async function getProducts(
   const queryString = searchParams.toString();
   const endpoint = queryString ? `/products?${queryString}` : "/products";
 
-  return fetchApi<ProductSummary[]>(endpoint);
+  const response = await fetchApi<ProductsResponse>(endpoint);
+  return response.products || [];
 }
 
 export async function getProductBySlug(
@@ -69,9 +75,7 @@ export async function getProductBySlug(
   country?: string
 ): Promise<Product> {
   const params = country ? `?country=${encodeURIComponent(country)}` : "";
-  return fetchApi<Product>(
-    `/products/${encodeURIComponent(slug)}${params}`
-  );
+  return fetchApi<Product>(`/products/${encodeURIComponent(slug)}${params}`);
 }
 
 // Similar products

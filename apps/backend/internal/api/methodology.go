@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log"
 	"net/http"
 )
 
@@ -28,7 +29,14 @@ var methodology = Methodology{
 	LastUpdated: "2025-12-15",
 }
 
-// GetMethodology returns the static scoring methodology as JSON.
+// GetMethodology returns the scoring methodology as JSON.
 func GetMethodology(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, methodology, nil)
+	// Try database first
+	m, err := repo.GetMethodology(r.Context())
+	if err != nil {
+		log.Printf("Database error getting methodology, using static: %v", err)
+		writeJSON(w, http.StatusOK, methodology, nil)
+		return
+	}
+	writeJSON(w, http.StatusOK, m, nil)
 }
