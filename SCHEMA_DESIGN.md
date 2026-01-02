@@ -3,6 +3,7 @@
 ## Design Philosophy
 
 This schema prioritizes **editorial control** and **data discipline** over flexibility. It's designed for a content-first platform where:
+
 - Products are **read-only curated content** (no user submissions)
 - **ENUMs enforce consistency** across structured filters
 - **JSONB is minimal** - used only where intentional flexibility is required
@@ -13,10 +14,13 @@ This schema prioritizes **editorial control** and **data discipline** over flexi
 ## ENUM Definitions (Data Discipline)
 
 ### 1. **product_status** - Workflow Control
+
 ```sql
 CREATE TYPE product_status AS ENUM ('draft', 'active', 'archived', 'under_review');
 ```
+
 **Purpose**: Editorial workflow control - prevents accidental publishing
+
 - `draft`: In preparation, not visible in API
 - `active`: Published and visible to users
 - `archived`: Removed from catalog but retained for history
@@ -25,6 +29,7 @@ CREATE TYPE product_status AS ENUM ('draft', 'active', 'archived', 'under_review
 ---
 
 ### 2. **primary_concern** - Fixed Concern Tags
+
 ```sql
 CREATE TYPE primary_concern AS ENUM (
     'dandruff_safe',
@@ -39,7 +44,9 @@ CREATE TYPE primary_concern AS ENUM (
     'kids_safe'
 );
 ```
+
 **Purpose**: NO free-form tags - exact product concern classification
+
 - **Why it matters**: Prevents tag pollution (no "hair_fall", "hairfall", "fall_hair" chaos)
 - **Array field**: `primary_concerns primary_concern[]` - products can address 1-3 concerns
 - **Filtering**: GIN index enables fast multi-concern filtering
@@ -47,6 +54,7 @@ CREATE TYPE primary_concern AS ENUM (
 ---
 
 ### 3. **philosophy_tag** - Ingredient Philosophy
+
 ```sql
 CREATE TYPE philosophy_tag AS ENUM (
     'ayurvedic',
@@ -57,13 +65,16 @@ CREATE TYPE philosophy_tag AS ENUM (
     'premium_clean'
 );
 ```
+
 **Purpose**: Brand positioning and ingredient philosophy (mutually aware, not exclusive)
+
 - Multiple philosophy tags per product (e.g., "ayurvedic" + "modern_clean")
 - Enables cross-cutting filters: "show me ayurvedic products that are also modern clean"
 
 ---
 
 ### 4. **usage_pattern_enum** - Usage Frequency
+
 ```sql
 CREATE TYPE usage_pattern_enum AS ENUM (
     'daily_use',
@@ -71,13 +82,16 @@ CREATE TYPE usage_pattern_enum AS ENUM (
     'weekly_detox'
 );
 ```
+
 **Purpose**: Single enum value (NOT array) - exactly one usage pattern per product
+
 - Stored as: `usage_pattern usage_pattern_enum NOT NULL`
 - Constraint: `NOT NULL` ensures every product has exactly one usage pattern
 
 ---
 
 ### 5. **price_tier** - Budget Classification
+
 ```sql
 CREATE TYPE price_tier AS ENUM (
     'premium',
@@ -85,30 +99,38 @@ CREATE TYPE price_tier AS ENUM (
     'affordable'
 );
 ```
+
 **Purpose**: Fixed budget classification (NO free-form pricing logic)
+
 - Stored as: `price_tier price_tier NOT NULL`
 - Prevents ambiguity: Is ₹500 "premium" or "mid_range"? Editorial decision, enforced.
 
 ---
 
 ### 6. **certification_name** - Verified Certifications
+
 ```sql
 CREATE TYPE certification_name AS ENUM (
     'BDIH', 'AYUSH', 'ECOCERT', 'COSMOS', 'EWG_Verified',
     'Leaping_Bunny', 'Vegan_Certified', 'Made_Safe', ...
 );
 ```
+
 **Purpose**: Only recognized certifications stored - prevents typos and fake certs
+
 - Separate `product_certifications` table with `UNIQUE(product_id, certification)` constraint
 - Each cert is verified with `verified_at` date
 
 ---
 
 ### 7. **score_version** - Methodology Tracking
+
 ```sql
 CREATE TYPE score_version AS ENUM ('v1', 'v2', 'v3');
 ```
+
 **Purpose**: Track which methodology version was used to score each product
+
 - If methodology changes, all products get new scores tagged `v2`
 - Old `v1` products still visible, but users see "scored with v1 methodology"
 - Enables gradual transitions without breaking data
@@ -162,11 +184,13 @@ CREATE TABLE products (
 ```
 
 **Key Constraints**:
+
 - `CONSTRAINT primary_concerns_not_empty CHECK (array_length(primary_concerns, 1) > 0)` - Always have at least 1 concern
 - `CONSTRAINT philosophy_not_empty CHECK (array_length(philosophy_tags, 1) > 0)` - Always have philosophy
 - `slug` and `category_slug` must be lowercase alphanumeric with hyphens
 
 **Editorial Fields**:
+
 - `editorial_pick`: Recommended for first-time buyers
 - `safe_starting_point`: Validated as safe entry point (trust signal)
 - `edit_log`: JSONB array tracks: `[{timestamp, editor, change}, ...]`
@@ -187,6 +211,7 @@ CREATE TABLE product_certifications (
 ```
 
 **Why separate table**:
+
 - Products may have 0-many certifications
 - Each certification is verified with date
 - `UNIQUE(product_id, certification)` prevents duplicates
@@ -211,6 +236,7 @@ CREATE TABLE product_buy_links (
 ```
 
 **Key Features**:
+
 - `is_affiliate`: Flag for affiliate vs. direct links
 - `display_order`: Control vendor priority (Amazon first, then Nykaa, etc.)
 - `active`: Soft-delete for outdated links
@@ -236,6 +262,7 @@ CREATE TABLE product_prices (
 ```
 
 **Why separate table**:
+
 - Products have 1-many prices (INR, USD, GBP, etc.)
 - Supports price changes over time with `effective_from`/`effective_until`
 - Easy filtering: "Show me products under ₹500 in India"
@@ -258,6 +285,7 @@ CREATE TABLE product_score_breakdown (
 ```
 
 **Example data**:
+
 ```
 product_id = "forest-essentials-..."
 factor = "ingredient_safety", score = 96, weight = 0.40, explanation = "..."
@@ -286,24 +314,25 @@ CREATE TABLE methodologies (
 ```
 
 **Example `scoring_factors`**:
+
 ```json
 {
-    "ingredient_safety": {
-        "weight": 0.40,
-        "description": "Harsh chemicals, disqualifiers, safety testing"
-    },
-    "efficacy_for_concern": {
-        "weight": 0.30,
-        "description": "Effectiveness for primary concern"
-    },
-    "long_term_scalp_health": {
-        "weight": 0.20,
-        "description": "No rebound, dependency, or scalp damage"
-    },
-    "transparency": {
-        "weight": 0.10,
-        "description": "INCI clarity, certifications, honest positioning"
-    }
+  "ingredient_safety": {
+    "weight": 0.4,
+    "description": "Harsh chemicals, disqualifiers, safety testing"
+  },
+  "efficacy_for_concern": {
+    "weight": 0.3,
+    "description": "Effectiveness for primary concern"
+  },
+  "long_term_scalp_health": {
+    "weight": 0.2,
+    "description": "No rebound, dependency, or scalp damage"
+  },
+  "transparency": {
+    "weight": 0.1,
+    "description": "INCI clarity, certifications, honest positioning"
+  }
 }
 ```
 
@@ -367,22 +396,23 @@ CREATE INDEX idx_products_category ON products(category_slug)
 
 ## Key Constraints Enforced
 
-| Constraint | Purpose |
-|-----------|---------|
-| `PRIMARY KEY` | Unique identity |
-| `UNIQUE(slug)` | SEO-friendly URLs must be unique |
-| `UNIQUE(product_id, certification)` | No duplicate certifications per product |
-| `UNIQUE(product_id, country_code, currency_code)` | One active price per currency |
-| `CHECK (score >= 0 AND score <= 100)` | Score always valid |
-| `CHECK (min_price >= 0 AND max_price >= min_price)` | Price logic valid |
-| `CHECK (array_length(primary_concerns, 1) > 0)` | At least 1 concern required |
-| `NOT NULL` on key fields | Required data always present |
+| Constraint                                          | Purpose                                 |
+| --------------------------------------------------- | --------------------------------------- |
+| `PRIMARY KEY`                                       | Unique identity                         |
+| `UNIQUE(slug)`                                      | SEO-friendly URLs must be unique        |
+| `UNIQUE(product_id, certification)`                 | No duplicate certifications per product |
+| `UNIQUE(product_id, country_code, currency_code)`   | One active price per currency           |
+| `CHECK (score >= 0 AND score <= 100)`               | Score always valid                      |
+| `CHECK (min_price >= 0 AND max_price >= min_price)` | Price logic valid                       |
+| `CHECK (array_length(primary_concerns, 1) > 0)`     | At least 1 concern required             |
+| `NOT NULL` on key fields                            | Required data always present            |
 
 ---
 
 ## Query Examples
 
 ### **Filter by Concerns & Philosophy**
+
 ```sql
 SELECT * FROM products
 WHERE status = 'active'
@@ -391,26 +421,32 @@ WHERE status = 'active'
   AND category_slug = 'shampoo'
 ORDER BY score DESC;
 ```
+
 **Index used**: `idx_products_primary_concerns`, `idx_products_philosophy_tags`
 
 ### **Find Safe Starting Points**
+
 ```sql
 SELECT * FROM safe_starting_points
 WHERE category_slug = 'shampoo'
 ORDER BY score DESC
 LIMIT 5;
 ```
+
 **Index used**: `idx_products_safe_start`
 
 ### **List All Editorial Picks**
+
 ```sql
 SELECT * FROM editorial_picks
 WHERE category_slug = 'shampoo'
 ORDER BY score DESC;
 ```
+
 **Index used**: `idx_products_editorial_picks`
 
 ### **Check Product Certifications**
+
 ```sql
 SELECT p.name, pc.certification, pc.verified_at
 FROM products p
@@ -420,6 +456,7 @@ ORDER BY pc.verified_at DESC;
 ```
 
 ### **Find Products with Specific Pricing**
+
 ```sql
 SELECT p.slug, p.name, pp.currency_code, pp.min_price, pp.max_price
 FROM products p
@@ -453,9 +490,10 @@ This schema delivers:
 ✅ **Scalable filtering**: GIN indexes for array queries  
 ✅ **Content audit trail**: Edit logs and version history  
 ✅ **Trust signals**: Editorial picks, safe starting points  
-✅ **Localized pricing**: Multi-currency support  
+✅ **Localized pricing**: Multi-currency support
 
 **Next steps**:
+
 1. Apply migration to development database
 2. Seed with product data from `product_data/shampoos/file.json`
 3. Update Go models to match new schema
