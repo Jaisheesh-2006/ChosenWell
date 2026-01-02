@@ -214,6 +214,47 @@ export default async function ProductsPage({
           )}
         </div>
       </div>
+
+      {/* Navigation Section */}
+      <section className="mt-16 rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 p-8 dark:border-white/10 dark:from-slate-900/50 dark:to-slate-800/30">
+        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+              Looking for something specific?
+            </h3>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              Browse by category or learn how we evaluate products.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/categories"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+            >
+              Browse Categories
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </Link>
+            <Link
+              href="/methodology"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            >
+              Our Methodology
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

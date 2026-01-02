@@ -40,7 +40,7 @@ function getCategoryIcon(slug: string): React.ReactNode {
 export default function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link href={`/categories/${category.slug}`}>
-      <article className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 dark:border-white/10 dark:bg-gradient-to-br dark:from-slate-900/80 dark:to-slate-800/40 dark:hover:border-emerald-500/30 dark:hover:shadow-emerald-500/5">
+      <article className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 dark:border-emerald-500/20 dark:bg-slate-900 dark:hover:border-emerald-500/40 dark:hover:shadow-emerald-500/10">
         {/* Icon */}
         <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 text-emerald-600 transition-colors group-hover:from-emerald-500/30 group-hover:to-cyan-500/30 dark:text-emerald-400">
           {getCategoryIcon(category.slug)}
@@ -52,13 +52,13 @@ export default function CategoryCard({ category }: CategoryCardProps) {
         </h3>
         
         {category.description && (
-          <p className="mt-2 flex-1 text-sm text-slate-600 line-clamp-2 dark:text-slate-400">
+          <p className="mt-2 flex-1 text-sm text-slate-600 line-clamp-2 dark:text-slate-300">
             {category.description}
           </p>
         )}
 
         {/* Arrow */}
-        <div className="mt-4 flex items-center gap-1 text-sm text-slate-500 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-400">
+        <div className="mt-4 flex items-center gap-1 text-sm text-emerald-600 group-hover:text-emerald-500 dark:text-emerald-400 dark:group-hover:text-emerald-300">
           Explore category
           <svg
             className="h-4 w-4 transition-transform group-hover:translate-x-1"
