@@ -121,13 +121,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   ))}
                 </div>
               )}
-
-              {/* Price */}
-              {product.price_range && (
-                <p className="mt-4 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
-                  {product.price_range}
-                </p>
-              )}
             </div>
 
             {/* Score */}

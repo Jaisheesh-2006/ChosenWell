@@ -1,0 +1,257 @@
+[
+  {
+    "slug": "perfora-dream-relief-sensitive-toothpaste",
+    "name": "Dream Relief (Sensitive Toothpaste)",
+    "brand": "Perfora",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 88,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["sensitivity", "enamel_repair"],
+    "philosophy_tags": ["modern_science", "clean_label"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "mid_range",
+    "short_reason": "A modern, SLS-free formula using Nano-Hydroxyapatite for enamel repair.",
+    "why_recommended": [
+      "Contains Nano-Hydroxyapatite for natural remineralization",
+      "Uses Xylitol to prevent cavities without toxic fluoride levels",
+      "Very low abrasivity (RDA) score"
+    ],
+    "pros": ["Effective for sensitivity", "Pleasant modern flavor"],
+    "cons": ["Contains mild synthetic stabilizers"],
+    "ingredient_summary": "Nano-Hydroxyapatite, Xylitol, Aloe Vera, Vitamin C",
+    "certifications": ["Made Safe Certified"],
+    "excluded_ingredients": ["SLS", "Parabens", "Saccharin", "Triclosan"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/incxBDP" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/perfora-dream-white-fresh-mint-instant-teeth-whitening-sls-free-toothpaste/p/itm1631d551c1f6d" }
+    ],
+    "image_link": "./images/prefora_dream_white_toothpaste.webp"
+  },
+  {
+    "slug": "salt-oral-care-dawn-dusk-set",
+    "name": "Dawn & Dusk Toothpaste Set",
+    "brand": "Salt Oral Care",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": false,
+    "score": 86,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["whitening", "gum_health", "bad_breath"],
+    "philosophy_tags": ["modern_science", "lifestyle"],
+    "usage_pattern": "day_night_regimen",
+    "price_tier": "premium",
+    "short_reason": "High-end lifestyle toothpaste using N-HAp and charcoal for specific day/night needs.",
+    "why_recommended": [
+      "Specific night formula with charcoal for deep detox",
+      "Day formula with Saffron for brightening",
+      "Uses high-grade Nano-Hydroxyapatite"
+    ],
+    "pros": ["Aesthetic packaging", "Great texture and flavor"],
+    "cons": ["High price point"],
+    "ingredient_summary": "Nano-Hydroxyapatite, Charcoal, Saffron, Aloe Vera",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "Fluoride", "Parabens"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/bevNcna" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/salt-dusk-night-toothpaste-french-vanilla-enamel-protection-sls-fluoride-free/p/itm5c8d125923727" }
+    ],
+    "image_link": "./images/salt_oral_care_toothpaste_set.jpg"
+  },
+  {
+    "slug": "herbal-botanical-toothpaste",
+    "name": "Herbal Botanical Toothpaste",
+    "brand": "Botanical",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 83,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["daily_maintenance", "plaque_control"],
+    "philosophy_tags": ["botanical", "affordable_clean"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "affordable",
+    "short_reason": "A budget-friendly daily paste that successfully avoids the Toxic-Five gate.",
+    "why_recommended": [
+      "SLS and Fluoride-free maintenance",
+      "Uses traditional Neem and Clove for germ protection",
+      "Non-abrasive formula safe for long-term use"
+    ],
+    "pros": ["Highly affordable", "Simple ingredient list"],
+    "cons": ["Basic packaging", "Limited brand recognition"],
+    "ingredient_summary": "Neem, Clove, Babool, Peppermint",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "Fluoride", "Saccharin", "Parabens"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/iqc75Lr" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/herbal-botanical-toothpaste-toothpaste-white-teeth-stronger-teeth-fresh-breath-toothpaste/p/itm0422320ac27d5" }
+    ],
+    "image_link": "./images/herbal_botanical_toothpaste.webp"
+  },
+  {
+    "slug": "bentodent-premium-mint-natural-toothpaste",
+    "name": "Natural Toothpaste (Premium Mint)",
+    "brand": "Bentodent",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 84,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["detoxification", "bad_breath"],
+    "philosophy_tags": ["earth_based", "glycerin_free"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "affordable",
+    "short_reason": "Clay-based, glycerin-free toothpaste focused on natural remineralization and toxin removal.",
+    "why_recommended": [
+      "Glycerin-free to allow teeth to remineralize naturally",
+      "Bentonite clay absorbs toxins without harsh abrasion",
+      "Purely earth-based and chemical-free"
+    ],
+    "pros": ["Zero synthetic foam", "Highly affordable"],
+    "cons": ["Earthy texture may feel unusual"],
+    "ingredient_summary": "Bentonite Clay, Salt, Tea Tree Oil, Menthol",
+    "certifications": [],
+    "excluded_ingredients": ["Glycerin", "SLS", "Fluoride", "Saccharin"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/f9jAmtW" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/bentodent-premium-mint-natural-toothpaste/p/itmd9b990e20f4b2" }
+    ],
+    "image_link": "./images/bentodent_natural_toothpaste.jpg"
+  },
+  {
+    "slug": "vicco-vajradanti-toothpaste-herbal",
+    "name": "Vajradanti Ayurvedic Toothpaste",
+    "brand": "Vicco",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": false,
+    "score": 82,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["gum_bleeding", "pyorrhea", "loose_teeth"],
+    "philosophy_tags": ["ayurvedic", "legacy_brand"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "affordable",
+    "short_reason": "Legacy Indian herbal paste with 18 herbs proven for gum health and tooth tightening.",
+    "why_recommended": [
+      "Time-tested formula for tightening loose teeth",
+      "Purely herbal with 18 traditional medicinal barks",
+      "Effective at stopping gum bleeding"
+    ],
+    "pros": ["Effective for gum issues", "Budget friendly"],
+    "cons": ["Medicinal taste", "Strong brown color"],
+    "ingredient_summary": "Babool, Bakul, Lavang, Dalchini, Manjishtha",
+    "certifications": ["AYUSH"],
+    "excluded_ingredients": ["Animal products", "Synthetic dyes", "Sugar"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/hW0jiZq" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/vicco-vajradanti-regular-flavour-medicine-gums-teeth-with-18-ayurvedic-herbs-toothpaste/p/itm85769f826aa72" }
+    ],
+    "image_link": "./images/vicco_vajradanti_ayurvedic_toothpaste.jpg"
+  },
+  {
+    "slug": "dente91-cool-mint-toothpaste",
+    "name": "Cool Mint Toothpaste",
+    "brand": "Dente91",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 85,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["enamel_repair", "sensitivity"],
+    "philosophy_tags": ["modern_science", "anti_bacterial"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "mid_range",
+    "short_reason": "Science-led paste using Lactoferrin and nHAp for oral ecosystem balance.",
+    "why_recommended": [
+      "Contains Lactoferrin to kill bad bacteria naturally",
+      "Uses nHAp for enamel remineralization",
+      "Completely SLS and Paraben free"
+    ],
+    "pros": ["Advanced remineralization", "Fights bad bacteria specifically"],
+    "cons": ["Modern medicinal flavor"],
+    "ingredient_summary": "Nano-Hydroxyapatite, Lactoferrin, Xylitol",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "Fluoride", "Parabens"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/dofFFso" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/dente91-sensitivity-relief-repairs-cavities-free-sls-fluoride-toothpaste/p/itmff107678dd0fd" }
+    ],
+    "image_link": "./images/dente_91_enamel_pro.jpg"
+  },
+  {
+    "slug": "purexa-super-sensitive-toothpaste",
+    "name": "Super Sensitive Toothpaste",
+    "brand": "Purexa",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 81,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["daily_safety", "enamel_protection", "high_sensitivity"],
+    "philosophy_tags": ["dentist_recommended", "clean_label"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "affordable",
+    "short_reason": "A clinical-yet-natural paste designed as a safe alternative for moving away from mass-market brands.",
+    "why_recommended": [
+      "Strictly follows the Toxic-Five gate",
+      "Low abrasion formula safe for enamel",
+      "Balanced botanical and scientific base for sensitivity"
+    ],
+    "pros": ["Excellent starting point for clean oral care", "Gentle on gums"],
+    "cons": ["Standard mint flavor (not unique)"],
+    "ingredient_summary": "Xylitol, Meswak, Clove oil",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "Fluoride", "Parabens", "Triclosan"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/3bZ08mp" },
+      { "platform": "Flipkart", "url": "https://www.flipkart.com/purexa-sensitive-toothpaste-pack-2/p/itm4a51290672512" }
+    ],
+    "image_link": "./images/purexa_sensitive_toothpaste.jpg"
+  },
+  {
+    "slug": "ayudant-herbal-toothpaste",
+    "name": "Ayudant Herbal Toothpaste",
+    "brand": "Baidyanath",
+    "category_slug": "toothpaste",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": false,
+    "score": 78,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-02",
+    "primary_concerns": ["germ_protection", "cavities"],
+    "philosophy_tags": ["ayurvedic", "zero_sugar"],
+    "usage_pattern": "twice_daily",
+    "price_tier": "affordable",
+    "short_reason": "Traditional germ protection relying on Neem and Clove with zero added sugar.",
+    "why_recommended": [
+      "100% herbal germ protection",
+      "Relies on Neem and Clove for deep cleaning",
+      "Completely sugar-free formula"
+    ],
+    "pros": ["Pure Ayurvedic lineage", "No added sugar"],
+    "cons": ["Lower availability"],
+    "ingredient_summary": "Neem, Pudina, Triphala, Babool, Clove",
+    "certifications": ["AYUSH"],
+    "excluded_ingredients": ["Fluoride", "Saccharin", "Added Sugar", "SLS"],
+    "buy_links": [
+      { "platform": "Amazon", "url": "https://amzn.in/d/21RJKW7" }
+    ],
+    "image_link": "./images/ayudant_toothpaste.jpg"
+  }
+]
