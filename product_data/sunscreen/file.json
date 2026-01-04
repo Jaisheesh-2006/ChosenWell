@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "reequil-sheer-zinc-tinted-sunscreen",
+    "name": "Sheer Zinc Tinted Sunscreen (SPF 50 PA+++)",
+    "brand": "Re’equil",
+    "category_slug": "sunscreen",
+    "image_url": "./images/reequil_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 95,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["melasma", "hyperpigmentation", "blue_light_protection"],
+    "philosophy_tags": ["100_mineral", "fragrance_free", "dermatologically_tested"],
+    "usage_pattern": "daily_sun_protection",
+    "price_tier": "mid_range",
+    "short_reason": "A high-performance 100% mineral shield with a universal tint to prevent blue-light induced pigmentation.",
+    "why_recommended": [
+      "Uses 25% non-nano Zinc Oxide as the sole UV filter",
+      "Iron oxides in the tint provide essential protection against visible blue light",
+      "Completely free of Oxybenzone, OMC, and synthetic fragrances"
+    ],
+    "pros": ["Zero white cast due to tint", "Excellent for sensitive skin"],
+    "cons": ["Thick texture requires patting to blend"],
+    "ingredient_summary": "25% Zinc Oxide, Physalis Angulata Extract, Vitamin E",
+    "certifications": ["Dermatologically Tested"],
+    "excluded_ingredients": ["Oxybenzone", "Octinoxate", "Parabens", "Fragrance"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/0CoIr34",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/re-equil-sheer-zinc-tinted-sunscreen-100-mineral-spf-50-pa/p/itmfd1a4133e5d8a",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "minimalist-spf-60-silymarin-sunscreen",
+    "name": "Minimalist SPF 60 PA++++ Sunscreen",
+    "brand": "Minimalist",
+    "category_slug": "sunscreen",
+    "image_url": "./images/minimalist_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 92,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["u_v_protection", "oil_control", "oxidative_stress"],
+    "philosophy_tags": ["new_age_filters", "clean_science", "fragrance_free"],
+    "usage_pattern": "daily_sun_protection",
+    "price_tier": "mid_range",
+    "short_reason": "Uses next-gen photostable filters and antioxidants for an invisible, weightless finish.",
+    "why_recommended": [
+      "Features Tinosorb S and Uvinul A Plus which do not disrupt hormones",
+      "Infused with Silymarin (Milk Thistle) to neutralize free radicals",
+      "Verified SPF 60 rating via independent third-party testing"
+    ],
+    "pros": ["Completely invisible finish", "Pregnancy and lactation safe"],
+    "cons": ["May feel too light for extremely dry skin"],
+    "ingredient_summary": "Tinosorb S, Uvinul A Plus, Silymarin, Hyaluronic Acid",
+    "certifications": ["Clean Label Project"],
+    "excluded_ingredients": ["Oxybenzone", "Homosalate", "Octinoxate", "Fragrance"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/7au0jqC",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/minimalist-sunscreen-spf-60-pa-sun-cream-sensitive-acne-prone-skin-pregnancy-safe/p/itmc156746b227cf",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "chosen-safescreen-marina-mineral-sunscreen",
+    "name": "Chosen Safescreen Marina (SPF 50+ PA++++)",
+    "brand": "Chosen by Dermatology",
+    "category_slug": "sunscreen",
+    "image_url": "./images/chosen_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": false,
+    "score": 97,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["extreme_humidity", "water_resistance", "biocompatibility"],
+    "philosophy_tags": ["dermatologist_developed", "bloodstream_safe", "reef_safe"],
+    "usage_pattern": "outdoor_beach_active",
+    "price_tier": "premium",
+    "short_reason": "A medical-grade mineral sunscreen specifically optimized for India's humid tropical climate.",
+    "why_recommended": [
+      "Formulated to be 'bloodstream safe' with zero systemic absorption",
+      "Tested for 4 hours of water and sweat resistance",
+      "Uses non-nano Zinc Oxide in a high-purity mineral base"
+    ],
+    "pros": ["Superior humidity control", "Strictly non-absorbed filters"],
+    "cons": ["Premium price point"],
+    "ingredient_summary": "Non-Nano Zinc Oxide, Natural Clay, C15-19 Alkanes",
+    "certifications": ["ISO 24443 Tested", "Reef Safe"],
+    "excluded_ingredients": ["All Chemical Filters", "Silicones", "Fragrance"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/aSVkY1b",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "sunscoop-100-mineral-sunscreen",
+    "name": "SunScoop 100% Mineral Sunscreen (SPF 50 PA++++)",
+    "brand": "SunScoop",
+    "category_slug": "sunscreen",
+    "image_url": "./images/sun_scoop_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 89,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["sensitive_skin", "kid_safe", "inflammation"],
+    "philosophy_tags": ["pediatrician_recommended", "botanical_support", "mineral_only"],
+    "usage_pattern": "daily_family_use",
+    "price_tier": "affordable",
+    "short_reason": "A gentle, creamy mineral lotion ideal for children and reactive skin barriers.",
+    "why_recommended": [
+      "Paediatrician-approved formula for sensitive young skin",
+      "Contains Xylitol and Oat extract to soothe inflammation",
+      "Purely physical blocking with zero chemical penetration"
+    ],
+    "pros": ["Very soothing on 'angry' skin", "Budget-friendly mineral option"],
+    "cons": ["Slight white cast on darker skin tones"],
+    "ingredient_summary": "Zinc Oxide, Oat Kernel Extract, Xylitol, Ceramides",
+    "certifications": ["FDA Approved"],
+    "excluded_ingredients": ["Oxybenzone", "Parabens", "Fragrance", "Sulphates"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/6drg7Bg",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "http://flipkart.com/sunscoop-sunscreen-spf-50-pa-kids-lotion-100-mineral/p/itmdc429ac2722d4",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "la-shield-fisico-spf-50-matte-gel",
+    "name": "La Shield Fisico SPF 50+ PA+++",
+    "brand": "Glenmark (La Shield)",
+    "category_slug": "sunscreen",
+    "image_url": "./images/la_shield_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 91,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["sports_protection", "sweat_resistance", "acne_prone"],
+    "philosophy_tags": ["pharmaceutical_grade", "matte_finish", "preservative_free"],
+    "usage_pattern": "outdoor_sports_active",
+    "price_tier": "mid_range",
+    "short_reason": "A pharmacy-favorite mineral gel that stays put during heavy sweat and outdoor activity.",
+    "why_recommended": [
+      "100% Micronized Zinc Oxide for transparent mineral protection",
+      "Completely free of preservatives and potential endocrine disruptors",
+      "High water resistance makes it suitable for swimming"
+    ],
+    "pros": ["Sweat-proof", "No medicinal or synthetic smell"],
+    "cons": ["Heavy silicone feel"],
+    "ingredient_summary": "25% Micronized Zinc Oxide, Vitamin E, Alkyl Benzoate",
+    "certifications": ["Dermatologically Tested"],
+    "excluded_ingredients": ["Parabens", "Fragrance", "Oxybenzone", "Chemical Filters"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/6JBcScs",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/la-shield-fisico-spf-50-pa/p/itmcd164dae78bc4",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "gabit-100-mineral-sunscreen-prebiotics",
+    "name": "Gabit 100% Mineral Sunscreen (SPF 50 PA++++)",
+    "brand": "Gabit",
+    "category_slug": "sunscreen",
+    "image_url": "./images/gabit_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 93,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["skin_barrier_repair", "microbiome_health", "pollution_shield"],
+    "philosophy_tags": ["prebiotic_powered", "skin_repair", "clean_skincare"],
+    "usage_pattern": "daily_skincare_routine",
+    "price_tier": "affordable",
+    "short_reason": "A skin-loving mineral sunscreen that uses prebiotics to nurture the skin's natural ecosystem.",
+    "why_recommended": [
+      "Powered by Prebiotics and Probiotics to improve the skin barrier",
+      "Contains superfoods like Ashwagandha and Amla for antioxidant support",
+      "Strictly excludes silicones and endocrine-disrupting filters"
+    ],
+    "pros": ["Feels like a moisturizer", "Nurtures skin microbiome"],
+    "cons": ["Tint-free version may show on very deep skin tones"],
+    "ingredient_summary": "Zinc Oxide, Ashwagandha, Probiotics, Vitamin E, Oat Extract",
+    "certifications": ["FDA Approved"],
+    "excluded_ingredients": ["Silicones", "Mineral Oils", "Fragrance", "Parabens"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/9s54I6n",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/gabit-sunscreen-spf-50-pa-100-mineral/p/itmedb53fb2f9a8c",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "rivela-dermascience-tinosorb-m-zinc-sunscreen",
+    "name": "Rivela Dermascience Tinosorb M + Zinc Oxide",
+    "brand": "Cipla (Rivela)",
+    "category_slug": "sunscreen",
+    "image_url": "./images/rivela_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 88,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["makeup_primer", "soothing", "broad_spectrum"],
+    "philosophy_tags": ["pharmaceutical_science", "hybrid_clean", "antioxidant_rich"],
+    "usage_pattern": "under_makeup_daily",
+    "price_tier": "mid_range",
+    "short_reason": "A clean hybrid sunscreen from Cipla that combines modern safe filters with botanical healing.",
+    "why_recommended": [
+      "Combines Tinosorb M (safe organic filter) with Zinc and Titanium",
+      "Infused with Gotu Kola (Cica) and Green Tea to calm irritation",
+      "Pharmaceutical quality assurance from Cipla Health"
+    ],
+    "pros": ["Acts as a smooth primer", "Very soothing for redness"],
+    "cons": ["Contains a mix of filters, not 100% mineral"],
+    "ingredient_summary": "Tinosorb M, Zinc Oxide, Gotu Kola, Green Tea Extract",
+    "certifications": ["Clinical Dermatology Tested"],
+    "excluded_ingredients": ["Parabens", "SLS", "Mineral Oils"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/1td73Ws",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/rivela-sunscreen-spf-50-pa-pa/p/itmd530982cbad25",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "uv-doux-mineral-tinted-sunscreen-gel",
+    "name": "UV Doux Mineral Sunscreen Gel (SPF 50 PA+++)",
+    "brand": "Brinton (UV Doux)",
+    "category_slug": "sunscreen",
+    "image_url": "./images/uv_doux_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 94,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["acne_prevention", "extreme_matte", "sweat_resistance"],
+    "philosophy_tags": ["anhydrous_gel", "non_comedogenic", "tinted_mineral"],
+    "usage_pattern": "daily_matte_protection",
+    "price_tier": "mid_range",
+    "short_reason": "An water-free mineral gel that provides a weightless matte finish while preventing clogged pores.",
+    "why_recommended": [
+      "Water-free (anhydrous) formula naturally resists bacterial growth",
+      "100% Mineral filters with a subtle tint to neutralize white cast",
+      "Clinically proven non-acnegenic and hypoallergenic"
+    ],
+    "pros": ["True matte finish", "Won't sting eyes"],
+    "cons": ["Gel texture can feel 'pasty' if over-applied"],
+    "ingredient_summary": "Zinc Oxide, Titanium Dioxide, Vitamin E",
+    "certifications": ["Non-Comedogenic Certified"],
+    "excluded_ingredients": ["Water", "Chemical Filters", "Parabens", "Fragrance"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/0rMB5fB",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/brinton-sunscreen-spf-50-pa-uv-doux-mineral/p/itmaa14d2e8a9fe8",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "skininspired-kidscreen-mineral-sunscreen",
+    "name": "SkinInspired Kidscreen (SPF 50+ PA++++)",
+    "brand": "SkinInspired",
+    "category_slug": "sunscreen",
+    "image_url": "./images/kidscreen_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 96,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["eczema_safe", "pediatric_care", "maximum_purity"],
+    "philosophy_tags": ["us_fda_ingredients", "airless_pump", "vegan"],
+    "usage_pattern": "daily_protection_kids_sensitive",
+    "price_tier": "premium",
+    "short_reason": "The highest safety standard for pediatric and eczema-prone skin, using US FDA-approved safe ingredients.",
+    "why_recommended": [
+      "Uses 25% non-nano Zinc Oxide (ZinClear IM) for top-tier safety",
+      "Packaged in airless pumps to prevent oxidation and contamination",
+      "Enriched with Pro-Vitamin B5 and Vitamin E to soothe delicate skin"
+    ],
+    "pros": ["Airless packaging", "Pediatrician approved"],
+    "cons": ["Higher price than standard kids sunscreens"],
+    "ingredient_summary": "25% Non-Nano Zinc Oxide, Pro-Vitamin B5, Vitamin E",
+    "certifications": ["Vegan", "Cruelty Free"],
+    "excluded_ingredients": ["Fragrance", "Chemical Filters", "Parabens", "Essential Oils"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/0IrBHJ4",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/skininspired-sunscreen-spf-50-pa-kidscreen-100-mineral-sunscreen-non-greasy-vitamin-e-pro-b5/p/itm63c38a6c7187e",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "dr-sheths-vitamin-c-ceramide-mineral-sunscreen",
+    "name": "Vitamin C & Ceramide Mineral Sunscreen",
+    "brand": "Dr. Sheth's",
+    "category_slug": "sunscreen",
+    "image_url": "./images/sheth_sunscreen.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 90,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["dull_skin", "barrier_repair", "hydration"],
+    "philosophy_tags": ["indian_skin_expert", "botanical_science", "clean_label"],
+    "usage_pattern": "morning_glow_routine",
+    "price_tier": "affordable",
+    "short_reason": "A hydrating mineral sunscreen that repairs the skin barrier while adding a natural glow.",
+    "why_recommended": [
+      "Ceramides strengthen the skin barrier against environmental heat",
+      "Vitamin C helps fade sunspots and boosts overall radiance",
+      "Specifically formulated for the hydration needs of Indian skin"
+    ],
+    "pros": ["Moisturizing finish", "No white cast for a mineral paste"],
+    "cons": ["Not water-resistant; requires frequent reapplication if sweating"],
+    "ingredient_summary": "Zinc Oxide, Titanium Dioxide, Ceramides, Vitamin C",
+    "certifications": ["Dermatologically Tested"],
+    "excluded_ingredients": ["Oxybenzone", "Fragrance", "Parabens"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/bVd345F",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/dr-sheth-s-sunscreen-spf-50-pa-ceramide-vitamin-c-long-lasting/p/itmb7c79e8efd5d8",
+        "link_type": "affiliate"
+      }
+    ]
+  }
+]

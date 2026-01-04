@@ -114,9 +114,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </h1>
 
               {/* Tags */}
-              {product.tags && product.tags.length > 0 && (
+              {product.tags && (
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {product.tags.map((tag) => (
+                  {product.tags.concern?.map((tag) => (
+                    <TagBadge key={tag} tag={tag} />
+                  ))}
+                  {product.tags.philosophy?.map((tag) => (
+                    <TagBadge key={tag} tag={tag} />
+                  ))}
+                  {product.tags.budget && (
+                    <TagBadge
+                      key={product.tags.budget}
+                      tag={product.tags.budget}
+                    />
+                  )}
+                  {product.tags.usage?.map((tag) => (
                     <TagBadge key={tag} tag={tag} />
                   ))}
                 </div>
@@ -429,7 +441,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
           brand: product.brand,
           score: product.score,
           short_reason: product.why_recommended?.[0],
-          price_range: product.price_range,
         }}
         slug={product.slug}
       />

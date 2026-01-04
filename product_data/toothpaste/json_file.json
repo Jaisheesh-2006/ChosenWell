@@ -26,8 +26,16 @@
     "certifications": ["Made Safe Certified"],
     "excluded_ingredients": ["SLS", "Parabens", "Saccharin", "Triclosan"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/incxBDP" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/perfora-dream-white-fresh-mint-instant-teeth-whitening-sls-free-toothpaste/p/itm1631d551c1f6d" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/incxBDP",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/perfora-dream-white-fresh-mint-instant-teeth-whitening-sls-free-toothpaste/p/itm1631d551c1f6d",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/prefora_dream_white_toothpaste.webp"
   },
@@ -58,8 +66,16 @@
     "certifications": [],
     "excluded_ingredients": ["SLS", "Fluoride", "Parabens"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/bevNcna" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/salt-dusk-night-toothpaste-french-vanilla-enamel-protection-sls-fluoride-free/p/itm5c8d125923727" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/bevNcna",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/salt-dusk-night-toothpaste-french-vanilla-enamel-protection-sls-fluoride-free/p/itm5c8d125923727",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/salt_oral_care_toothpaste_set.jpg"
   },
@@ -90,8 +106,16 @@
     "certifications": [],
     "excluded_ingredients": ["SLS", "Fluoride", "Saccharin", "Parabens"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/iqc75Lr" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/herbal-botanical-toothpaste-toothpaste-white-teeth-stronger-teeth-fresh-breath-toothpaste/p/itm0422320ac27d5" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/iqc75Lr",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/herbal-botanical-toothpaste-toothpaste-white-teeth-stronger-teeth-fresh-breath-toothpaste/p/itm0422320ac27d5",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/herbal_botanical_toothpaste.webp"
   },
@@ -122,8 +146,16 @@
     "certifications": [],
     "excluded_ingredients": ["Glycerin", "SLS", "Fluoride", "Saccharin"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/f9jAmtW" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/bentodent-premium-mint-natural-toothpaste/p/itmd9b990e20f4b2" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/f9jAmtW",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/bentodent-premium-mint-natural-toothpaste/p/itmd9b990e20f4b2",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/bentodent_natural_toothpaste.jpg"
   },
@@ -154,8 +186,16 @@
     "certifications": ["AYUSH"],
     "excluded_ingredients": ["Animal products", "Synthetic dyes", "Sugar"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/hW0jiZq" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/vicco-vajradanti-regular-flavour-medicine-gums-teeth-with-18-ayurvedic-herbs-toothpaste/p/itm85769f826aa72" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/hW0jiZq",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/vicco-vajradanti-regular-flavour-medicine-gums-teeth-with-18-ayurvedic-herbs-toothpaste/p/itm85769f826aa72",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/vicco_vajradanti_ayurvedic_toothpaste.jpg"
   },
@@ -186,8 +226,16 @@
     "certifications": [],
     "excluded_ingredients": ["SLS", "Fluoride", "Parabens"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/dofFFso" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/dente91-sensitivity-relief-repairs-cavities-free-sls-fluoride-toothpaste/p/itmff107678dd0fd" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/dofFFso",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/dente91-sensitivity-relief-repairs-cavities-free-sls-fluoride-toothpaste/p/itmff107678dd0fd",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/dente_91_enamel_pro.jpg"
   },
@@ -202,7 +250,11 @@
     "score": 81,
     "score_version": "v1",
     "last_reviewed_at": "2026-01-02",
-    "primary_concerns": ["daily_safety", "enamel_protection", "high_sensitivity"],
+    "primary_concerns": [
+      "daily_safety",
+      "enamel_protection",
+      "high_sensitivity"
+    ],
     "philosophy_tags": ["dentist_recommended", "clean_label"],
     "usage_pattern": "twice_daily",
     "price_tier": "affordable",
@@ -218,8 +270,16 @@
     "certifications": [],
     "excluded_ingredients": ["SLS", "Fluoride", "Parabens", "Triclosan"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/3bZ08mp" },
-      { "platform": "Flipkart", "url": "https://www.flipkart.com/purexa-sensitive-toothpaste-pack-2/p/itm4a51290672512" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/3bZ08mp",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/purexa-sensitive-toothpaste-pack-2/p/itm4a51290672512",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/purexa_sensitive_toothpaste.jpg"
   },
@@ -250,7 +310,11 @@
     "certifications": ["AYUSH"],
     "excluded_ingredients": ["Fluoride", "Saccharin", "Added Sugar", "SLS"],
     "buy_links": [
-      { "platform": "Amazon", "url": "https://amzn.in/d/21RJKW7" }
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/21RJKW7",
+        "link_type": "affiliate"
+      }
     ],
     "image_link": "./images/ayudant_toothpaste.jpg"
   }

@@ -1,0 +1,267 @@
+[
+  {
+    "slug": "juicy-chemistry-tea-tree-neem-rosemary-soap",
+    "name": "Tea Tree, Neem and Rosemary Organic Soap",
+    "brand": "Juicy Chemistry",
+    "category_slug": "soap",
+    "image_url": "./images/TeaTreeRosemary_1024x1024.webp",
+
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+
+    "score": 94,
+    "score_version": "v1",
+    "last_reviewed_at": "2025-12-10",
+
+    "primary_concerns": ["acne_prone", "anti_microbial"],
+    "philosophy_tags": ["cold_processed", "organic_certified"],
+    "usage_pattern": "daily_use",
+    "price_tier": "mid_range",
+
+    "short_reason": "EcoCert COSMOS Organic cold-process soap with neem + tea-tree for antimicrobial, acne-prone skin — fully ingredient-transparent; gentle, super-fatted formulation preserves glycerin and avoids synthetic preservatives.",
+
+    "why_recommended": [
+      "EcoCert COSMOS Organic certified (third-party audited) and uses cold-process saponification — an anhydrous, super-fatted formula that preserves glycerin and avoids synthetic preservatives.",
+      "Formulation uses Neem, Tea Tree and Rosemary at meaningful concentrations for antimicrobial support; full INCI and manufacturing notes are published by the brand.",
+      "Anhydrous cold-process method and transparent supply chain reduce microbiological risk while delivering skin-friendly fatty acids appropriate for Indian conditions.",
+      "Dermatologically tested for safety and irritation; shelf life stated on product page (9 months from manufacture, 6 months after opening)."
+    ],
+    "pros": [
+      "EcoCert COSMOS Organic certification",
+      "Full INCI disclosure and cold-process formulation",
+      "Effective botanical antimicrobial synergy for acne-prone skin"
+    ],
+    "cons": [
+      "Shorter shelf-life than highly preserved commercial bars (requires dry storage)",
+      "May be softer in humid storage conditions"
+    ],
+
+    "ingredient_summary": "Sodium Oliviate (saponified olive oil), Sodium Cocoate (saponified coconut oil), Neem Leaf Extract (Azadirachta indica), Aqua, Sodium Shea Butterate (saponified shea butter), Sodium Mango Butterate (saponified mango butter), Sodium Castorate (saponified castor oil), Lavandula angustifolia (Lavender) Oil, Rosmarinus officinalis (Rosemary) Oil, Melaleuca alternifolia (Tea Tree) Oil. (Saponified oils of Olive, Coconut and Castor; ingredients from organic farming noted on product page.)",
+
+    "certifications": ["EcoCert COSMOS Organic"],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+
+    "buy_links": [
+      {
+        "vendor": "Juicy Chemistry",
+        "url": "https://www.juicychemistry.co.za/shop/face-care/tea-tree-neem-rosemary/",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "soultree-healing-turmeric-tulsi-soap",
+    "name": "SoulTree Healing Soap — Turmeric & Tulsi (70 g)",
+    "brand": "SoulTree",
+    "category_slug": "soap",
+    "image_url": "./images/Soultree_healing_soap.jpg",
+
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+
+    "score": 90,
+    "score_version": "v1",
+    "last_reviewed_at": "2025-11-20",
+
+    "primary_concerns": ["sensitive_skin", "anti_microbial"],
+    "philosophy_tags": ["ayurvedic", "certified_natural", "bdih"],
+    "usage_pattern": "daily_use",
+    "price_tier": "mid_range",
+
+    "short_reason": "BDIH / ‘Certified Natural’ formulation using turmeric and tulsi in a high-TFM vegetable-oil soap base — transparent INCI and mild formulation logic suited to sensitive skin.",
+
+    "why_recommended": [
+      "Listed as ‘Certified Natural’ by BDIH on retailer/brand pages — this enforces exclusion of many questionable synthetics and adds a third-party trust signal.",
+      "Brand publishes INCI and positions the soap as high-TFM / vegetable oil based with turmeric and tulsi for anti-inflammatory and antimicrobial benefits. ",
+      "Product pages indicate absence of parabens and SLS/SLES and recommend it for sensitive, blemish-prone skin. "
+    ],
+
+    "pros": [
+      "BDIH / Certified Natural trust signal",
+      "Botanical actives with anti-inflammatory rationale (turmeric) and antimicrobial support (tulsi)",
+      "High-TFM / vegetable-oil soap base preserves glycerin and is gentle when used with proper user guidance"
+    ],
+    "cons": [
+      "May contain natural fragrance / essential oil allergens (check INCI for Linalool, Limonene)",
+      "Alkaline pH inherent to soap bars — users coming from syndet products may need a transition period"
+    ],
+
+    "ingredient_summary": "High-TFM vegetable oil soap base (saponified vegetable oils), Turmeric extract (Curcuma spp.), Tulsi (Ocimum sanctum) extract, glycerin, moisturizing vegetable oils/butters; full INCI published on product/retailer pages. ",
+    "certifications": ["BDIH (Certified Natural)"],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/cdoYSRz",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/soultree-healing-soap-turmeric-tulsi/p/itma2164c0f953cc",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "rustic-art-lemon-charcoal-soap",
+    "name": "Lemon Charcoal Soap",
+    "brand": "Rustic Art",
+    "category_slug": "soap",
+    "image_url": "./images/RusticArt.jpg",
+
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+
+    "score": 88,
+    "score_version": "v1",
+    "last_reviewed_at": "2025-12-01",
+
+    "primary_concerns": ["oily_skin", "acne_prone"],
+    "philosophy_tags": ["cold_processed", "sustainable"],
+    "usage_pattern": "daily_use",
+    "price_tier": "mid_range",
+
+    "short_reason": "Cold-process, high-TFM bar with activated charcoal and lemon for oil-control and gentle exfoliation; transparent ingredient practices and plastic-free packaging make it an eco-friendly everyday option.",
+    "why_recommended": [
+      "Cold-process formulation using a balanced blend of hard and soft oils (coconut, castor, sunflower, rice bran, linseed, sesame, karanja, olive, hemp and kokum butter) that preserves glycerin and performs well in Indian water conditions.",
+      "Activated charcoal provides gentle adsorption of surface oil and impurities while lemon peel and lemongrass offer mild astringent and brightening action — mechanisms align with oily/acne-prone claims.",
+      "Brand publishes full ingredient disclosure and emphasizes sustainable, plastic-free packaging; product positioning and formulation match our non-negotiable exclusions (no SLS/SLES/parabens/formaldehyde donors)."
+    ],
+    "pros": [
+      "Good oil-control profile for oily/acne-prone skin",
+      "Cold-process preserves glycerin and yields high TFM benefits",
+      "Sustainable, plastic-free packaging"
+    ],
+    "cons": [
+      "Contains citrus-derived ingredients (lemon peel/oil) — potential sensitizer for very sensitive skin (check for Limonene/Linalool if allergen-sensitive)",
+      "As a true soap bar it is alkaline — users coming from syndet products may need a transition period"
+    ],
+
+    "ingredient_summary": "Organic Oils of Cocos nucifera (Coconut); Ricinus communis (Castor); Helianthus annuus (Sunflower); Oryza sativa bran (Rice bran); Linum usitatissimum (Linseed); Sesamum indicum (Sesame); Pongamia glabra (Karanja); Olea europaea (Olive); Cannabis sativa (Hemp Oil); Garcinia indica (Kokum) Butter; Activated Charcoal; Citrus medica limonum (Lemon) Peel Powder; Cymbopogon schoenanthus (Lemongrass) Oil; Citrus medica limonum (Lemon) Peel Oil; Sodium Hydroxide; Purified Aqua; Citric Acid.",
+
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/hHr5f14",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/rustic-art-lemon-charcoal-soap/p/itm0c7678419bcaa",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "vilvah-classic-goat-milk-soap",
+    "name": "Classic Goat Milk Soap (125 g)",
+    "brand": "Vilvah",
+    "category_slug": "soap",
+    "image_url": "./images/vilvah_classic_goat_milk_soap.jpg",
+
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+
+    "score": 87,
+    "score_version": "v1",
+    "last_reviewed_at": "2025-11-30",
+
+    "primary_concerns": ["dry_skin", "sensitive_skin"],
+    "philosophy_tags": ["cold_processed", "goat_milk"],
+    "usage_pattern": "daily_use",
+    "price_tier": "mid_range",
+
+    "short_reason": "Handmade cold-processed goat-milk soap with a high-TFM vegetable oil base; farm-fresh goat milk and emollient oils support moisturization and barrier repair while preserving glycerin.",
+    "why_recommended": [
+      "Vilvah documents the product as a cold-processed goat-milk soap made with farm-fresh goat milk — ideal for dry and sensitive skin. ",
+      "Ingredient analysis (INCI) shows key emollients: Extra-virgin olive oil, coconut oil and castor oil; these provide a high-TFM profile and help retain skin moisture.",
+      "Retail listing (Flipkart) confirms product weight (125 g) and positioning for face & body; no organic claim is made on the retailer page. "
+    ],
+    "pros": [
+      "Excellent moisturizing profile (goat milk + olive/coconut oils)",
+      "Cold-processed method preserves natural glycerin and skin-friendly fatty acids",
+      "Good match for dry or sensitive skin when used with proper user guidance"
+    ],
+    "cons": [
+      "As a true soap bar it is alkaline — users switching from syndet products may need a transition period",
+      "Perishable in very humid storage if not kept dry (recommend dry dish)"
+    ],
+
+    "ingredient_summary": "Goat Milk; Olea Europaea (Extra Virgin Olive Oil); Cocos Nucifera (Coconut Oil); Ricinus Communis (Castor Oil); Lavandula Angustifolia (Lavender essential oil) [note: check SKU INCI for fragrance/EO], Sodium Hydroxide (Lye).",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+
+    "buy_links": [
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/vilvah-classic-goatmilk-soap-dry-skin/p/itm8e16fa72811f8",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Vilvah Store",
+        "url": "https://www.vilvahstore.com/products/classic-goatmilk-soap",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "kaprica-100pct-coconut-soap",
+    "name": "100% Coconut Oil Soap (Lavender & Tea Tree)",
+    "brand": "Kaprica Naturals",
+    "category_slug": "soap",
+    "image_url": "./images/Kaprica.webp",
+
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+
+    "score": 85,
+    "score_version": "v1",
+    "last_reviewed_at": "2025-10-15",
+
+    "primary_concerns": ["hard_water_friendly", "dry_skin"],
+    "philosophy_tags": ["cold_processed", "high_TFM"],
+    "usage_pattern": "2-3_times_per_week",
+    "price_tier": "affordable",
+
+    "short_reason": "Artisanal cold-pressed 100% coconut oil soap (Lavender & Tea Tree) with a high TFM (~80) for strong lather in hard water; simple INCI and no added preservatives/sulfates/parabens per brand listings.",
+    "why_recommended": [
+      "Formulated from pure cold-pressed coconut oil (high lauric profile) producing strong lather and good rinsability in hard water — manufacturer-stated TFM ≈ 80. :contentReference[oaicite:1]{index=1}",
+      "Minimalist INCI (cold-pressed coconut oil, vegan glycerin, Lavender & Tea Tree essential oils) reduces hidden additives and allergen vectors compared with complex commercial bars. :contentReference[oaicite:2]{index=2}",
+      "Brand and multiple retailers list the product as preservative-free and free from sulfates/parabens — aligns with our exclusion gate and makes it a safe starting point for many users (with guidance about dryness). :contentReference[oaicite:3]{index=3}"
+    ],
+    "pros": [
+      "Excellent lather and rinsability in hard water due to high-lauric coconut oil",
+      "Very simple, short INCI list (low chemical complexity)",
+      "Affordable artisan option with clear product positioning"
+    ],
+    "cons": [
+      "Very cleansing (can be drying for extremely dry skin) — follow with a moisturizer",
+      "Contains essential oils (Lavender, Tea Tree) which may be sensitizers for some users"
+    ],
+
+    "ingredient_summary": "Pure Cold Pressed Coconut Oil (Cocos Nucifera), Vegan Glycerin, Lavandula angustifolia (Lavender) Essential Oil, Melaleuca alternifolia (Tea Tree) Essential Oil, Sodium Hydroxide (fully reacted) — TFM ≈ 80 (manufacturer-stated).",
+    "certifications": [],
+    "excluded_ingredients": ["SLS", "SLES", "Parabens", "Formaldehyde donors"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/24aJTwT",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/kaprica-natural-handmade-pure-cold-pressed-coconut-oil-soap/p/itmfgghcuzyrjgee",
+        "link_type": "affiliate"
+      }
+    ]
+  }
+]

@@ -1,0 +1,144 @@
+SOAP SELECTION CRITERIA
+How we decide which soaps belong on this platform
+
+India’s soap market is a mixed landscape: traditional cold-process bars, syndet bars, liquid cleansers, and many “herbal” products that hide their chemistry. Our job is to act as a strict filter — listing only soaps that are safe, transparent, and appropriate for Indian skin and environmental conditions.
+
+If a soap appears here, it has passed a safety and performance gate that most mass-market products do not. Below is the exact bar.
+
+---
+
+1. Non-negotiable exclusions (fast fail)
+   Before any soap is considered, the product must **pass an ingredient screen**. Any product containing any of the following is **automatically rejected**:
+
+* **Sodium Lauryl Sulfate (SLS) / Sodium Laureth Sulfate (SLES)**
+* **Parabens** (methyl/ethyl/propyl/butyl)
+* **Formaldehyde releasers** (DMDM Hydantoin, Diazolidinyl Urea, Imidazolidinyl Urea, etc.)
+* **Phthalates / Triclosan / microbeads / intentionally added endocrine disruptors**
+* **Undisclosed “Base Q.S.” or truncated INCI** (no hidden bases allowed)
+
+**Why:** These ingredients are proven risk vectors (irritation, endocrine disruption, contamination). We will not list products that rely on these shortcuts. 
+
+---
+
+2. Allowed cleansing systems (what we accept)
+   Soaps must use cleansing systems that balance efficacy with skin barrier health and Indian water conditions:
+
+* **Cold-process saponified bars** (allowed if TFM, pH guidance, and manufacturing documentation provided)
+* **Syndets / soap-free surfactants**: SCI (Sodium Cocoyl Isethionate), Sodium Cocoyl Glycinate, Decyl Glucoside — preferred for facial and hard-water contexts
+* **Glucosides / sarcosinates / validated botanical saponins** (Reetha, Sapindus) when documented
+* **Functional botanical actives** (Neem, Kasturi turmeric, Tulsi, Goat milk, Shea, Kokum) accepted when present at meaningful concentrations and fully declared
+
+**Why:** These families avoid the strip-and-mask cycle of harsh surfactants and perform better in Indian hard water. 
+
+---
+
+3. Preservation & shelf rules (practical safety)
+
+* **Anhydrous bars** (cold process) may not require strong preservatives but must publish **manufacture date, batch, and shelf guidance**; antioxidants (vitamin E) recommended.
+* **Water-containing formulations (liquid soaps / some syndet bars)** must provide a **preservative efficacy (challenge) test**; **parabens are not allowed**. Accept EcoCert/BDIH-approved preservative systems (e.g., benzyl alcohol + dehydroacetic acid, potassium sorbate).
+* **Short-shelf / fresh formats** must have explicit shelf-life instructions and distribution controls.
+* **Labeling must include** “best before / use within” and traceable batch number.
+
+**Why:** India’s distribution and climate require documented microbial safety for water-containing products. 
+
+---
+
+4. Testing & lab checks (must-have evidence)
+   Submissions must include the following tests depending on product type:
+
+**For cold-process bars:**
+
+* TFM (Total Fatty Matter) or manufacturing spec
+* pH (measured in 10% solution) and user guidance
+* Heavy metal report (Pb, As, Hg limits)
+* Microbial limit test if processing includes water or liquid finishes
+
+**For syndets / liquid soaps:**
+
+* Preservative Efficacy Test (Challenge test)
+* pH (target 5.5–6.5 where possible)
+* Heavy metals certificate
+* Hard-water lather / scum test if claiming “hard-water friendly”
+
+**Why:** These checks prevent false claims and ensure performance in Indian conditions. 
+
+---
+
+5. Labeling & transparency (non-negotiable)
+
+* **Full INCI disclosure** on product page exactly as on packaging — no “Base Q.S.”.
+* **Clarify origin/form** of botanicals (e.g., “Neem oil (Azadirachta indica) extract 2%”).
+* **Claims must be evidence-backed** (e.g., “brightening” → specify active and mechanism).
+* **Usage instructions** and transition expectations (e.g., “may feel less silky during transition from commercial soap”).
+* **Shelf life and storage** and **batch number** must be shown.
+
+**Why:** Transparency is the strongest defense against greenwashing. 
+
+---
+
+6. Certification policy (what counts)
+
+* **High-trust**: ECOCERT / COSMOS / BDIH — meaningful for organic or natural claims.
+* **Contextual trust**: AYUSH + WHO-GMP for Ayurvedic therapeutic claims (but AYUSH does not replace full INCI).
+* **Supportive**: ISO / GMP / cruelty-free seals help but are not sufficient alone.
+* **“Natural/herbal” labels** without INCI and test documentation are **not** sufficient.
+
+---
+
+7. Environment & hard-water rules
+
+* Claims such as **“hard-water friendly”** must be backed by a lather/scum test or validated field testing in high TDS water. Syndet bars should show SCI or comparable surfactant data. 
+
+---
+
+8. UI badges — exact pass criteria
+   Show badges only when the product meets the required evidence:
+
+* **SLS/SLES Free** — INCI verification
+* **Paraben Free** — INCI verification
+* **No Formaldehyde Donors** — INCI verification
+* **Cold-Process / TFM Certified** — TFM + manufacturing doc present
+* **Syndet (SCI)** — SCI listed + pH shown
+* **EcoCert / BDIH** — certification uploaded
+* **Hard-Water Friendly** — lather test provided
+* **Short-Shelf** — clear shelf instructions present
+
+Each badge must link to a tooltip explaining the evidence required.
+
+---
+
+9. Scoring blueprint (0–100) — suggested weights
+
+* **Safety & Transparency** — 40% (INCI, excluded ingredients, heavy metals)
+* **Performance / Efficacy** — 25% (cleansing without damage, lather/hard water)
+* **Formulation Quality** — 15% (real actives, meaningful concentrations)
+* **Manufacturing & Certifications** — 10% (GMP, AYUSH, EcoCert)
+* **Sustainability & Packaging** — 10% (biodegradability, plastic reduction)
+
+**Why:** Safety dominates for a health-first platform; certifications and sustainability add trust but cannot override ingredient safety. 
+
+---
+
+10. Tag taxonomy (small and strict)
+    **Primary concerns (max 2):** `sensitive_skin`, `dry_skin`, `oily_skin`, `acne_prone`, `hard_water_friendly`, `brightening`, `anti_microbial`
+    **Philosophy tags (max 2):** `cold_processed`, `syndet`, `organic_certified`, `ayurvedic`, `goat_milk`, `zero_chemical`, `solid_bar`
+    **Usage pattern:** `daily_use`, `spot_use`, `weekly_detox`, `short_shelf`
+
+Use lookup tables and validation to prevent drift.
+
+---
+
+11. Acceptance & editorial flow (operational)
+
+1) **Metadata upload:** INCI, manufacturing info, shelf life, claims.
+2) **Automated INCI scanner:** screen for excluded ingredients (auto-reject).
+3) **Upload docs:** heavy metals, pH, TFM (if soap), PET (if water-based), certifications.
+4) **Editorial review:** product copy, expected experience, badge evaluation.
+5) **Publish with badges** and set `safe_starting_point` when appropriate.
+
+---
+
+Copy for criteria page (pasteable paragraph)
+“We list only soaps that meet a rigorous safety and transparency standard: full INCI disclosure, no SLS/SLES, no parabens or formaldehyde-releasers, documented heavy-metal and microbial testing where applicable, and evidence of formulation suitability for Indian conditions (hard water, humidity). We accept both traditional cold-process bars and modern syndet cleansers — provided their chemistry is safe for long-term use. Our goal: soaps that clean without compromising skin barrier or health.” 
+
+

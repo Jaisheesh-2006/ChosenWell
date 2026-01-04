@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "kama-ayurveda-bringadi-intensive-hair-treatment",
+    "name": "Bringadi Intensive Hair Treatment",
+    "brand": "Kama Ayurveda",
+    "category_slug": "hair_oil",
+    "image_url": "./images/kama_ayurvedha_brigandi_intensive_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": false,
+    "score": 96,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["premature_greying", "hair_repair", "hair_fall"],
+    "philosophy_tags": ["ayurvedic", "lux   ury", "traditional_extraction"],
+    "usage_pattern": "pre_wash_treatment",
+    "price_tier": "premium",
+    "short_reason": "The gold standard of Ayurvedic hair care, using a 100% natural traditional base and extraction method.",
+    "why_recommended": [
+      "Uses the traditional Kshir Pak Vidhi extraction method",
+      "Indigo and Bhringraj effectively manage early greying",
+      "Completely free of any chemical preservatives or synthetic scents"
+    ],
+    "pros": ["Exceptional quality ingredients", "Authentic clinical results"],
+    "cons": ["High price point", "Strong medicinal scent"],
+    "ingredient_summary": "Indigo, Bhringraj, Amla, Sesame Oil, Milk",
+    "certifications": ["100% Natural"],
+    "excluded_ingredients": ["Mineral Oil", "Synthetic Fragrance", "Silicones", "BHT", "Artificial Colors"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/ci8TZoe",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/kama-ayurveda-bringadi-intensive-treatment-hair-oil/p/itmf3jyq4hyxcyjw",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "sesa-ayurvedic-hair-oil-traditional-gold",
+    "name": "Ayurvedic Hair Oil (Traditional Gold)",
+    "brand": "Sesa",
+    "category_slug": "hair_oil",
+    "image_url": "./images/sesa_ayurvedhic_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 88,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["hair_growth", "dandruff", "scalp_health"],
+    "philosophy_tags": ["ayurvedic", "affordable_clean"],
+    "usage_pattern": "overnight_treatment",
+    "price_tier": "affordable",
+    "short_reason": "A budget-friendly legacy oil that maintains strict Ayurvedic integrity without mineral oils.",
+    "why_recommended": [
+      "Boils 18 herbs in milk for 22 hours (Kshir Pak Vidhi)",
+      "Excellent value for a mineral-oil-free formula",
+      "Includes 5 essential oils for added scalp stimulation"
+    ],
+    "pros": ["Very affordable", "Time-tested formulation"],
+    "cons": ["Texture is quite thick/heavy"],
+    "ingredient_summary": "18 Herbs (Bhringraj, Triphala), Milk, Sesame Oil, Coconut Oil",
+    "certifications": ["Ayurvedic Proprietary Medicine"],
+    "excluded_ingredients": ["Mineral Oil", "Parabens", "BHT", "Silicones"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/2X2uCqg",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/sesa-ayurvedic-hair-growth-oil-bhringraj/p/itm1a5d629d958f3",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "nat-habit-daasabuti-hibiscus-amla-summer-oil",
+    "name": "Daasabuti Hibiscus Amla Summer Oil",
+    "brand": "Nat Habit",
+    "category_slug": "hair_oil",
+    "image_url": "./images/nat_habit_amla_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 94,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["scalp_cooling", "conditioning", "frizz_control"],
+    "philosophy_tags": ["freshly_made", "kitchen_made", "botanical"],
+    "usage_pattern": "regular_massage",
+    "price_tier": "mid_range",
+    "short_reason": "Freshly prepared oil using whole flowers and leaves with zero chemical shelf-life extenders.",
+    "why_recommended": [
+      "Made fresh in Ayurvedic kitchens and shipped within days",
+      "Infused with fresh Hibiscus flowers for natural conditioning",
+      "Zero preservatives; purely plant-based stability"
+    ],
+    "pros": ["Very fresh feel", "Non-greasy penetration"],
+    "cons": ["Shorter shelf life (uses no preservatives)"],
+    "ingredient_summary": "Fresh Hibiscus, Amla, Curry Leaves, Coconut Oil, Castor Oil",
+    "certifications": ["100% Fresh Botanical"],
+    "excluded_ingredients": ["Mineral Oil", "Fragrance", "BHT", "Preservatives"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/30wYWHt",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/nat-habit-hibiscus-amla-hair-growth-summer-dasabuti-oil-fall-massage-dry-frizzy-treatment-ayurvedic-herbal-fresh-made-16-herbs-heat-soaked-castor-coconut-100ml/p/itm3d33b421e332d",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "avimee-herbal-keshpallav-hair-oil",
+    "name": "Keshpallav Hair Oil",
+    "brand": "Avimee Herbal",
+    "category_slug": "hair_oil",
+    "image_url": "./images/avimee_herbal_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": true,
+    "score": 92,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["hair_fall", "follicle_strength", "thinning"],
+    "philosophy_tags": ["clean_label", "modern_science", "founder_led"],
+    "usage_pattern": "regular_massage",
+    "price_tier": "mid_range",
+    "short_reason": "A high-potency blend of 50+ herbs and cold-pressed oils focusing on modern scalp nutrition.",
+    "why_recommended": [
+      "Contains Rosemary oil which is a proven circulation booster",
+      "Uses a complex variety of 50+ herbs for multi-action care",
+      "Extremely transparent about the lack of fillers"
+    ],
+    "pros": ["Highly concentrated", "Excellent for hair fall"],
+    "cons": ["Lighter scent might not feel 'traditional' to some"],
+    "ingredient_summary": "Rosemary Oil, Kalonji, Amla, Bhringraj, Seed Oil Blend",
+    "certifications": [],
+    "excluded_ingredients": ["Mineral Oil", "Silicones", "Artificial Fragrance", "Parabens"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/gSx0mnr",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/avimee-herbal-keshpallav-hair-oil/p/itm343cb3e83bfca",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "blue-nectar-briganantadi-hair-repair-treatment",
+    "name": "Briganantadi Hair Repair & Treatment",
+    "brand": "Blue Nectar",
+    "category_slug": "hair_oil",
+    "image_url": "./images/blue_nectar_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 89,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["hair_thinning", "stress_relief", "scalp_nourishment"],
+    "philosophy_tags": ["luxury", "aromatherapy", "clean_label"],
+    "usage_pattern": "pre_wash_massage",
+    "price_tier": "premium",
+    "short_reason": "A lighter, luxury Ayurvedic oil that focuses on aromatherapy and root-level repair.",
+    "why_recommended": [
+      "Uses natural essential oils for a calming sensory experience",
+      "Rich in Bhringraj and Malkangani for follicle health",
+      "Superior glass packaging to prevent UV oxidation"
+    ],
+    "pros": ["Pleasant natural aroma", "Absorbs faster than traditional oils"],
+    "cons": ["More expensive per ml than mass brands"],
+    "ingredient_summary": "Bhringraj, Rosemary, Lavender Oil, Sesame Oil, Coconut Oil",
+    "certifications": ["Ayurvedic Proprietary Medicine"],
+    "excluded_ingredients": ["Mineral Oil", "BHT", "Synthetic Dyes", "Phthalates"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://www.amazon.in/Blue-Nectar-Briganantadi-control-Healthy/dp/B07DV8FHD3",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/blue-nectar-briganantadi-hair-fall-control-treatment-bringha-oil-coconut/p/itm9956b9d082891",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "tribe-concepts-90-day-miracle-hair-oil",
+    "name": "90 Day Miracle Hair Oil",
+    "brand": "The Tribe Concepts",
+    "category_slug": "hair_oil",
+    "image_url": "./images/tribe_concepts_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": true,
+    "safe_starting_point": false,
+    "score": 93,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["texture_improvement", "volume", "hair_growth"],
+    "philosophy_tags": ["minimalist", "sustainable", "pure_botanical"],
+    "usage_pattern": "regular_treatment",
+    "price_tier": "mid_range",
+    "short_reason": "A minimalist, zero-chemical South Indian oil focused on long-term hair quality improvement.",
+    "why_recommended": [
+      "Uses nutrient-dense Black Sesame oil as a base",
+      "No added fragrance; relies on the raw potency of the herbs",
+      "Eco-friendly tin packaging ensures no plastic leaching"
+    ],
+    "pros": ["Visibly improves hair thickness", "Eco-conscious packaging"],
+    "cons": ["Earthy, raw scent is polarizing"],
+    "ingredient_summary": "Black Sesame Oil, Hibiscus, Amla, Indian Gooseberry",
+    "certifications": ["100% Chemical Free"],
+    "excluded_ingredients": ["Mineral Oil", "Fragrance", "Parabens", "Silicones"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/5KT5Gje",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/tribe-concepts-90-day-miracle-hair-oil/p/itm8dcaed8f7b89e",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "soulflower-rosemary-lavender-healthy-hair-oil",
+    "name": "Rosemary Lavender Healthy Hair Oil",
+    "brand": "Soulflower",
+    "category_slug": "hair_oil",
+    "image_url": "./images/soulflower_rosemary_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 87,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["scalp_circulation", "daily_maintenance", "dryness"],
+    "philosophy_tags": ["cold_pressed", "essential_oils", "modern_botanical"],
+    "usage_pattern": "daily_or_pre_wash",
+    "price_tier": "affordable",
+    "short_reason": "A simple but effective cold-pressed blend focused on essential oil therapy for the scalp.",
+    "why_recommended": [
+      "Hexane-free extraction of all carrier oils",
+      "Rosemary and Lavender provide antimicrobial scalp protection",
+      "Rich in Jojoba and Castor for deep moisture"
+    ],
+    "pros": ["Refreshing cooling sensation", "Good value for volume"],
+    "cons": ["Strong herbal/lavender aroma"],
+    "ingredient_summary": "Rosemary Essential Oil, Lavender Oil, Castor Oil, Jojoba Oil",
+    "certifications": ["ECOCERT Raw Ingredients"],
+    "excluded_ingredients": ["Mineral Oil", "Hexane", "Artificial Fragrance", "Synthetic Colors"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://www.amazon.in/Soulflower-Natural-Rosemary-Lavender-Healthy/dp/B06XFWVWMS",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/soulflower-rosemary-lavender-oil-healthy-hair-growth-good-damaged/p/itm774114cbefa01",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "indulekha-bringha-ayurvedic-oil",
+    "name": "Bringha Ayurvedic Oil",
+    "brand": "Indulekha",
+    "category_slug": "hair_oil",
+    "image_url": "./images/indulekha_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 85,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["hair_fall", "new_hair_growth"],
+    "philosophy_tags": ["ayurvedic", "clinical_botanical"],
+    "usage_pattern": "scalp_application",
+    "price_tier": "affordable",
+    "short_reason": "A clinically designed Ayurvedic medicine with a patented applicator for better scalp penetration.",
+    "why_recommended": [
+      "Virgin Coconut Oil base for maximum shaft penetration",
+      "Proprietary 'Appli-comb' ensures oil reaches roots without mess",
+      "High concentration of Bhringraj (Eclipta Alba)"
+    ],
+    "pros": ["Mess-free applicator", "Easy to find in stores"],
+    "cons": ["Distinctive medicinal smell"],
+    "ingredient_summary": "Bhringraj, Svetakutaja, Amla, Virgin Coconut Oil",
+    "certifications": ["Ayurvedic Proprietary Medicine"],
+    "excluded_ingredients": ["Mineral Oil", "Synthetic Dyes", "Artificial Perfume"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/9fl0T6d",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/indulekha-bringha-ayurvedic-hair-oil-new-growth-oil/p/itm3857fa0ccfa5f",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "rustic-art-deep-conditioning-hair-oil",
+    "name": "Deep Conditioning Hair Oil",
+    "brand": "Rustic Art",
+    "category_slug": "hair_oil",
+    "image_url": "./images/rustic_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 91,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["dry_hair", "frizz", "brittle_ends"],
+    "philosophy_tags": ["vegan", "organic", "eco_conscious"],
+    "usage_pattern": "overnight_conditioning",
+    "price_tier": "affordable",
+    "short_reason": "A high-penetration oil using advanced plant lipids like Moringa and Avocado to deep-condition dry hair.",
+    "why_recommended": [
+      "Uses Avocado oil which penetrates the hair cortex better than regular oils",
+      "100% Vegan and Organic certified ingredients",
+      "Free of all synthetic stabilizers and silicone coatings"
+    ],
+    "pros": ["Excellent for managing frizz", "Ultra-clean ingredient list"],
+    "cons": ["Standard bottle design (non-applicator)"],
+    "ingredient_summary": "Moringa Oil, Avocado Oil, Argan Oil, Flaxseed Oil",
+    "certifications": ["Organic", "Vegan"],
+    "excluded_ingredients": ["Mineral Oil", "Silicones", "Synthetic Scent", "Parabens"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/iQ4NZ4W",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/rustic-art-organic-deep-conditioning-hair-oil/p/itm59ad2dfe14a8c",
+        "link_type": "affiliate"
+      }
+    ]
+  },
+  {
+    "slug": "khadi-natural-amla-bhringraj-powered-botanics",
+    "name": "Amla & Bhringraj (Powered Botanics)",
+    "brand": "Khadi Natural",
+    "category_slug": "hair_oil",
+    "image_url": "./images/khadi_natural_hair_oil.jpg",
+    "status": "active",
+    "editorial_pick": false,
+    "safe_starting_point": true,
+    "score": 84,
+    "score_version": "v1",
+    "last_reviewed_at": "2026-01-04",
+    "primary_concerns": ["general_health", "hair_softening", "daily_care"],
+    "philosophy_tags": ["ayurvedic", "budget_clean"],
+    "usage_pattern": "regular_use",
+    "price_tier": "affordable",
+    "short_reason": "The specific mineral-oil-free variant of Khadi's famous Amla-Bhringraj blend.",
+    "why_recommended": [
+      "Great starting point for those moving away from commercial paraffin oils",
+      "Uses a pure sesame and almond base for nutrition",
+      "Traditional Amla infusion for vitamin C and scalp health"
+    ],
+    "pros": ["Very budget friendly", "Widely available"],
+    "cons": ["Must check label to ensure it is the 'Powered Botanics' version"],
+    "ingredient_summary": "Amla, Bhringraj, Neem, Henna, Sesame Oil",
+    "certifications": [],
+    "excluded_ingredients": ["Mineral Oil", "Silicones", "Synthetic Fragrance", "Parabens"],
+    "buy_links": [
+      {
+        "vendor": "Amazon",
+        "url": "https://amzn.in/d/9RDPQ6x",
+        "link_type": "affiliate"
+      },
+      {
+        "vendor": "Flipkart",
+        "url": "https://www.flipkart.com/khadi-natural-amla-bhringraj-hair-oil-powered-botanics-oil/p/itm1bd7cba9ec8d6",
+        "link_type": "affiliate"
+      }
+    ]
+  }
+]
