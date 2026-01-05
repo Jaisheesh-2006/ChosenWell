@@ -34,7 +34,7 @@ func main() {
 	router := chi.NewRouter()
 
 	// Health check MUST be before any middleware for Railway/cloud health checks
-	router.Get("/api/health", healthHandler)
+	router.Get("/health", healthHandler)
 
 	// CORS configuration
 	allowedOrigins := []string{
