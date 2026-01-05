@@ -237,7 +237,7 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 		products = append(products, p)
 	}
 
-	// Get total count
+	// Get total count with same filters
 	countQuery := `
 		SELECT COUNT(DISTINCT p.id)
 		FROM products p
@@ -245,8 +245,36 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 		LEFT JOIN product_philosophy_tags pt ON p.id = pt.product_id
 		WHERE p.status = 'active'
 	`
+
 	// Rebuild count query with same filters (excluding LIMIT/OFFSET)
-	countArgs := args[:len(args)-2]
+	countArgs := []interface{}{}
+	countArgIdx := 1
+
+	if filters.Category != "" {
+		countQuery += fmt.Sprintf(" AND p.category_slug = $%d", countArgIdx)
+		countArgs = append(countArgs, filters.Category)
+		countArgIdx++
+	}
+	if len(filters.Concern) > 0 {
+		countQuery += fmt.Sprintf(" AND pc.concern_code = ANY($%d)", countArgIdx)
+		countArgs = append(countArgs, pq.Array(filters.Concern))
+		countArgIdx++
+	}
+	if len(filters.Philosophy) > 0 {
+		countQuery += fmt.Sprintf(" AND pt.philosophy_code = ANY($%d)", countArgIdx)
+		countArgs = append(countArgs, pq.Array(filters.Philosophy))
+		countArgIdx++
+	}
+	if filters.Budget != "" {
+		countQuery += fmt.Sprintf(" AND p.price_tier = $%d", countArgIdx)
+		countArgs = append(countArgs, filters.Budget)
+		countArgIdx++
+	}
+	if len(filters.Usage) > 0 {
+		countQuery += fmt.Sprintf(" AND p.usage_pattern = ANY($%d)", countArgIdx)
+		countArgs = append(countArgs, pq.Array(filters.Usage))
+	}
+
 	var total int
 	if err := r.db.QueryRowContext(ctx, countQuery, countArgs...).Scan(&total); err != nil {
 		total = len(products)
