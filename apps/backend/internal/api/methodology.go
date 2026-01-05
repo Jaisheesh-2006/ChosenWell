@@ -32,7 +32,14 @@ var methodology = Methodology{
 // GetMethodology returns the scoring methodology as JSON.
 func GetMethodology(w http.ResponseWriter, r *http.Request) {
 	// Try database first
-	m, err := repo.GetMethodology(r.Context())
+	repository, err := getRepo()
+	if err != nil {
+		log.Printf("Database not connected, using static methodology: %v", err)
+		writeJSON(w, http.StatusOK, methodology, nil)
+		return
+	}
+
+	m, err := repository.GetMethodology(r.Context())
 	if err != nil {
 		log.Printf("Database error getting methodology, using static: %v", err)
 		writeJSON(w, http.StatusOK, methodology, nil)

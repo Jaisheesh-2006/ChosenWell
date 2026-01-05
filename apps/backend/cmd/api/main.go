@@ -19,44 +19,30 @@ import (
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/db"
 )
 
-// getPort returns the port from PORT env variable or defaults to 8081
+// getPort returns the port from PORT env variable or defaults to 8080
 func getPort() string {
 	port := os.Getenv("PORT")
 	if port == "" {
-		log.Fatal("PORT environment variable not set")
+		port = "8080" // Default for local development
 	}
 	return port
 }
 
 func main() {
-	// Initialize database connection
-	repo, err := db.New()
-	if err != nil {
-		log.Printf("Warning: Failed to connect to database: %v. Using mock data.\n", err)
-		repo = nil
-	} else {
-		defer repo.Close()
-		log.Println("Connected to PostgreSQL database")
-	}
-
-	// Set repository for API handlers
-	api.SetRepository(repo)
-
-	// Initialize router with middleware
+	// Initialize router FIRST (before database)
+	// This ensures health checks pass while database is connecting
 	router := chi.NewRouter()
 
 	// Health check MUST be before any middleware for Railway/cloud health checks
 	router.Get("/health", healthHandler)
 
-	// CORS must be at the very top of the middleware stack
-	// AllowedOrigins includes localhost for development and production domains
+	// CORS configuration
 	allowedOrigins := []string{
 		"http://localhost:3000",
 		"http://127.0.0.1:3000",
 		"https://chosenwell.co.in",
 		"https://www.chosenwell.co.in",
 	}
-	// Add Vercel preview/production URLs
 	if frontendURL := os.Getenv("FRONTEND_URL"); frontendURL != "" {
 		allowedOrigins = append(allowedOrigins, frontendURL)
 	}
@@ -77,23 +63,35 @@ func main() {
 
 	// Server configuration
 	port := getPort()
-	addr := fmt.Sprintf("0.0.0.0:%d", port)
+	addr := fmt.Sprintf("0.0.0.0:%s", port)
 	server := &http.Server{
 		Addr:    addr,
 		Handler: router,
 	}
 
-	// Log CORS configuration
 	log.Printf("CORS allowed origins: %v", allowedOrigins)
 
-	// Start server in a goroutine
+	// Start server FIRST (so health checks pass immediately)
 	serverErrors := make(chan error, 1)
 	go func() {
-		log.Printf("Starting server on port %d\n", port)
+		log.Printf("Starting server on port %s\n", port)
 		serverErrors <- server.ListenAndServe()
 	}()
 
-	// Setup graceful shutdown with signal handling
+	// Connect to database AFTER server starts (in background)
+	go func() {
+		log.Println("Connecting to database...")
+		repo, err := db.New()
+		if err != nil {
+			log.Printf("Warning: Failed to connect to database: %v\n", err)
+			log.Println("API endpoints will return 503 until database is available")
+			return
+		}
+		log.Println("Connected to PostgreSQL database successfully!")
+		api.SetRepository(repo)
+	}()
+
+	// Setup graceful shutdown
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
@@ -102,7 +100,6 @@ func main() {
 		log.Println("Shutdown signal received, gracefully shutting down...")
 		shutdownServer(server)
 	case err := <-serverErrors:
-		// Only log non-nil errors; http.ErrServerClosed is expected on shutdown
 		if err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Server error: %v\n", err)
 		}

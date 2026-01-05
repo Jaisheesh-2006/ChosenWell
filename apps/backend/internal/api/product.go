@@ -57,6 +57,13 @@ func parseProductFilters(r *http.Request) ProductFilters {
 
 // GetProducts returns a list of product summaries, optionally filtered.
 func GetProducts(w http.ResponseWriter, r *http.Request) {
+	repository, err := getRepo()
+	if err != nil {
+		log.Printf("Database not connected: %v", err)
+		errorJSON(w, http.StatusServiceUnavailable, "database not connected")
+		return
+	}
+
 	filters := parseProductFilters(r)
 
 	dbFilters := db.ProductFilters{
@@ -70,7 +77,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 		Page:       filters.Page,
 		Limit:      filters.Limit,
 	}
-	result, err := repo.GetProducts(r.Context(), dbFilters)
+	result, err := repository.GetProducts(r.Context(), dbFilters)
 	if err != nil {
 		log.Printf("Database error getting products: %v", err)
 		errorJSON(w, http.StatusInternalServerError, "failed to fetch products")
@@ -81,9 +88,16 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 
 // GetAvailableFilters returns the available filter options for products.
 func GetAvailableFilters(w http.ResponseWriter, r *http.Request) {
+	repository, err := getRepo()
+	if err != nil {
+		log.Printf("Database not connected: %v", err)
+		errorJSON(w, http.StatusServiceUnavailable, "database not connected")
+		return
+	}
+
 	categorySlug := r.URL.Query().Get("category")
 
-	filters, err := repo.GetAvailableFilters(r.Context(), categorySlug)
+	filters, err := repository.GetAvailableFilters(r.Context(), categorySlug)
 	if err != nil {
 		log.Printf("Database error getting filters: %v", err)
 		errorJSON(w, http.StatusInternalServerError, "failed to fetch filters")
@@ -96,7 +110,14 @@ func GetAvailableFilters(w http.ResponseWriter, r *http.Request) {
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 
-	product, err := repo.GetProduct(r.Context(), slug)
+	repository, err := getRepo()
+	if err != nil {
+		log.Printf("Database not connected: %v", err)
+		errorJSON(w, http.StatusServiceUnavailable, "database not connected")
+		return
+	}
+
+	product, err := repository.GetProduct(r.Context(), slug)
 	if err != nil {
 		log.Printf("Database error getting product %s: %v", slug, err)
 		errorJSON(w, http.StatusInternalServerError, "failed to fetch product")
@@ -113,6 +134,13 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 func GetSimilarProducts(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 
+	repository, err := getRepo()
+	if err != nil {
+		log.Printf("Database not connected: %v", err)
+		errorJSON(w, http.StatusServiceUnavailable, "database not connected")
+		return
+	}
+
 	// Parse limit query param, default to 6
 	limit := 6
 	if limitStr := r.URL.Query().Get("limit"); limitStr != "" {
@@ -121,7 +149,7 @@ func GetSimilarProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	similar, err := repo.GetSimilarProducts(r.Context(), slug, limit)
+	similar, err := repository.GetSimilarProducts(r.Context(), slug, limit)
 	if err != nil {
 		log.Printf("Database error getting similar products for %s: %v", slug, err)
 		errorJSON(w, http.StatusInternalServerError, "failed to fetch similar products")
