@@ -39,8 +39,20 @@ func main() {
 	router := chi.NewRouter()
 
 	// CORS must be at the very top of the middleware stack
+	// AllowedOrigins includes localhost for development and production domains
+	allowedOrigins := []string{
+		"http://localhost:3000",
+		"http://127.0.0.1:3000",
+		"https://chosenwell.co.in",
+		"https://www.chosenwell.co.in",
+	}
+	// Add Vercel preview/production URLs
+	if frontendURL := os.Getenv("FRONTEND_URL"); frontendURL != "" {
+		allowedOrigins = append(allowedOrigins, frontendURL)
+	}
+
 	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000", "http://127.0.0.1:3000"},
+		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{"GET", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type"},
 		AllowCredentials: false,

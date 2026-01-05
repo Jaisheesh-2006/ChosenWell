@@ -7,6 +7,12 @@ Desktop.ini
 .idea/
 *.iml
 
+# --- Root Environment Files ---
+.env
+.env.local
+.env.production
+!.env.example
+
 # --- Logs ---
 *.log
 npm-debug.log*

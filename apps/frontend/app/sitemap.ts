@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getCategories, getProducts } from "./lib/api";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://chosenwell.in";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://chosenwell.co.in";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
