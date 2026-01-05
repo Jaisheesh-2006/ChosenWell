@@ -13,10 +13,13 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Allow dynamic params for products not pre-generated
+export const dynamicParams = true;
+
 // Generate static params for products (SSG)
 export async function generateStaticParams() {
   try {
-    const products = await getProducts();
+    const products = await getProducts({ limit: 200 });
     return products.map((product) => ({
       slug: product.slug,
     }));
