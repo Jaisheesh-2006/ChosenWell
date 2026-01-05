@@ -88,8 +88,7 @@ func (r *Repository) GetCategories(ctx context.Context) ([]types.CategorySummary
 func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Category, error) {
 	query := `
 		SELECT slug, title, COALESCE(long_description, '') as long_description, 
-		       COALESCE(criteria, '{}') as criteria,
-		       COALESCE(criteria_content, '') as criteria_content
+		       COALESCE(criteria, '{}') as criteria
 		FROM categories
 		WHERE slug = $1 AND status = 'active'
 	`
@@ -98,7 +97,7 @@ func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Categ
 	var criteriaArr []string
 
 	err := r.db.QueryRowContext(ctx, query, slug).Scan(
-		&c.Slug, &c.Title, &c.LongDescription, pq.Array(&criteriaArr), &c.CriteriaContent,
+		&c.Slug, &c.Title, &c.LongDescription, pq.Array(&criteriaArr),
 	)
 	if err == sql.ErrNoRows {
 		return nil, nil
@@ -109,6 +108,9 @@ func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Categ
 
 	// Convert criteria array to CategoryCriteria
 	c.Criteria = types.CategoryCriteria{MustHave: criteriaArr}
+
+	// Use long_description as criteria_content for frontend compatibility
+	c.CriteriaContent = c.LongDescription
 
 	// Get products for this category
 	products, err := r.GetProducts(ctx, ProductFilters{Category: slug, Limit: 100})
