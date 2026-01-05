@@ -111,13 +111,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         )}
       </header>
 
-      {/* Long description - SEO rich content */}
+      {/* Long description - SEO rich content
       <section className="mb-16">
         <div
           className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-cyan-600 prose-strong:text-slate-900 dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-slate-300 dark:prose-a:text-cyan-400 dark:prose-strong:text-white"
           dangerouslySetInnerHTML={{ __html: category.long_description }}
         />
-      </section>
+      </section> */}
 
       {/* How we evaluate - Criteria content */}
       {category.criteria_content && (
