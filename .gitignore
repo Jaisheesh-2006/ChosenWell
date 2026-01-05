@@ -55,6 +55,10 @@ docker-compose.override.yml
 apps/database/.env
 !apps/database/.env.example
 
+# --- Backend ---
+apps/backend/.env
+!apps/backend/.env.example
+
 # PostgreSQL data (if running locally without Docker)
 apps/database/data/
 apps/database/pgdata/
