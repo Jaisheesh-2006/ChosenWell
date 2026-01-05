@@ -39,7 +39,7 @@ export async function generateMetadata({
         product.score
       }/100. ${product.why_recommended?.join(" ") || ""}`,
       openGraph: {
-        title: `${product.name} | HealthIsWealth`,
+        title: `${product.name} | ChosenWell`,
         description: `${product.name} - Score: ${product.score}/100. Read our detailed analysis.`,
       },
     };
@@ -426,7 +426,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               },
               author: {
                 "@type": "Organization",
-                name: "HealthIsWealth",
+                name: "ChosenWell",
               },
             },
           }),

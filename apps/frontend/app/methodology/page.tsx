@@ -7,11 +7,11 @@ import Breadcrumbs from "../components/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Our Methodology",
   description:
-    "Learn how HealthIsWealth evaluates and scores health products. Our transparent methodology covers ingredients, certifications, third-party testing, and value for money.",
+    "Learn how ChosenWell evaluates and scores health products. Our transparent methodology covers ingredient quality, certifications, full INCI disclosure, and value for money.",
   openGraph: {
-    title: "Our Methodology | HealthIsWealth",
+    title: "Our Methodology | ChosenWell",
     description:
-      "Learn how we evaluate and score health products with our transparent methodology.",
+      "Learn how we evaluate and score health products with our transparent, unbiased methodology.",
   },
 };
 
@@ -19,13 +19,12 @@ export const metadata: Metadata = {
 const fallbackMethodology: Methodology = {
   version: "1.0",
   summary:
-    "Our evaluation methodology is designed to give you actionable, trustworthy information about health products. We analyze each product across multiple dimensions including ingredient quality, safety certifications, third-party testing, and overall value.",
+    "Our evaluation methodology is designed to give you actionable, trustworthy information about health products. We analyze each product across multiple dimensions including ingredient quality, safety certifications, ingredient transparency, and overall value.",
   scoring: {
     ingredients: 0.3,
     certifications: 0.2,
-    testing: 0.25,
-    value: 0.15,
-    transparency: 0.1,
+    transparency: 0.25,
+    value: 0.25,
   },
   last_updated: new Date().toISOString().split("T")[0],
 };
@@ -44,7 +43,9 @@ export default async function MethodologyPage() {
   // Convert scoring object to array for display
   const scoringFactors = methodology.scoring
     ? Object.entries(methodology.scoring).map(([factor, weight]) => ({
-        name: factor.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+        name: factor
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase()),
         weight: weight as number,
         percentage: Math.round((weight as number) * 100),
       }))
@@ -62,13 +63,17 @@ export default async function MethodologyPage() {
         <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Our Methodology
         </h1>
-        <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">{methodology.summary}</p>
+        <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">
+          {methodology.summary}
+        </p>
       </header>
 
       {/* Scoring Breakdown */}
       {scoringFactors.length > 0 && (
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Scoring Breakdown</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Scoring Breakdown
+          </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
             Each product is evaluated across multiple factors, with weights
             assigned based on importance to overall product quality and safety.
@@ -78,7 +83,9 @@ export default async function MethodologyPage() {
             {scoringFactors.map((factor) => (
               <div key={factor.name} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-slate-900 dark:text-white">{factor.name}</span>
+                  <span className="font-medium text-slate-900 dark:text-white">
+                    {factor.name}
+                  </span>
                   <span className="text-sm text-slate-500 dark:text-slate-400">
                     {factor.percentage}%
                   </span>
@@ -97,15 +104,27 @@ export default async function MethodologyPage() {
 
       {/* Detailed Explanation */}
       <section className="mb-16 space-y-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">What We Evaluate</h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          What We Evaluate
+        </h2>
 
         <div className="grid gap-6 sm:grid-cols-2">
           {[
             {
               title: "Ingredient Quality",
               icon: (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+                  />
                 </svg>
               ),
               description:
@@ -114,28 +133,58 @@ export default async function MethodologyPage() {
             {
               title: "Certifications",
               icon: (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                  />
                 </svg>
               ),
               description:
                 "Products with recognized certifications (USDA Organic, NSF, etc.) receive higher scores for meeting established standards.",
             },
             {
-              title: "Third-Party Testing",
+              title: "Ingredient Transparency",
               icon: (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
                 </svg>
               ),
               description:
-                "Independent lab testing for purity, potency, and contaminants is heavily weighted in our scoring system.",
+                "We require full INCI disclosure from all brands. No hidden 'Base Q.S.' or vague ingredient labeling is accepted.",
             },
             {
               title: "Value for Money",
               icon: (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               ),
               description:
@@ -152,7 +201,9 @@ export default async function MethodologyPage() {
               <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                {item.description}
+              </p>
             </div>
           ))}
         </div>
@@ -160,7 +211,9 @@ export default async function MethodologyPage() {
 
       {/* Score Ranges */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Understanding Scores</h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          Understanding Scores
+        </h2>
         <p className="mt-4 text-slate-600 dark:text-slate-400">
           Our 0-100 scoring system is designed to be intuitive and actionable.
         </p>
@@ -195,13 +248,15 @@ export default async function MethodologyPage() {
               range: "50-59",
               label: "Average",
               color: "from-yellow-500 to-orange-500",
-              description: "Products that meet basic standards but lack distinction",
+              description:
+                "Products that meet basic standards but lack distinction",
             },
             {
               range: "Below 50",
               label: "Below Average",
               color: "from-orange-500 to-red-500",
-              description: "Products with significant concerns we don't recommend",
+              description:
+                "Products with significant concerns we don't recommend",
             },
           ].map((tier) => (
             <div
@@ -214,8 +269,12 @@ export default async function MethodologyPage() {
                 {tier.range}
               </div>
               <div>
-                <p className="font-medium text-slate-900 dark:text-white">{tier.label}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">{tier.description}</p>
+                <p className="font-medium text-slate-900 dark:text-white">
+                  {tier.label}
+                </p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {tier.description}
+                </p>
               </div>
             </div>
           ))}

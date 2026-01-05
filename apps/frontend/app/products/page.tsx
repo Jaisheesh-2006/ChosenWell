@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getProducts, getCategories } from "../lib/api";
-import { ProductSummary, CategorySummary } from "../lib/types";
+import { getProducts } from "../lib/api";
+import { ProductSummary } from "../lib/types";
 import ProductCard from "../components/ProductCard";
 import Breadcrumbs from "../components/Breadcrumbs";
 import EmptyState from "../components/EmptyState";
@@ -9,46 +9,28 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "All Products",
   description:
-    "Browse all curated health products with transparent scoring. Filter by category, tags like organic, budget-friendly, or kids-safe. Find the best products for your wellness needs.",
+    "Browse all curated health products with transparent scoring. Safe, effective products for everyday use in India - no sponsored rankings, just honest analysis.",
   openGraph: {
-    title: "All Products | HealthIsWealth",
+    title: "All Products | ChosenWell",
     description:
-      "Browse all curated health products with transparent scoring and detailed analysis.",
+      "Browse all curated health products with transparent scoring and detailed ingredient analysis.",
   },
 };
 
-interface ProductsPageProps {
-  searchParams: Promise<{ category?: string; tag?: string }>;
-}
-
 // No fallback data - only use database
 
-const popularTags = ["organic", "budget", "kids", "vegan", "gluten-free"];
-
-async function getProductsPageData(category?: string, tag?: string) {
+async function getProductsPageData() {
   try {
-    const [products, categories] = await Promise.all([
-      getProducts({ category, tag }),
-      getCategories(),
-    ]);
-    return {
-      products,
-      categories,
-    };
+    const products = await getProducts({});
+    return { products };
   } catch (error) {
     console.error("Error fetching products data:", error);
-    return {
-      products: [],
-      categories: [],
-    };
+    return { products: [] };
   }
 }
 
-export default async function ProductsPage({
-  searchParams,
-}: ProductsPageProps) {
-  const { category, tag } = await searchParams;
-  const { products, categories } = await getProductsPageData(category, tag);
+export default async function ProductsPage() {
+  const { products } = await getProductsPageData();
 
   // Sort products by score (highest first)
   const sortedProducts = [...products].sort((a, b) => b.score - a.score);
@@ -60,132 +42,39 @@ export default async function ProductsPage({
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          {category
-            ? `${
-                categories.find((c) => c.slug === category)?.title || category
-              } Products`
-            : tag
-            ? `${tag.charAt(0).toUpperCase() + tag.slice(1)} Products`
-            : "All Products"}
+          All Products
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
-          {category || tag
-            ? `Showing filtered results. ${sortedProducts.length} products found.`
-            : "Browse our curated collection of health products, all evaluated with our transparent scoring methodology."}
+          Browse our curated collection of health products, all evaluated with
+          our transparent scoring methodology.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8 lg:flex-row">
-        {/* Sidebar Filters */}
-        <aside className="w-full shrink-0 lg:w-64">
-          <div className="sticky top-24 space-y-6">
-            {/* Category Filter */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Categories
-              </h3>
-              <div className="mt-4 space-y-2">
-                <Link
-                  href="/products"
-                  className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                    !category
-                      ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
-                  }`}
-                >
-                  All Categories
-                </Link>
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.slug}
-                    href={`/products?category=${cat.slug}`}
-                    className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                      category === cat.slug
-                        ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
-                    }`}
-                  >
-                    {cat.title}
-                  </Link>
-                ))}
-              </div>
+      {/* Products Grid */}
+      <div>
+        {sortedProducts.length > 0 ? (
+          <>
+            <div className="mb-6 flex items-center justify-between">
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                {sortedProducts.length} product
+                {sortedProducts.length !== 1 ? "s" : ""} found
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-500">
+                Sorted by score
+              </p>
             </div>
-
-            {/* Tag Filter */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Popular Tags
-              </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {popularTags.map((t) => (
-                  <Link
-                    key={t}
-                    href={`/products?tag=${t}${
-                      category ? `&category=${category}` : ""
-                    }`}
-                    className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                      tag === t
-                        ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                        : "border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-700 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-white"
-                    }`}
-                  >
-                    {t}
-                  </Link>
-                ))}
-              </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {sortedProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} />
+              ))}
             </div>
-
-            {/* Clear Filters */}
-            {(category || tag) && (
-              <Link
-                href="/products"
-                className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-slate-100 px-4 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-                Clear all filters
-              </Link>
-            )}
-          </div>
-        </aside>
-
-        {/* Products Grid */}
-        <div className="flex-1">
-          {sortedProducts.length > 0 ? (
-            <>
-              <div className="mb-6 flex items-center justify-between">
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {sortedProducts.length} product
-                  {sortedProducts.length !== 1 ? "s" : ""} found
-                </p>
-                <p className="text-sm text-slate-500 dark:text-slate-500">
-                  Sorted by score
-                </p>
-              </div>
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {sortedProducts.map((product) => (
-                  <ProductCard key={product.slug} product={product} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <EmptyState
-              title="No products found"
-              description="Try adjusting your filters or check back later for new products."
-            />
-          )}
-        </div>
+          </>
+        ) : (
+          <EmptyState
+            title="No products found"
+            description="Check back later for new products."
+          />
+        )}
       </div>
 
       {/* Navigation Section */}

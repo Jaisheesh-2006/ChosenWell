@@ -8,11 +8,11 @@ import EmptyState from "../components/EmptyState";
 export const metadata: Metadata = {
   title: "Product Categories",
   description:
-    "Browse health product categories including toothpaste, cooking oils, vitamins, and supplements. Find the best products in each category with our transparent scoring system.",
+    "Browse curated health product categories including shampoo, toothpaste, soap, hair oil, and sunscreen. Find safe, transparent products in each category with our honest scoring system.",
   openGraph: {
-    title: "Product Categories | HealthIsWealth",
+    title: "Product Categories | ChosenWell",
     description:
-      "Browse health product categories including toothpaste, cooking oils, vitamins, and supplements.",
+      "Browse curated health product categories including shampoo, toothpaste, soap, hair oil, and sunscreen.",
   },
 };
 

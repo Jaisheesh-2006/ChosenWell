@@ -3,7 +3,6 @@ import { getCategories, getProducts } from "./lib/api";
 import { CategorySummary, ProductSummary } from "./lib/types";
 import ProductCard from "./components/ProductCard";
 import CategoryCard from "./components/CategoryCard";
-import HomeRecentlyViewed from "./components/HomeRecentlyViewed";
 
 // No fallback data - only use database
 
@@ -260,9 +259,6 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-
-      {/* Recently Viewed Products */}
-      <HomeRecentlyViewed />
 
       {/* CTA Section */}
       <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 p-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:p-12">

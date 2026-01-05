@@ -2,13 +2,14 @@
 -- Run this after existing seeds
 
 -- Insert new categories
-INSERT INTO categories (slug, title, long_description, criteria_content)
+INSERT INTO categories (slug, title, description, long_description, criteria_content)
 VALUES 
-  ('soap', 'Soap', 'Curated collection of clean, transparent soaps for healthy skin', NULL),
-  ('hair_oil', 'Hair Oil', 'Premium Ayurvedic and botanical hair oils for scalp health', NULL),
-  ('sunscreen', 'Sunscreen', 'Safe mineral and clean-filter sunscreens for Indian skin', NULL)
+  ('soap', 'Soap', 'Natural body soaps and cleansing bars analyzed for skin-friendly ingredients and pH balance.', 'Curated collection of clean, transparent soaps for healthy skin', NULL),
+  ('hair_oil', 'Hair Oil', 'Premium hair oils evaluated for nourishment, scalp health, and natural ingredient quality.', 'Premium Ayurvedic and botanical hair oils for scalp health', NULL),
+  ('sunscreen', 'Sunscreen', 'Sun protection products analyzed for UVA/UVB coverage, reef safety, and skin compatibility.', 'Safe mineral and clean-filter sunscreens for Indian skin', NULL)
 ON CONFLICT (slug) DO UPDATE SET 
   title = EXCLUDED.title,
+  description = EXCLUDED.description,
   long_description = EXCLUDED.long_description;
 
 -- =====================

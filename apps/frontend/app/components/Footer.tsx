@@ -36,7 +36,9 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">HealthIsWealth</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">
+                ChosenWell
+              </span>
             </Link>
             <p className="mt-4 max-w-md text-sm text-slate-600 dark:text-slate-400">
               Your trusted source for curated health product comparisons. We
@@ -87,7 +89,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 border-t border-slate-200 pt-8 dark:border-white/10">
           <p className="text-center text-sm text-slate-500 dark:text-slate-500">
-            © {new Date().getFullYear()} HealthIsWealth. All rights reserved.
+            © {new Date().getFullYear()} ChosenWell. All rights reserved.
           </p>
         </div>
       </div>

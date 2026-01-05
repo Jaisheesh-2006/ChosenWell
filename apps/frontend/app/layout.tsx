@@ -7,33 +7,35 @@ import { Providers } from "./context";
 
 export const metadata: Metadata = {
   title: {
-    default: "HealthIsWealth - Curated Health Product Comparisons",
-    template: "%s | HealthIsWealth",
+    default: "ChosenWell - Curated Health Products for Everyday Use in India",
+    template: "%s | ChosenWell",
   },
   description:
-    "Compare health products with transparent scoring. We analyze ingredients, certifications, and value to help you make informed wellness decisions.",
+    "Find genuinely safe, transparent health products curated for long-term use in India. We analyze ingredients, certifications, and value - no sponsored rankings, just honest comparisons.",
   keywords: [
-    "health products",
-    "product comparison",
-    "wellness",
-    "organic products",
-    "supplement reviews",
+    "health products India",
+    "safe personal care",
     "ingredient analysis",
+    "natural products",
+    "transparent product reviews",
+    "chemical-free products",
+    "curated wellness",
+    "product comparisons",
   ],
-  authors: [{ name: "HealthIsWealth" }],
+  authors: [{ name: "ChosenWell" }],
   openGraph: {
     type: "website",
-    locale: "en_US",
-    siteName: "HealthIsWealth",
-    title: "HealthIsWealth - Curated Health Product Comparisons",
+    locale: "en_IN",
+    siteName: "ChosenWell",
+    title: "ChosenWell - Curated Health Products for Everyday Use in India",
     description:
-      "Compare health products with transparent scoring. We analyze ingredients, certifications, and value to help you make informed wellness decisions.",
+      "Find genuinely safe, transparent health products curated for long-term use in India. We analyze ingredients, certifications, and value - no sponsored rankings.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "HealthIsWealth - Curated Health Product Comparisons",
+    title: "ChosenWell - Curated Health Products for Everyday Use in India",
     description:
-      "Compare health products with transparent scoring. We analyze ingredients, certifications, and value to help you make informed wellness decisions.",
+      "Find genuinely safe, transparent health products curated for long-term use in India. No sponsored rankings, just honest comparisons.",
   },
   robots: {
     index: true,

@@ -38,7 +38,7 @@ export async function generateMetadata({
         category.long_description?.substring(0, 150) || ""
       }...`,
       openGraph: {
-        title: `${category.title} | HealthIsWealth`,
+        title: `${category.title} | ChosenWell`,
         description: `Compare the best ${category.title.toLowerCase()} products with transparent scoring.`,
       },
     };
@@ -264,7 +264,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             "@type": "CollectionPage",
             name: category.title,
             description: category.long_description?.substring(0, 200),
-            url: `https://healthiswealth.com/categories/${category.slug}`,
+            url: `https://chosenwell.in/categories/${category.slug}`,
           }),
         }}
       />

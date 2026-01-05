@@ -34,7 +34,9 @@ export default function Header() {
               />
             </svg>
           </div>
-          <span className="text-xl font-bold text-slate-900 dark:text-white">HealthIsWealth</span>
+          <span className="text-xl font-bold text-slate-900 dark:text-white">
+            ChosenWell
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -50,27 +52,8 @@ export default function Header() {
           ))}
         </div>
 
-        {/* Search Button (Desktop) */}
+        {/* Theme Toggle (Desktop) */}
         <div className="hidden lg:flex lg:items-center lg:gap-4">
-          <Link
-            href="/products"
-            className="flex items-center gap-2 rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-200 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20"
-          >
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-            Search products
-          </Link>
           <ThemeToggle />
         </div>
 

@@ -1,0 +1,140 @@
+# Privacy Policy
+
+*Last updated: [add date]*
+
+ChosenWell respects your privacy.
+This page explains what information we collect, why we collect it, and how it is used.
+
+---
+
+## 1. Information we collect
+
+### a) Information you provide voluntarily
+
+We may collect limited information if you choose to contact us, such as:
+
+* Your name (if provided)
+* Your email address
+* The content of your message
+
+This typically happens when you email us or submit a contact form.
+
+---
+
+### b) Automatically collected information
+
+When you visit ChosenWell, we may automatically collect basic technical information, including:
+
+* Browser type and device information
+* Pages visited and time spent
+* Approximate location (city or country level)
+* Referring website
+
+This data is collected via standard analytics tools to help us understand how the site is used.
+
+---
+
+## 2. How we use your information
+
+We use information only to:
+
+* Respond to queries or feedback
+* Improve site performance and content
+* Understand which pages are useful to users
+* Maintain site security and reliability
+
+We **do not** sell personal data.
+We **do not** run targeted advertising.
+We **do not** collect sensitive personal or health information.
+
+---
+
+## 3. Cookies
+
+ChosenWell may use cookies or similar technologies to:
+
+* Measure traffic and usage patterns
+* Ensure basic site functionality
+
+You can control or disable cookies through your browser settings.
+
+---
+
+## 4. Third-party services
+
+We may use trusted third-party services such as:
+
+* Website analytics (e.g., Google Analytics)
+* Hosting and infrastructure providers
+
+These services may process limited data as required to provide their functionality. We do not control how third parties independently use data, and their use is governed by their own privacy policies.
+
+---
+
+## 5. Affiliate links
+
+Some pages may contain affiliate links.
+If you click such a link, the external site may collect data according to their own privacy policies.
+
+ChosenWell does not receive access to your personal information from affiliate partners.
+
+---
+
+## 6. Data security
+
+We take reasonable steps to protect the information we collect.
+However, no method of transmission over the internet is completely secure.
+
+---
+
+## 7. Children’s privacy
+
+ChosenWell is not intended for children under the age of 13, and we do not knowingly collect personal data from children.
+
+---
+
+## 8. Medical disclaimer
+
+The content on ChosenWell is provided for general informational purposes only.
+
+It is **not medical advice**, diagnosis, or treatment.
+Always consult a qualified healthcare professional before making decisions related to your health or medical conditions.
+
+---
+
+## 9. Changes to this policy
+
+We may update this Privacy Policy from time to time.
+Any changes will be posted on this page with an updated date.
+
+---
+
+## 10. Contact us
+
+If you have questions about this Privacy Policy or how your data is handled, you can contact us at:
+
+📧 **[hello@chosenwell.co.in](mailto:hello@chosenwell.co.in)**
+*(update with your official email)*
+
+---
+
+## Should this page be linked?
+
+Yes — minimally:
+
+* Footer link: **Privacy Policy**
+* No pop-ups
+* No cookie banners yet (not required at this stage)
+
+---
+
+## Operator-level advice (important)
+
+* Publish this **before** public launch
+* Keep it accurate — update it when you add:
+
+  * email capture
+  * comments
+  * user accounts
+* A simple policy that’s true builds more trust than a long one that lies
+
