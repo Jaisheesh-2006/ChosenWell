@@ -47,6 +47,9 @@ func main() {
 	// Initialize router with middleware
 	router := chi.NewRouter()
 
+	// Health check MUST be before any middleware for Railway/cloud health checks
+	router.Get("/health", healthHandler)
+
 	// CORS must be at the very top of the middleware stack
 	// AllowedOrigins includes localhost for development and production domains
 	allowedOrigins := []string{
@@ -122,7 +125,6 @@ func shutdownServer(server *http.Server) {
 
 // registerRoutes registers all API endpoints.
 func registerRoutes(router *chi.Mux) {
-	router.Get("/health", healthHandler)
 	router.Get("/categories", api.GetCategories)
 	router.Get("/categories/{slug}", api.GetCategory)
 	router.Get("/products", api.GetProducts)
