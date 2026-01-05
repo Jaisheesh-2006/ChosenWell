@@ -4,7 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/lib/pq"
@@ -22,6 +24,11 @@ func New() (*Repository, error) {
 	connStr := os.Getenv("DATABASE_URL")
 	if connStr == "" {
 		connStr = "postgresql://healthuser:healthpass@localhost:5432/healthiswealth?sslmode=disable"
+	}
+
+	// Log connection (hide password)
+	if idx := strings.Index(connStr, "@"); idx > 0 {
+		log.Printf("Connecting to database: ...%s", connStr[idx:])
 	}
 
 	db, err := sql.Open("postgres", connStr)

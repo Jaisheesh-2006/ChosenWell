@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -19,7 +20,15 @@ import (
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/db"
 )
 
-const Port = 8081
+// getPort returns the port from PORT env variable or defaults to 8081
+func getPort() int {
+	if portStr := os.Getenv("PORT"); portStr != "" {
+		if port, err := strconv.Atoi(portStr); err == nil {
+			return port
+		}
+	}
+	return 8081
+}
 
 func main() {
 	// Initialize database connection
@@ -66,16 +75,20 @@ func main() {
 	registerRoutes(router)
 
 	// Server configuration
-	addr := fmt.Sprintf(":%d", Port)
+	port := getPort()
+	addr := fmt.Sprintf(":%d", port)
 	server := &http.Server{
 		Addr:    addr,
 		Handler: router,
 	}
 
+	// Log CORS configuration
+	log.Printf("CORS allowed origins: %v", allowedOrigins)
+
 	// Start server in a goroutine
 	serverErrors := make(chan error, 1)
 	go func() {
-		log.Printf("Starting server on http://localhost%s\n", addr)
+		log.Printf("Starting server on port %d\n", port)
 		serverErrors <- server.ListenAndServe()
 	}()
 
