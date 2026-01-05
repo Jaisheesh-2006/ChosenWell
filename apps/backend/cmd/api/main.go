@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"strconv"
 	"syscall"
 	"time"
 
@@ -21,13 +20,12 @@ import (
 )
 
 // getPort returns the port from PORT env variable or defaults to 8081
-func getPort() int {
-	if portStr := os.Getenv("PORT"); portStr != "" {
-		if port, err := strconv.Atoi(portStr); err == nil {
-			return port
-		}
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("PORT environment variable not set")
 	}
-	return 8081
+	return port
 }
 
 func main() {
@@ -79,7 +77,7 @@ func main() {
 
 	// Server configuration
 	port := getPort()
-	addr := fmt.Sprintf(":%d", port)
+	addr := fmt.Sprintf("0.0.0.0:%d", port)
 	server := &http.Server{
 		Addr:    addr,
 		Handler: router,
