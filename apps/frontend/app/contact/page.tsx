@@ -3,13 +3,17 @@ import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us - Get in Touch",
   description:
     "Get in touch with ChosenWell. Reach out for ingredient corrections, methodology questions, feedback, or brand submissions.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact Us | ChosenWell",
     description:
       "Get in touch with us for corrections, feedback, or brand submissions.",
+    url: "/contact",
   },
 };
 

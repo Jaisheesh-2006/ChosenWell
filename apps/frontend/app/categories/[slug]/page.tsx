@@ -38,14 +38,18 @@ export async function generateMetadata({
 
   try {
     const category = await getCategoryBySlug(slug);
+    const description = `Best ${category.title.toLowerCase()} products in India - curated and scored for safety, ingredients, and value. ${category.long_description?.substring(0, 100) || ""}`.substring(0, 160);
+    
     return {
-      title: category.title,
-      description: `Compare the best ${category.title.toLowerCase()} products. ${
-        category.long_description?.substring(0, 150) || ""
-      }...`,
+      title: `Best ${category.title} Products in India - Reviews & Comparisons`,
+      description,
+      alternates: {
+        canonical: `/categories/${slug}`,
+      },
       openGraph: {
-        title: `${category.title} | ChosenWell`,
+        title: `${category.title} Products | ChosenWell`,
         description: `Compare the best ${category.title.toLowerCase()} products with transparent scoring.`,
+        url: `/categories/${slug}`,
       },
     };
   } catch {

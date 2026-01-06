@@ -5,13 +5,17 @@ import { Methodology } from "../lib/types";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Our Methodology",
+  title: "Our Methodology - How We Score Products",
   description:
     "Learn how ChosenWell evaluates and scores health products. Our transparent methodology covers ingredient quality, certifications, full INCI disclosure, and value for money.",
+  alternates: {
+    canonical: "/methodology",
+  },
   openGraph: {
     title: "Our Methodology | ChosenWell",
     description:
       "Learn how we evaluate and score health products with our transparent, unbiased methodology.",
+    url: "/methodology",
   },
 };
 

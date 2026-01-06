@@ -3,13 +3,17 @@ import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us - Our Mission & Values",
   description:
     "Learn about ChosenWell - we curate everyday health products that are genuinely safe, transparent, and suitable for long-term use in India. No sponsored rankings, no hype.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About Us | ChosenWell",
     description:
       "We curate everyday health products that are genuinely safe, transparent, and suitable for long-term use in India.",
+    url: "/about",
   },
 };
 

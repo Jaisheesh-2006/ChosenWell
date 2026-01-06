@@ -39,14 +39,21 @@ export async function generateMetadata({
 
   try {
     const product = await getProductBySlug(slug);
+    const title = `${product.name}${product.brand ? ` by ${product.brand}` : ""} - Review & Analysis`;
+    const description = `${product.name} review and analysis. Score: ${product.score}/100. ${product.why_recommended?.slice(0, 2).join(" ") || "Curated health product for everyday use in India."}`.substring(0, 160);
+    
     return {
-      title: `${product.name}${product.brand ? ` by ${product.brand}` : ""}`,
-      description: `${product.name} review and analysis. Score: ${
-        product.score
-      }/100. ${product.why_recommended?.join(" ") || ""}`,
+      title,
+      description,
+      alternates: {
+        canonical: `/products/${slug}`,
+      },
       openGraph: {
         title: `${product.name} | ChosenWell`,
         description: `${product.name} - Score: ${product.score}/100. Read our detailed analysis.`,
+        url: `/products/${slug}`,
+        type: "article",
+        images: product.image_url ? [{ url: product.image_url, alt: product.name }] : undefined,
       },
     };
   } catch {

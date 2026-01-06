@@ -6,13 +6,17 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import EmptyState from "../components/EmptyState";
 
 export const metadata: Metadata = {
-  title: "Product Categories",
+  title: "Product Categories - Shampoo, Toothpaste, Soap & More",
   description:
     "Browse curated health product categories including shampoo, toothpaste, soap, hair oil, and sunscreen. Find safe, transparent products in each category with our honest scoring system.",
+  alternates: {
+    canonical: "/categories",
+  },
   openGraph: {
     title: "Product Categories | ChosenWell",
     description:
       "Browse curated health product categories including shampoo, toothpaste, soap, hair oil, and sunscreen.",
+    url: "/categories",
   },
 };
 

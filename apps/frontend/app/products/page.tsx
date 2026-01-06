@@ -7,13 +7,17 @@ import EmptyState from "../components/EmptyState";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "All Products",
+  title: "All Products - Curated Health Products India",
   description:
     "Browse all curated health products with transparent scoring. Safe, effective products for everyday use in India - no sponsored rankings, just honest analysis.",
+  alternates: {
+    canonical: "/products",
+  },
   openGraph: {
     title: "All Products | ChosenWell",
     description:
       "Browse all curated health products with transparent scoring and detailed ingredient analysis.",
+    url: "/products",
   },
 };
 

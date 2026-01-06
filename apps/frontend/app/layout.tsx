@@ -5,7 +5,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Providers } from "./context";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chosenwell.co.in";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "ChosenWell - Curated Health Products for Everyday Use in India",
     template: "%s | ChosenWell",
@@ -21,11 +24,22 @@ export const metadata: Metadata = {
     "chemical-free products",
     "curated wellness",
     "product comparisons",
+    "shampoo reviews India",
+    "toothpaste reviews India",
+    "sunscreen India",
+    "soap reviews",
+    "hair oil India",
   ],
   authors: [{ name: "ChosenWell" }],
+  creator: "ChosenWell",
+  publisher: "ChosenWell",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
+    url: siteUrl,
     siteName: "ChosenWell",
     title: "ChosenWell - Curated Health Products for Everyday Use in India",
     description:
@@ -36,6 +50,7 @@ export const metadata: Metadata = {
     title: "ChosenWell - Curated Health Products for Everyday Use in India",
     description:
       "Find genuinely safe, transparent health products curated for long-term use in India. No sponsored rankings, just honest comparisons.",
+    creator: "@ChosenWell_51",
   },
   robots: {
     index: true,
@@ -47,6 +62,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
   },
 };
 

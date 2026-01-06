@@ -3,13 +3,17 @@ import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy - Data Protection & Your Rights",
   description:
     "ChosenWell Privacy Policy - Learn how we collect, use, and protect your information. We respect your privacy and do not sell personal data.",
+  alternates: {
+    canonical: "/privacy",
+  },
   openGraph: {
     title: "Privacy Policy | ChosenWell",
     description:
       "Learn how ChosenWell collects, uses, and protects your information.",
+    url: "/privacy",
   },
 };
 
