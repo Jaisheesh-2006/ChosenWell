@@ -26,6 +26,16 @@ func New() (*Repository, error) {
 		connStr = "postgresql://healthuser:healthpass@localhost:5432/healthiswealth?sslmode=disable"
 	}
 
+	// Add binary_parameters=yes for better Neon/PgBouncer compatibility
+	// This uses simple protocol instead of extended protocol with prepared statements
+	if !strings.Contains(connStr, "binary_parameters") {
+		if strings.Contains(connStr, "?") {
+			connStr += "&binary_parameters=yes"
+		} else {
+			connStr += "?binary_parameters=yes"
+		}
+	}
+
 	// Log connection (hide password)
 	if idx := strings.Index(connStr, "@"); idx > 0 {
 		log.Printf("Connecting to database: ...%s", connStr[idx:])
@@ -36,10 +46,11 @@ func New() (*Repository, error) {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
 
-	// Configure connection pool
-	db.SetMaxOpenConns(25)
-	db.SetMaxIdleConns(5)
-	db.SetConnMaxLifetime(5 * time.Minute)
+	// Configure connection pool - reduced for serverless DB compatibility
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(2)
+	db.SetConnMaxLifetime(3 * time.Minute)
+	db.SetConnMaxIdleTime(1 * time.Minute)
 
 	// Verify connection
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic pages - products
   let productPages: MetadataRoute.Sitemap = [];
   try {
-    const products = await getProducts();
+    const products = await getProducts({ limit: 200 });
     productPages = products.map((product) => ({
       url: `${BASE_URL}/products/${product.slug}`,
       lastModified: new Date(),
