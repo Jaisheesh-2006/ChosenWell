@@ -145,10 +145,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </h2>
           </div>
           <Link
-            href={`/products?category=${category.slug}`}
+            href="/products"
             className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-600 transition-colors hover:bg-cyan-500/20 dark:text-cyan-400 dark:hover:bg-cyan-500/20"
           >
-            View all {category.title.toLowerCase()}
+            View all products
             <svg
               className="h-4 w-4"
               fill="none"
