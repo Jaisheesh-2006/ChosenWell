@@ -33,9 +33,9 @@ export default function AboutPage() {
             We are not an online store.
           </h2>
           <div className="mt-4 space-y-2 text-slate-600 dark:text-slate-400">
-            <p>We don't sell products.</p>
-            <p>We don't run sponsored rankings.</p>
-            <p>We don't list everything that's popular.</p>
+            <p>We don&apos;t sell products.</p>
+            <p>We don&apos;t run sponsored rankings.</p>
+            <p>We don&apos;t list everything that&apos;s popular.</p>
           </div>
           <p className="mt-6 text-slate-600 dark:text-slate-400">
             This platform exists for one reason: to make it easier to find{" "}
@@ -50,10 +50,10 @@ export default function AboutPage() {
         {/* The Problem */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            The problem we're trying to solve
+            The problem we&apos;re trying to solve
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            In India, "herbal", "natural", and "chemical-free" are everywhere —
+            In India, &ldquo;herbal&rdquo;, &ldquo;natural&rdquo;, and &ldquo;chemical-free&rdquo; are everywhere —
             but clarity is not.
           </p>
           <div className="mt-4 space-y-2 text-slate-600 dark:text-slate-400">
@@ -62,7 +62,7 @@ export default function AboutPage() {
             <p>Popular brands are not always the safest ones.</p>
           </div>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Most people don't want miracle results. They just want products they
+            Most people don&apos;t want miracle results. They just want products they
             can use{" "}
             <strong className="text-slate-900 dark:text-white">
               every day without worrying
@@ -88,12 +88,12 @@ export default function AboutPage() {
           </p>
           <ul className="mt-4 space-y-2 text-slate-600 dark:text-slate-400">
             <li>Clear and complete ingredient disclosure</li>
-            <li>No hidden "base q.s." or vague formulations</li>
+            <li>No hidden &ldquo;base q.s.&rdquo; or vague formulations</li>
             <li>
               Explicit exclusion of ingredients we consider high-risk for
               long-term use
             </li>
-            <li>Formulation logic that matches the product's claims</li>
+            <li>Formulation logic that matches the product&apos;s claims</li>
             <li>Suitability for Indian water, climate, and usage patterns</li>
           </ul>
           <p className="mt-6 text-slate-600 dark:text-slate-400">
@@ -106,7 +106,7 @@ export default function AboutPage() {
         {/* Our Bias */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            Our bias (we're explicit about it)
+            Our bias (we&apos;re explicit about it)
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
             We are biased towards:
@@ -129,7 +129,7 @@ export default function AboutPage() {
             </li>
           </ul>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            We do not try to rank "the best product for everyone". We help you
+            We do not try to rank &ldquo;the best product for everyone&rdquo;. We help you
             understand{" "}
             <strong className="text-slate-900 dark:text-white">why</strong> a
             product is listed, and{" "}
@@ -157,7 +157,7 @@ export default function AboutPage() {
             <li>How they are described</li>
           </ul>
           <p className="mt-6 font-medium text-slate-900 dark:text-white">
-            If a product doesn't meet our criteria, it doesn't get listed — paid
+            If a product doesn&apos;t meet our criteria, it doesn&apos;t get listed — paid
             or not.
           </p>
         </section>
@@ -200,13 +200,13 @@ export default function AboutPage() {
             Our commitment
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            If something is listed here, it means we've done the work to
-            understand it. If something is missing, it's usually because it
-            didn't clear the bar.
+            If something is listed here, it means we&apos;ve done the work to
+            understand it. If something is missing, it&apos;s usually because it
+            didn&apos;t clear the bar.
           </p>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
             If you spot an error, outdated information, or something that
-            doesn't align with our criteria — we want to hear from you.
+            doesn&apos;t align with our criteria — we want to hear from you.
           </p>
           <p className="mt-4 font-medium text-slate-900 dark:text-white">
             Trust is built by being open, careful, and willing to correct
