@@ -38,8 +38,11 @@ export async function generateMetadata({
 
   try {
     const category = await getCategoryBySlug(slug);
-    const description = `Best ${category.title.toLowerCase()} products in India - curated and scored for safety, ingredients, and value. ${category.long_description?.substring(0, 100) || ""}`.substring(0, 160);
-    
+    const description =
+      `Best ${category.title.toLowerCase()} products in India - curated and scored for safety, ingredients, and value. ${
+        category.long_description?.substring(0, 100) || ""
+      }`.substring(0, 160);
+
     return {
       title: `Best ${category.title} Products in India - Reviews & Comparisons`,
       description,

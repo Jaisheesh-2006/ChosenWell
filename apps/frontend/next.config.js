@@ -10,11 +10,11 @@ const nextConfig = {
   reactStrictMode: true,
   // Set the workspace root to the frontend directory to silence lockfile warning
   outputFileTracingRoot: path.join(__dirname),
-  
+
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  
+
   // Security headers including HTTPS enforcement
   async headers() {
     return [
@@ -49,7 +49,7 @@ const nextConfig = {
       },
     ];
   },
-  
+
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
