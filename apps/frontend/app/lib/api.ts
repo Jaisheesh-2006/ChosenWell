@@ -12,10 +12,39 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://chosenwell-production.up.railway.app";
 
+async function fetchWithRetry<T>(
+  url: string,
+  options: RequestInit,
+  retries = 3,
+  delay = 1000
+): Promise<Response> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, options);
+      if (res.ok) return res;
+      // If server error (5xx), retry
+      if (res.status >= 500 && i < retries - 1) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        continue;
+      }
+      return res;
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error("Max retries reached");
+}
+
 async function fetchApi<T>(endpoint: string): Promise<T> {
-  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
-    next: { revalidate: 60 }, // Cache for 60 seconds (ISR)
-  });
+  const res = await fetchWithRetry(
+    `${API_BASE_URL}${endpoint}`,
+    {
+      next: { revalidate: 300 }, // Cache for 5 minutes (ISR)
+    },
+    3,
+    1500
+  );
 
   if (!res.ok) {
     throw new Error(`API error: ${res.status} ${res.statusText}`);

@@ -16,6 +16,9 @@ interface ProductPageProps {
 // Allow dynamic params for products not pre-generated
 export const dynamicParams = true;
 
+// Revalidate pages every 5 minutes
+export const revalidate = 300;
+
 // Generate static params for products (SSG)
 export async function generateStaticParams() {
   try {

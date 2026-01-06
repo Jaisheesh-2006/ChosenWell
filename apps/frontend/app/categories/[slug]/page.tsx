@@ -12,6 +12,12 @@ interface CategoryPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Allow dynamic params for categories not pre-generated
+export const dynamicParams = true;
+
+// Revalidate pages every 5 minutes
+export const revalidate = 300;
+
 // Generate static params for all categories (SSG)
 export async function generateStaticParams() {
   try {
