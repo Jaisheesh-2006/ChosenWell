@@ -98,7 +98,7 @@ export default function ContactPage() {
             <li>• General questions and discussions</li>
           </ul>
           <p className="mt-4 text-sm text-slate-500 dark:text-slate-500">
-            Note: We don't review products over DMs.
+            Note: We don&apos;t review products over DMs.
           </p>
         </section>
 
@@ -156,7 +156,7 @@ export default function ContactPage() {
           </p>
           <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-400">
             <li>• Full ingredient list (INCI) is publicly available</li>
-            <li>• No hidden "proprietary base" formulations</li>
+            <li>• No hidden &ldquo;proprietary base&rdquo; formulations</li>
             <li>• Clear positioning for long-term, everyday use</li>
           </ul>
           <p className="mt-4 text-sm font-medium text-slate-900 dark:text-white">

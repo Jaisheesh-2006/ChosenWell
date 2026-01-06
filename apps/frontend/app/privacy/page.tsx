@@ -175,7 +175,7 @@ export default function PrivacyPage() {
         {/* Section 7 */}
         <section>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            7. Children's privacy
+            7. Children&apos;s privacy
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
             ChosenWell is not intended for children under the age of 13, and we

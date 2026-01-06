@@ -53,8 +53,8 @@ export default function AboutPage() {
             The problem we&apos;re trying to solve
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            In India, &ldquo;herbal&rdquo;, &ldquo;natural&rdquo;, and &ldquo;chemical-free&rdquo; are everywhere —
-            but clarity is not.
+            In India, &ldquo;herbal&rdquo;, &ldquo;natural&rdquo;, and
+            &ldquo;chemical-free&rdquo; are everywhere — but clarity is not.
           </p>
           <div className="mt-4 space-y-2 text-slate-600 dark:text-slate-400">
             <p>Ingredient lists are confusing.</p>
@@ -62,8 +62,8 @@ export default function AboutPage() {
             <p>Popular brands are not always the safest ones.</p>
           </div>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Most people don&apos;t want miracle results. They just want products they
-            can use{" "}
+            Most people don&apos;t want miracle results. They just want products
+            they can use{" "}
             <strong className="text-slate-900 dark:text-white">
               every day without worrying
             </strong>
@@ -129,8 +129,8 @@ export default function AboutPage() {
             </li>
           </ul>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            We do not try to rank &ldquo;the best product for everyone&rdquo;. We help you
-            understand{" "}
+            We do not try to rank &ldquo;the best product for everyone&rdquo;.
+            We help you understand{" "}
             <strong className="text-slate-900 dark:text-white">why</strong> a
             product is listed, and{" "}
             <strong className="text-slate-900 dark:text-white">
@@ -157,8 +157,8 @@ export default function AboutPage() {
             <li>How they are described</li>
           </ul>
           <p className="mt-6 font-medium text-slate-900 dark:text-white">
-            If a product doesn&apos;t meet our criteria, it doesn&apos;t get listed — paid
-            or not.
+            If a product doesn&apos;t meet our criteria, it doesn&apos;t get
+            listed — paid or not.
           </p>
         </section>
 
