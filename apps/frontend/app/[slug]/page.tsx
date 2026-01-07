@@ -110,7 +110,8 @@ export default async function CategoryAliasPage({
               No products yet
             </h3>
             <p className="mt-2 text-slate-600 dark:text-slate-400">
-              We&apos;re still curating products for this category. Check back soon!
+              We&apos;re still curating products for this category. Check back
+              soon!
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
