@@ -96,7 +96,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const products = await getProducts({ limit: 10000 });
     productPages = products.map((product) => ({
       // Clean, lowercase, hyphenated if needed
-      url: `${BASE_URL}/products/${product.slug.toLowerCase().replace(/_/g, "-")}`,
+      url: `${BASE_URL}/products/${product.slug
+        .toLowerCase()
+        .replace(/_/g, "-")}`,
       lastModified: today,
       changeFrequency: "weekly" as const,
       priority: 0.7,

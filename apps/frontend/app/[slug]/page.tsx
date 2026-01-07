@@ -36,7 +36,7 @@ export async function generateMetadata({
     const category = await getCategoryBySlug(underscoreSlug);
     const description = (
       `Best ${category.title.toLowerCase()} products in India - curated and scored for safety, ingredients, and value. ` +
-        (category.long_description?.substring(0, 100) || "")
+      (category.long_description?.substring(0, 100) || "")
     ).substring(0, 160);
 
     return {
@@ -65,7 +65,9 @@ async function getCategoryData(slug: string): Promise<Category | null> {
   }
 }
 
-export default async function CategoryAliasPage({ params }: CategoryAliasPageProps) {
+export default async function CategoryAliasPage({
+  params,
+}: CategoryAliasPageProps) {
   const { slug } = await params;
   const category = await getCategoryData(slug);
 
@@ -89,7 +91,10 @@ export default async function CategoryAliasPage({ params }: CategoryAliasPagePro
       </header>
 
       {category.criteria_content && (
-        <CriteriaSection title={category.title} content={category.criteria_content} />
+        <CriteriaSection
+          title={category.title}
+          content={category.criteria_content}
+        />
       )}
 
       <section>
@@ -101,15 +106,23 @@ export default async function CategoryAliasPage({ params }: CategoryAliasPagePro
           </div>
         ) : (
           <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">No products yet</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+              No products yet
+            </h3>
             <p className="mt-2 text-slate-600 dark:text-slate-400">
-              We're still curating products for this category. Check back soon!
+              We&apos;re still curating products for this category. Check back soon!
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link href="/products" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30">
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+              >
                 Browse all products
               </Link>
-              <Link href="/categories" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
+              <Link
+                href="/categories"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              >
                 View other categories
               </Link>
             </div>
