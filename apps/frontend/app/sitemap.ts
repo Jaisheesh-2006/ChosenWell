@@ -79,8 +79,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const categories = await getCategories();
     categoryPages = categories.map((category) => ({
-      // Clean, lowercase URL with no query strings
-      url: `${BASE_URL}/categories/${category.slug.toLowerCase()}`,
+      // Clean, lowercase, hyphenated, root-level URL
+      url: `${BASE_URL}/${category.slug.toLowerCase().replace(/_/g, "-")}`,
       lastModified: today,
       changeFrequency: "weekly" as const,
       priority: 0.8,
@@ -95,8 +95,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const products = await getProducts({ limit: 10000 });
     productPages = products.map((product) => ({
-      // Clean, lowercase URL with no query strings
-      url: `${BASE_URL}/products/${product.slug.toLowerCase()}`,
+      // Clean, lowercase, hyphenated if needed
+      url: `${BASE_URL}/products/${product.slug.toLowerCase().replace(/_/g, "-")}`,
       lastModified: today,
       changeFrequency: "weekly" as const,
       priority: 0.7,

@@ -23,7 +23,6 @@ export default function robots(): MetadataRoute.Robots {
           "/api/", // API endpoints - not for indexing
           "/admin/", // Admin panel - private
           "/auth/", // Authentication routes - private
-          "/_next/static/chunks/", // Next.js internal chunks - no SEO value
         ],
       },
       // Googlebot-Image - Allow image crawling for Google Images
@@ -35,7 +34,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Bingbot",
         allow: "/",
-        disallow: ["/api/", "/admin/", "/auth/", "/_next/static/chunks/"],
+        disallow: ["/api/", "/admin/", "/auth/"],
       },
       // DuckDuckBot - DuckDuckGo search engine
       {
@@ -63,7 +62,6 @@ export default function robots(): MetadataRoute.Robots {
           "/api/", // REST API endpoints
           "/admin/", // Admin dashboard
           "/auth/", // Login/logout/signup
-          "/_next/static/chunks/", // Webpack chunks
           "/private/", // Any private routes
           "/*?*", // Block URLs with query strings (prevents duplicate content)
         ],

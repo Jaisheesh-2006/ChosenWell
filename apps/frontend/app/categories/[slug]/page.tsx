@@ -35,6 +35,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const hyphenSlug = slug.replace(/_/g, "-");
 
   try {
     const category = await getCategoryBySlug(slug);
@@ -47,12 +48,13 @@ export async function generateMetadata({
       title: `Best ${category.title} Products in India - Reviews & Comparisons`,
       description,
       alternates: {
-        canonical: `/categories/${slug}`,
+        // Prefer short, hyphenated root-level URL as canonical
+        canonical: `/${hyphenSlug}`,
       },
       openGraph: {
         title: `${category.title} Products | ChosenWell`,
         description: `Compare the best ${category.title.toLowerCase()} products with transparent scoring.`,
-        url: `/categories/${slug}`,
+        url: `/${hyphenSlug}`,
       },
     };
   } catch {
@@ -277,7 +279,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             "@type": "CollectionPage",
             name: category.title,
             description: category.long_description?.substring(0, 200),
-            url: `https://chosenwell.co.in/categories/${category.slug}`,
+            url: `https://www.chosenwell.co.in/${slug.replace(/_/g, "-")}`,
           }),
         }}
       />

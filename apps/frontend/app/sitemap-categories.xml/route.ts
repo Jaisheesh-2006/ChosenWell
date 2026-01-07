@@ -4,8 +4,8 @@
  * Contains all product category pages dynamically fetched from the API.
  * These are important landing pages for users searching for product types.
  *
- * URL Pattern: /categories/{category-slug}
- * Examples: /categories/shampoos, /categories/sunscreen, /categories/toothpaste
+ * URL Pattern: /{category-slug}
+ * Examples: /shampoos, /sunscreen, /toothpaste
  *
  * SEO Notes:
  * - Categories are high-value landing pages (priority 0.8)
@@ -32,7 +32,7 @@ export async function GET() {
       (category) => `
   <url>
     <!-- Category: ${category.title || category.slug} -->
-    <loc>${BASE_URL}/categories/${category.slug.toLowerCase()}</loc>
+    <loc>${BASE_URL}/${category.slug.toLowerCase().replace(/_/g, "-")}</loc>
     <lastmod>${TODAY}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -51,7 +51,7 @@ export async function GET() {
   Contains: Product category landing pages
   Total URLs: ${totalCategories}
   
-  URL Pattern: /categories/{slug}
+  URL Pattern: /{slug}
   These are important landing pages for product discovery.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
