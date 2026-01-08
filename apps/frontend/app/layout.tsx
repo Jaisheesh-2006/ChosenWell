@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Providers } from "./context";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chosenwell.co.in";
 
 export const metadata: Metadata = {
@@ -17,19 +17,33 @@ export const metadata: Metadata = {
   description:
     "Find genuinely safe, transparent health products curated for long-term use in India. We analyze ingredients, certifications, and value - no sponsored rankings, just honest comparisons.",
   keywords: [
-    "health products India",
-    "safe personal care",
-    "ingredient analysis",
-    "natural products",
-    "transparent product reviews",
-    "chemical-free products",
-    "curated wellness",
-    "product comparisons",
-    "shampoo reviews India",
-    "toothpaste reviews India",
-    "sunscreen India",
-    "soap reviews",
-    "hair oil India",
+    // India-First High-Intent Keywords
+    "best shampoo for Indian hair type",
+    "toothpaste comparison India",
+    "sunscreen for Indian skin tone",
+    "hair oil for Indian climate humidity",
+    "soap for hard water India",
+    "personal care products Indian weather",
+    "dermatologist recommended products India",
+    "sulfate-free shampoo India",
+    "paraben-free products India",
+    // India-Specific Ingredient & Safety Keywords
+    "ingredient safety check India",
+    "how to read product labels India",
+    "FSSAI approved ingredients",
+    "BIS certified personal care",
+    "ingredients to avoid sensitive Indian skin",
+    "skincare for humid Indian summers",
+    "hard water hair care India",
+    "pollution protection skincare India",
+    // Global but India-Relevant Keywords
+    "unbiased product reviews personal care",
+    "ingredient transparency cosmetics",
+    "safe daily use personal care",
+    "hypoallergenic products India",
+    "dermatologically tested products",
+    "pregnancy-safe personal care",
+    "sensitive skin ingredient guide",
   ],
   authors: [{ name: "ChosenWell" }],
   creator: "ChosenWell",
