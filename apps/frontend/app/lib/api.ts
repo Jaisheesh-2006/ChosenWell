@@ -12,45 +12,32 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://chosenwell-production.up.railway.app";
 
-async function fetchWithRetry<T>(
-  url: string,
-  options: RequestInit,
-  retries = 3,
-  delay = 1000
-): Promise<Response> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch(url, options);
-      if (res.ok) return res;
-      // If server error (5xx), retry
-      if (res.status >= 500 && i < retries - 1) {
-        await new Promise((resolve) => setTimeout(resolve, delay));
-        continue;
-      }
-      return res;
-    } catch (error) {
-      if (i === retries - 1) throw error;
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
-  throw new Error("Max retries reached");
-}
-
 async function fetchApi<T>(endpoint: string): Promise<T> {
-  const res = await fetchWithRetry(
-    `${API_BASE_URL}${endpoint}`,
-    {
-      next: { revalidate: 300 }, // Cache for 5 minutes (ISR)
+  const url = `${API_BASE_URL}${endpoint}`;
+
+  // Use native fetch with no caching to avoid Next.js cache issues
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    3,
-    1500
-  );
+    cache: "no-store", // Disable caching to prevent stale/corrupted responses
+  });
 
   if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`);
+    throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
   }
 
-  return res.json();
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    const text = await res.text();
+    console.error(`Unexpected content-type: ${contentType} for URL: ${url}`);
+    console.error("Response preview:", text.substring(0, 200));
+    throw new Error(`Expected JSON but got ${contentType}`);
+  }
+
+  return res.json() as Promise<T>;
 }
 
 // Health check
