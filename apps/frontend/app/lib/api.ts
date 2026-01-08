@@ -55,7 +55,10 @@ async function fetchApi<T>(
         console.error(`Failed to extract JSON from ${url}:`, innerError);
       }
     }
-    console.error(`Invalid response from ${url} (first 300 chars):`, text.slice(0, 300));
+    console.error(
+      `Invalid response from ${url} (first 300 chars):`,
+      text.slice(0, 300)
+    );
     throw new Error(`Invalid JSON response from ${endpoint}`);
   }
 }

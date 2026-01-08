@@ -271,7 +271,7 @@ export default async function HomePage() {
           </h2>
           <p className="mt-4 max-w-2xl text-slate-600 dark:text-slate-400">
             Our methodology is completely transparent. We evaluate products
-            based on ingredients, certifications, third-party testing, and value
+            based on ingredients, certifications, and value
             for money. Learn exactly how we score each product.
           </p>
           <Link
