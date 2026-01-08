@@ -15,8 +15,7 @@ const API_BASE_URL =
 /**
  * Optimized fetch function with ISR (Incremental Static Regeneration)
  * - Uses revalidate for caching (default 60 seconds)
- * - Removes cache: "no-store" which was causing slow responses
- * - Static data is served from CDN edge cache
+ * - Robust JSON extraction to handle Next.js cache issues
  */
 async function fetchApi<T>(
   endpoint: string,
@@ -29,14 +28,36 @@ async function fetchApi<T>(
     headers: {
       Accept: "application/json",
     },
-    next: { revalidate: revalidateSeconds }, // ISR: Revalidate every N seconds
+    next: { revalidate: revalidateSeconds },
   });
 
   if (!res.ok) {
     throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
   }
 
-  return res.json() as Promise<T>;
+  const text = await res.text();
+
+  if (!text || text.trim() === "") {
+    return {} as T;
+  }
+
+  try {
+    // First, try direct JSON parse (fast path for clean responses)
+    return JSON.parse(text) as T;
+  } catch {
+    // If direct parse fails, extract JSON from potentially corrupted cache
+    // Next.js RSC cache can prepend metadata like "59:[]" or "http/1.1{...}"
+    const jsonMatch = text.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
+    if (jsonMatch) {
+      try {
+        return JSON.parse(jsonMatch[1]) as T;
+      } catch (innerError) {
+        console.error(`Failed to extract JSON from ${url}:`, innerError);
+      }
+    }
+    console.error(`Invalid response from ${url} (first 300 chars):`, text.slice(0, 300));
+    throw new Error(`Invalid JSON response from ${endpoint}`);
+  }
 }
 
 // Health check - no caching needed

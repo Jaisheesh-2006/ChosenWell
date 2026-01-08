@@ -131,7 +131,7 @@ func logQuery(name string, start time.Time, rowCount int) {
 // GetCategories returns all active categories (CACHED for 5 minutes)
 func (r *Repository) GetCategories(ctx context.Context) ([]types.CategorySummary, error) {
 	cacheKey := "categories:all"
-	
+
 	// Check cache first
 	if cached, ok := r.cache.get(cacheKey); ok {
 		log.Println("Cache HIT: categories")
@@ -172,7 +172,7 @@ func (r *Repository) GetCategories(ctx context.Context) ([]types.CategorySummary
 // GetCategory returns a category by slug with its products (CACHED for 2 minutes)
 func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Category, error) {
 	cacheKey := fmt.Sprintf("category:%s", slug)
-	
+
 	// Check cache first
 	if cached, ok := r.cache.get(cacheKey); ok {
 		log.Printf("Cache HIT: category/%s", slug)
@@ -225,7 +225,7 @@ func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Categ
 // GetProductsOptimized fetches products with tags in a SINGLE query (no N+1)
 func (r *Repository) GetProductsOptimized(ctx context.Context, category string, limit int) ([]types.ProductSummary, error) {
 	start := time.Now()
-	
+
 	// Single query with all tags aggregated
 	query := `
 		SELECT 
@@ -302,7 +302,7 @@ type ProductFilters struct {
 func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*types.ProductListResponse, error) {
 	// Generate cache key
 	cacheKey := fmt.Sprintf("products:%s:%d:%d", filters.Category, filters.Page, filters.Limit)
-	
+
 	// Check cache for unfiltered requests
 	if filters.Category != "" && len(filters.Concern) == 0 && len(filters.Philosophy) == 0 && filters.Budget == "" {
 		if cached, ok := r.cache.get(cacheKey); ok {
@@ -455,7 +455,7 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 // GetProduct returns a single product by slug (CACHED for 2 minutes)
 func (r *Repository) GetProduct(ctx context.Context, slug string) (*types.Product, error) {
 	cacheKey := fmt.Sprintf("product:%s", slug)
-	
+
 	// Check cache first
 	if cached, ok := r.cache.get(cacheKey); ok {
 		log.Printf("Cache HIT: product/%s", slug)
@@ -574,7 +574,7 @@ func (r *Repository) getProductBuyLinks(ctx context.Context, productID string) (
 // GetSimilarProducts returns similar products based on category
 func (r *Repository) GetSimilarProducts(ctx context.Context, slug string, limit int) ([]types.ProductSummary, error) {
 	start := time.Now()
-	
+
 	// Get the product's category first
 	var categorySlug string
 	err := r.db.QueryRowContext(ctx,
@@ -733,7 +733,7 @@ func (r *Repository) GetAvailableFilters(ctx context.Context, category string) (
 // GetMethodology returns the current scoring methodology (CACHED for 1 hour)
 func (r *Repository) GetMethodology(ctx context.Context) (*types.Methodology, error) {
 	cacheKey := "methodology"
-	
+
 	// Check cache first
 	if cached, ok := r.cache.get(cacheKey); ok {
 		log.Println("Cache HIT: methodology")
