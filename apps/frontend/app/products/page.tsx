@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
+// ISR: Revalidate products page every 60 seconds
+export const revalidate = 60;
+
 // No fallback data - only use database
 
 async function getProductsPageData() {

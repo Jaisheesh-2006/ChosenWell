@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/lib/pq"
@@ -14,9 +15,54 @@ import (
 	"github.com/Jaisheesh-2006/healthiswealth/backend/internal/types"
 )
 
-// Repository handles database operations
+// =====================
+// IN-MEMORY CACHE
+// =====================
+
+type cacheEntry struct {
+	data      interface{}
+	expiresAt time.Time
+}
+
+type cache struct {
+	mu      sync.RWMutex
+	entries map[string]cacheEntry
+}
+
+func newCache() *cache {
+	return &cache{entries: make(map[string]cacheEntry)}
+}
+
+func (c *cache) get(key string) (interface{}, bool) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	entry, ok := c.entries[key]
+	if !ok || time.Now().After(entry.expiresAt) {
+		return nil, false
+	}
+	return entry.data, true
+}
+
+func (c *cache) set(key string, data interface{}, ttl time.Duration) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.entries[key] = cacheEntry{data: data, expiresAt: time.Now().Add(ttl)}
+}
+
+func (c *cache) delete(key string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	delete(c.entries, key)
+}
+
+// =====================
+// REPOSITORY
+// =====================
+
+// Repository handles database operations with caching and logging
 type Repository struct {
-	db *sql.DB
+	db    *sql.DB
+	cache *cache
 }
 
 // New creates a new database repository
@@ -27,7 +73,6 @@ func New() (*Repository, error) {
 	}
 
 	// Add binary_parameters=yes for better Neon/PgBouncer compatibility
-	// This uses simple protocol instead of extended protocol with prepared statements
 	if !strings.Contains(connStr, "binary_parameters") {
 		if strings.Contains(connStr, "?") {
 			connStr += "&binary_parameters=yes"
@@ -46,21 +91,22 @@ func New() (*Repository, error) {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
 
-	// Configure connection pool - reduced for serverless DB compatibility
+	// Configure connection pool - optimized for serverless DB
 	db.SetMaxOpenConns(10)
 	db.SetMaxIdleConns(2)
 	db.SetConnMaxLifetime(3 * time.Minute)
 	db.SetConnMaxIdleTime(1 * time.Minute)
 
-	// Verify connection
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	// Verify connection with longer timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	if err := db.PingContext(ctx); err != nil {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	return &Repository{db: db}, nil
+	log.Println("Database connection established successfully")
+	return &Repository{db: db, cache: newCache()}, nil
 }
 
 // Close closes the database connection
@@ -68,8 +114,31 @@ func (r *Repository) Close() error {
 	return r.db.Close()
 }
 
-// GetCategories returns all active categories
+// logQuery logs query execution time for debugging
+func logQuery(name string, start time.Time, rowCount int) {
+	duration := time.Since(start)
+	if duration > 500*time.Millisecond {
+		log.Printf("⚠️ SLOW QUERY [%s]: %v (%d rows)", name, duration, rowCount)
+	} else {
+		log.Printf("✓ Query [%s]: %v (%d rows)", name, duration, rowCount)
+	}
+}
+
+// =====================
+// CATEGORIES
+// =====================
+
+// GetCategories returns all active categories (CACHED for 5 minutes)
 func (r *Repository) GetCategories(ctx context.Context) ([]types.CategorySummary, error) {
+	cacheKey := "categories:all"
+	
+	// Check cache first
+	if cached, ok := r.cache.get(cacheKey); ok {
+		log.Println("Cache HIT: categories")
+		return cached.([]types.CategorySummary), nil
+	}
+
+	start := time.Now()
 	query := `
 		SELECT slug, title, COALESCE(description, '') as description
 		FROM categories
@@ -92,11 +161,25 @@ func (r *Repository) GetCategories(ctx context.Context) ([]types.CategorySummary
 		categories = append(categories, c)
 	}
 
+	logQuery("GetCategories", start, len(categories))
+
+	// Cache for 5 minutes
+	r.cache.set(cacheKey, categories, 5*time.Minute)
+
 	return categories, rows.Err()
 }
 
-// GetCategory returns a category by slug with its products
+// GetCategory returns a category by slug with its products (CACHED for 2 minutes)
 func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Category, error) {
+	cacheKey := fmt.Sprintf("category:%s", slug)
+	
+	// Check cache first
+	if cached, ok := r.cache.get(cacheKey); ok {
+		log.Printf("Cache HIT: category/%s", slug)
+		return cached.(*types.Category), nil
+	}
+
+	start := time.Now()
 	query := `
 		SELECT slug, title, COALESCE(long_description, '') as long_description, 
 		       COALESCE(criteria, '{}') as criteria
@@ -117,20 +200,89 @@ func (r *Repository) GetCategory(ctx context.Context, slug string) (*types.Categ
 		return nil, fmt.Errorf("failed to query category: %w", err)
 	}
 
-	// Convert criteria array to CategoryCriteria
 	c.Criteria = types.CategoryCriteria{MustHave: criteriaArr}
-
-	// Use long_description as criteria_content for frontend compatibility
 	c.CriteriaContent = c.LongDescription
 
-	// Get products for this category
-	products, err := r.GetProducts(ctx, ProductFilters{Category: slug, Limit: 100})
+	logQuery("GetCategory", start, 1)
+
+	// Get products for this category - use optimized single query
+	products, err := r.GetProductsOptimized(ctx, slug, 100)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get category products: %w", err)
 	}
-	c.CuratedProducts = products.Products
+	c.CuratedProducts = products
+
+	// Cache for 2 minutes
+	r.cache.set(cacheKey, &c, 2*time.Minute)
 
 	return &c, nil
+}
+
+// =====================
+// PRODUCTS - OPTIMIZED (Fixed N+1 queries)
+// =====================
+
+// GetProductsOptimized fetches products with tags in a SINGLE query (no N+1)
+func (r *Repository) GetProductsOptimized(ctx context.Context, category string, limit int) ([]types.ProductSummary, error) {
+	start := time.Now()
+	
+	// Single query with all tags aggregated
+	query := `
+		SELECT 
+			p.id, p.slug, p.name, p.brand, p.image_url, p.score, 
+			p.short_reason, p.price_tier, p.usage_pattern,
+			COALESCE(
+				(SELECT array_agg(concern_code) FROM product_primary_concerns WHERE product_id = p.id),
+				'{}'
+			) AS concerns,
+			COALESCE(
+				(SELECT array_agg(philosophy_code) FROM product_philosophy_tags WHERE product_id = p.id),
+				'{}'
+			) AS philosophies
+		FROM products p
+		WHERE p.status = 'active' AND p.category_slug = $1
+		ORDER BY p.score DESC
+		LIMIT $2
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, category, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query products: %w", err)
+	}
+	defer rows.Close()
+
+	var products []types.ProductSummary
+	for rows.Next() {
+		var p types.ProductSummary
+		var imageURL, priceTier, usagePattern sql.NullString
+		var concerns, philosophies []string
+
+		if err := rows.Scan(&p.ID, &p.Slug, &p.Name, &p.Brand, &imageURL, &p.Score,
+			&p.ShortReason, &priceTier, &usagePattern,
+			pq.Array(&concerns), pq.Array(&philosophies)); err != nil {
+			return nil, fmt.Errorf("failed to scan product: %w", err)
+		}
+
+		if imageURL.Valid {
+			p.ImageURL = imageURL.String
+		}
+		if priceTier.Valid {
+			p.BudgetTier = priceTier.String
+		}
+
+		// Set tags directly from query (no additional DB calls!)
+		p.Tags = &types.ProductTags{
+			Concern:    concerns,
+			Philosophy: philosophies,
+			Budget:     priceTier.String,
+			Usage:      []string{usagePattern.String},
+		}
+
+		products = append(products, p)
+	}
+
+	logQuery("GetProductsOptimized", start, len(products))
+	return products, rows.Err()
 }
 
 // ProductFilters contains filter parameters for product queries
@@ -146,8 +298,21 @@ type ProductFilters struct {
 	Limit      int
 }
 
-// GetProducts returns filtered products
+// GetProducts returns filtered products (CACHED for 1 minute)
 func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*types.ProductListResponse, error) {
+	// Generate cache key
+	cacheKey := fmt.Sprintf("products:%s:%d:%d", filters.Category, filters.Page, filters.Limit)
+	
+	// Check cache for unfiltered requests
+	if filters.Category != "" && len(filters.Concern) == 0 && len(filters.Philosophy) == 0 && filters.Budget == "" {
+		if cached, ok := r.cache.get(cacheKey); ok {
+			log.Printf("Cache HIT: products/%s", filters.Category)
+			return cached.(*types.ProductListResponse), nil
+		}
+	}
+
+	start := time.Now()
+
 	// Set defaults
 	if filters.Limit == 0 {
 		filters.Limit = 20
@@ -157,10 +322,19 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 	}
 	offset := (filters.Page - 1) * filters.Limit
 
-	// Build query with filters
+	// Optimized single query with tags included
 	query := `
-		SELECT DISTINCT p.id, p.slug, p.name, p.brand, p.image_url, p.score, 
-		       p.short_reason, p.price_tier, p.usage_pattern
+		SELECT DISTINCT 
+			p.id, p.slug, p.name, p.brand, p.image_url, p.score, 
+			p.short_reason, p.price_tier, p.usage_pattern,
+			COALESCE(
+				(SELECT array_agg(concern_code) FROM product_primary_concerns WHERE product_id = p.id),
+				'{}'
+			) AS concerns,
+			COALESCE(
+				(SELECT array_agg(philosophy_code) FROM product_philosophy_tags WHERE product_id = p.id),
+				'{}'
+			) AS philosophies
 		FROM products p
 		LEFT JOIN product_primary_concerns pc ON p.id = pc.product_id
 		LEFT JOIN product_philosophy_tags pt ON p.id = pt.product_id
@@ -226,9 +400,11 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 	for rows.Next() {
 		var p types.ProductSummary
 		var imageURL, priceTier, usagePattern sql.NullString
+		var concerns, philosophies []string
 
 		if err := rows.Scan(&p.ID, &p.Slug, &p.Name, &p.Brand, &imageURL, &p.Score,
-			&p.ShortReason, &priceTier, &usagePattern); err != nil {
+			&p.ShortReason, &priceTier, &usagePattern,
+			pq.Array(&concerns), pq.Array(&philosophies)); err != nil {
 			return nil, fmt.Errorf("failed to scan product: %w", err)
 		}
 
@@ -239,84 +415,82 @@ func (r *Repository) GetProducts(ctx context.Context, filters ProductFilters) (*
 			p.BudgetTier = priceTier.String
 		}
 
-		// Get tags for this product
-		tags, err := r.getProductTags(ctx, p.ID)
-		if err == nil {
-			p.Tags = tags
+		// Tags included in query - NO additional DB calls!
+		p.Tags = &types.ProductTags{
+			Concern:    concerns,
+			Philosophy: philosophies,
+			Budget:     priceTier.String,
+			Usage:      []string{usagePattern.String},
 		}
 
 		products = append(products, p)
 	}
 
-	// Get total count with same filters
-	countQuery := `
-		SELECT COUNT(DISTINCT p.id)
-		FROM products p
-		LEFT JOIN product_primary_concerns pc ON p.id = pc.product_id
-		LEFT JOIN product_philosophy_tags pt ON p.id = pt.product_id
-		WHERE p.status = 'active'
-	`
-
-	// Rebuild count query with same filters (excluding LIMIT/OFFSET)
-	countArgs := []interface{}{}
-	countArgIdx := 1
-
-	if filters.Category != "" {
-		countQuery += fmt.Sprintf(" AND p.category_slug = $%d", countArgIdx)
-		countArgs = append(countArgs, filters.Category)
-		countArgIdx++
-	}
-	if len(filters.Concern) > 0 {
-		countQuery += fmt.Sprintf(" AND pc.concern_code = ANY($%d)", countArgIdx)
-		countArgs = append(countArgs, pq.Array(filters.Concern))
-		countArgIdx++
-	}
-	if len(filters.Philosophy) > 0 {
-		countQuery += fmt.Sprintf(" AND pt.philosophy_code = ANY($%d)", countArgIdx)
-		countArgs = append(countArgs, pq.Array(filters.Philosophy))
-		countArgIdx++
-	}
-	if filters.Budget != "" {
-		countQuery += fmt.Sprintf(" AND p.price_tier = $%d", countArgIdx)
-		countArgs = append(countArgs, filters.Budget)
-		countArgIdx++
-	}
-	if len(filters.Usage) > 0 {
-		countQuery += fmt.Sprintf(" AND p.usage_pattern = ANY($%d)", countArgIdx)
-		countArgs = append(countArgs, pq.Array(filters.Usage))
+	// Get total count (simplified)
+	total := len(products)
+	if filters.Limit > 0 && len(products) == filters.Limit {
+		// Only count if we hit the limit (pagination needed)
+		countQuery := `SELECT COUNT(DISTINCT p.id) FROM products p WHERE p.status = 'active'`
+		if filters.Category != "" {
+			countQuery += fmt.Sprintf(" AND p.category_slug = '%s'", filters.Category)
+		}
+		r.db.QueryRowContext(ctx, countQuery).Scan(&total)
 	}
 
-	var total int
-	if err := r.db.QueryRowContext(ctx, countQuery, countArgs...).Scan(&total); err != nil {
-		total = len(products)
-	}
+	logQuery("GetProducts", start, len(products))
 
-	return &types.ProductListResponse{
+	result := &types.ProductListResponse{
 		Products: products,
 		Total:    total,
-	}, rows.Err()
+	}
+
+	// Cache unfiltered category results for 1 minute
+	if filters.Category != "" && len(filters.Concern) == 0 && len(filters.Philosophy) == 0 && filters.Budget == "" {
+		r.cache.set(cacheKey, result, 1*time.Minute)
+	}
+
+	return result, rows.Err()
 }
 
-// GetProduct returns a single product by slug
+// GetProduct returns a single product by slug (CACHED for 2 minutes)
 func (r *Repository) GetProduct(ctx context.Context, slug string) (*types.Product, error) {
+	cacheKey := fmt.Sprintf("product:%s", slug)
+	
+	// Check cache first
+	if cached, ok := r.cache.get(cacheKey); ok {
+		log.Printf("Cache HIT: product/%s", slug)
+		return cached.(*types.Product), nil
+	}
+
+	start := time.Now()
 	query := `
 		SELECT p.id, p.slug, p.name, p.brand, p.image_url, p.category_slug, p.score,
 		       p.why_recommended, p.pros, p.cons, p.ingredient_summary,
-		       p.certifications, p.last_reviewed_at, p.price_tier
+		       p.certifications, p.last_reviewed_at, p.price_tier,
+		       COALESCE(
+		           (SELECT array_agg(concern_code) FROM product_primary_concerns WHERE product_id = p.id),
+		           '{}'
+		       ) AS concerns,
+		       COALESCE(
+		           (SELECT array_agg(philosophy_code) FROM product_philosophy_tags WHERE product_id = p.id),
+		           '{}'
+		       ) AS philosophies,
+		       p.usage_pattern
 		FROM products p
 		WHERE p.slug = $1 AND p.status = 'active'
 	`
 
 	var p types.Product
 	var imageURL, ingredientSummary sql.NullString
-	var whyRecommended, pros, cons, certifications []string
+	var whyRecommended, pros, cons, certifications, concerns, philosophies []string
 	var lastReviewed time.Time
-	var priceTier string
+	var priceTier, usagePattern string
 
 	err := r.db.QueryRowContext(ctx, query, slug).Scan(
 		&p.ID, &p.Slug, &p.Name, &p.Brand, &imageURL, &p.Category, &p.Score,
 		pq.Array(&whyRecommended), pq.Array(&pros), pq.Array(&cons),
 		&ingredientSummary, pq.Array(&certifications), &lastReviewed, &priceTier,
+		pq.Array(&concerns), pq.Array(&philosophies), &usagePattern,
 	)
 	if err == sql.ErrNoRows {
 		return nil, nil
@@ -338,13 +512,15 @@ func (r *Repository) GetProduct(ctx context.Context, slug string) (*types.Produc
 	p.Certifications = certifications
 	p.LastReviewed = lastReviewed.Format("2006-01-02")
 
-	// Get tags
-	tags, err := r.getProductTags(ctx, p.ID)
-	if err == nil {
-		p.Tags = tags
+	// Tags already fetched in main query (no N+1!)
+	p.Tags = &types.ProductTags{
+		Concern:    concerns,
+		Philosophy: philosophies,
+		Budget:     priceTier,
+		Usage:      []string{usagePattern},
 	}
 
-	// Get buy links
+	// Get buy links (single query)
 	buyLinks, err := r.getProductBuyLinks(ctx, p.ID)
 	if err == nil {
 		p.BuyLinks = buyLinks
@@ -360,48 +536,12 @@ func (r *Repository) GetProduct(ctx context.Context, slug string) (*types.Produc
 		p.PriceRange = "Under ₹400"
 	}
 
+	logQuery("GetProduct", start, 1)
+
+	// Cache for 2 minutes
+	r.cache.set(cacheKey, &p, 2*time.Minute)
+
 	return &p, nil
-}
-
-// getProductTags returns tags for a product
-func (r *Repository) getProductTags(ctx context.Context, productID string) (*types.ProductTags, error) {
-	tags := &types.ProductTags{}
-
-	// Get concerns
-	concernQuery := `SELECT concern_code FROM product_primary_concerns WHERE product_id = $1`
-	rows, err := r.db.QueryContext(ctx, concernQuery, productID)
-	if err == nil {
-		defer rows.Close()
-		for rows.Next() {
-			var code string
-			if rows.Scan(&code) == nil {
-				tags.Concern = append(tags.Concern, code)
-			}
-		}
-	}
-
-	// Get philosophy tags
-	philQuery := `SELECT philosophy_code FROM product_philosophy_tags WHERE product_id = $1`
-	rows2, err := r.db.QueryContext(ctx, philQuery, productID)
-	if err == nil {
-		defer rows2.Close()
-		for rows2.Next() {
-			var code string
-			if rows2.Scan(&code) == nil {
-				tags.Philosophy = append(tags.Philosophy, code)
-			}
-		}
-	}
-
-	// Get budget and usage from products table
-	budgetQuery := `SELECT price_tier, usage_pattern FROM products WHERE id = $1`
-	var budget, usage string
-	if r.db.QueryRowContext(ctx, budgetQuery, productID).Scan(&budget, &usage) == nil {
-		tags.Budget = budget
-		tags.Usage = []string{usage}
-	}
-
-	return tags, nil
 }
 
 // getProductBuyLinks returns buy links for a product
@@ -431,8 +571,10 @@ func (r *Repository) getProductBuyLinks(ctx context.Context, productID string) (
 	return links, rows.Err()
 }
 
-// GetSimilarProducts returns similar products based on category and tags
+// GetSimilarProducts returns similar products based on category
 func (r *Repository) GetSimilarProducts(ctx context.Context, slug string, limit int) ([]types.ProductSummary, error) {
+	start := time.Now()
+	
 	// Get the product's category first
 	var categorySlug string
 	err := r.db.QueryRowContext(ctx,
@@ -472,11 +614,13 @@ func (r *Repository) GetSimilarProducts(ctx context.Context, slug string, limit 
 		products = append(products, p)
 	}
 
+	logQuery("GetSimilarProducts", start, len(products))
 	return products, rows.Err()
 }
 
 // GetAvailableFilters returns filter options with counts
 func (r *Repository) GetAvailableFilters(ctx context.Context, category string) (*types.FilterOptions, error) {
+	start := time.Now()
 	filters := &types.FilterOptions{Category: category}
 
 	categoryFilter := ""
@@ -582,11 +726,21 @@ func (r *Repository) GetAvailableFilters(ctx context.Context, category string) (
 		}
 	}
 
+	logQuery("GetAvailableFilters", start, 4)
 	return filters, nil
 }
 
-// GetMethodology returns the current scoring methodology
+// GetMethodology returns the current scoring methodology (CACHED for 1 hour)
 func (r *Repository) GetMethodology(ctx context.Context) (*types.Methodology, error) {
+	cacheKey := "methodology"
+	
+	// Check cache first
+	if cached, ok := r.cache.get(cacheKey); ok {
+		log.Println("Cache HIT: methodology")
+		return cached.(*types.Methodology), nil
+	}
+
+	start := time.Now()
 	query := `
 		SELECT version, summary, last_updated_at
 		FROM methodologies
@@ -599,7 +753,6 @@ func (r *Repository) GetMethodology(ctx context.Context) (*types.Methodology, er
 
 	err := r.db.QueryRowContext(ctx, query).Scan(&m.Version, &m.Summary, &lastUpdated)
 	if err == sql.ErrNoRows {
-		// Return default methodology
 		return &types.Methodology{
 			Version:     "v1",
 			Summary:     "Products are scored on safety, efficacy, ingredient quality, and value.",
@@ -611,5 +764,11 @@ func (r *Repository) GetMethodology(ctx context.Context) (*types.Methodology, er
 	}
 
 	m.LastUpdated = lastUpdated.Format("2006-01-02")
+
+	logQuery("GetMethodology", start, 1)
+
+	// Cache for 1 hour
+	r.cache.set(cacheKey, &m, 1*time.Hour)
+
 	return &m, nil
 }

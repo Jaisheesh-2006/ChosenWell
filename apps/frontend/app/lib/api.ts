@@ -12,46 +12,48 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://chosenwell-production.up.railway.app";
 
-async function fetchApi<T>(endpoint: string): Promise<T> {
+/**
+ * Optimized fetch function with ISR (Incremental Static Regeneration)
+ * - Uses revalidate for caching (default 60 seconds)
+ * - Removes cache: "no-store" which was causing slow responses
+ * - Static data is served from CDN edge cache
+ */
+async function fetchApi<T>(
+  endpoint: string,
+  revalidateSeconds: number = 60
+): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
 
-  // Use native fetch with no caching to avoid Next.js cache issues
   const res = await fetch(url, {
     method: "GET",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
     },
-    cache: "no-store", // Disable caching to prevent stale/corrupted responses
+    next: { revalidate: revalidateSeconds }, // ISR: Revalidate every N seconds
   });
 
   if (!res.ok) {
     throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
   }
 
-  const contentType = res.headers.get("content-type");
-  if (!contentType || !contentType.includes("application/json")) {
-    const text = await res.text();
-    console.error(`Unexpected content-type: ${contentType} for URL: ${url}`);
-    console.error("Response preview:", text.substring(0, 200));
-    throw new Error(`Expected JSON but got ${contentType}`);
-  }
-
   return res.json() as Promise<T>;
 }
 
-// Health check
+// Health check - no caching needed
 export async function getHealthStatus(): Promise<HealthStatus> {
-  return fetchApi<HealthStatus>("/health");
+  const url = `${API_BASE_URL}/health`;
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Health check failed: ${res.status}`);
+  return res.json();
 }
 
-// Categories
+// Categories - cache for 5 minutes (categories rarely change)
 export async function getCategories(): Promise<CategorySummary[]> {
-  return fetchApi<CategorySummary[]>("/categories");
+  return fetchApi<CategorySummary[]>("/categories", 300);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category> {
-  return fetchApi<Category>(`/categories/${encodeURIComponent(slug)}`);
+  return fetchApi<Category>(`/categories/${encodeURIComponent(slug)}`, 300);
 }
 
 // Products
@@ -66,6 +68,7 @@ interface ProductsResponse {
   total?: number;
 }
 
+// Products list - cache for 1 minute
 export async function getProducts(
   params?: GetProductsParams
 ): Promise<ProductSummary[]> {
@@ -84,35 +87,40 @@ export async function getProducts(
   const queryString = searchParams.toString();
   const endpoint = queryString ? `/products?${queryString}` : "/products";
 
-  const response = await fetchApi<ProductsResponse>(endpoint);
+  const response = await fetchApi<ProductsResponse>(endpoint, 60);
   return response.products || [];
 }
 
+// Single product - cache for 5 minutes
 export async function getProductBySlug(
   slug: string,
   country?: string
 ): Promise<Product> {
   const params = country ? `?country=${encodeURIComponent(country)}` : "";
-  return fetchApi<Product>(`/products/${encodeURIComponent(slug)}${params}`);
+  return fetchApi<Product>(
+    `/products/${encodeURIComponent(slug)}${params}`,
+    300
+  );
 }
 
-// Similar products
+// Similar products - cache for 5 minutes
 export async function getSimilarProducts(
   slug: string,
   limit?: number
 ): Promise<ProductSummary[]> {
   const params = limit ? `?limit=${limit}` : "";
   return fetchApi<ProductSummary[]>(
-    `/products/${encodeURIComponent(slug)}/similar${params}`
+    `/products/${encodeURIComponent(slug)}/similar${params}`,
+    300
   );
 }
 
-// Currencies
+// Currencies - cache for 1 hour (rarely changes)
 export async function getCurrencies(): Promise<CurrencyList> {
-  return fetchApi<CurrencyList>("/currencies");
+  return fetchApi<CurrencyList>("/currencies", 3600);
 }
 
-// Methodology
+// Methodology - cache for 1 hour (rarely changes)
 export async function getMethodology(): Promise<Methodology> {
-  return fetchApi<Methodology>("/methodology");
+  return fetchApi<Methodology>("/methodology", 3600);
 }

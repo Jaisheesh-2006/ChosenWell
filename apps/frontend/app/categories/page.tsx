@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
+// ISR: Revalidate categories page every 5 minutes
+export const revalidate = 300;
+
 // No fallback data - only use database
 
 async function getCategoriesData(): Promise<CategorySummary[]> {

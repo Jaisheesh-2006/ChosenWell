@@ -4,6 +4,9 @@ import { CategorySummary, ProductSummary } from "./lib/types";
 import ProductCard from "./components/ProductCard";
 import CategoryCard from "./components/CategoryCard";
 
+// ISR: Revalidate home page every 60 seconds
+export const revalidate = 60;
+
 // No fallback data - only use database
 
 async function getHomePageData() {
