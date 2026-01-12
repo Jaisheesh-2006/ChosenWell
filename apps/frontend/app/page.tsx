@@ -221,7 +221,7 @@ export default async function HomePage() {
       </section>
 
       {/* Trust Signals - What Makes Us Different */}
-      <section className="mt-16 grid gap-6 sm:grid-cols-3">
+      {/* <section className="mt-16 grid gap-6 sm:grid-cols-3">
         {[
           {
             icon: (
@@ -304,6 +304,105 @@ export default async function HomePage() {
             </p>
           </div>
         ))}
+      </section> */}
+
+            {/* Featured Products */}
+      <section className="mt-20">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+              Across Categories
+            </p>
+            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
+              Featured Products
+            </h2>
+          </div>
+          <Link
+            href="/products"
+            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
+          >
+            View all products
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {products.slice(0, 6).map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+        <div className="mt-8 text-center sm:hidden">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-1 text-sm font-medium text-cyan-400"
+          >
+            View all products
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
+      
+
+      {/* Categories */}
+      <section className="mt-20">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              Browse by
+            </p>
+            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
+              Categories
+            </h2>
+          </div>
+          <Link
+            href="/categories"
+            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
+          >
+            View all categories
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.slice(0, 6).map((category) => (
+            <CategoryCard key={category.slug} category={category} />
+          ))}
+        </div>
       </section>
 
       {/* Learn-First Section - Before You Buy, Understand This */}
@@ -405,102 +504,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="mt-20">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-              Across Categories
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
-              Featured Products
-            </h2>
-          </div>
-          <Link
-            href="/products"
-            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
-          >
-            View all products
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.slice(0, 6).map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-        <div className="mt-8 text-center sm:hidden">
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-1 text-sm font-medium text-cyan-400"
-          >
-            View all products
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </Link>
-        </div>
-      </section>
 
-      {/* Categories */}
-      <section className="mt-20">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              Browse by
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
-              Categories
-            </h2>
-          </div>
-          <Link
-            href="/categories"
-            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
-          >
-            View all categories
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.slice(0, 6).map((category) => (
-            <CategoryCard key={category.slug} category={category} />
-          ))}
-        </div>
-      </section>
 
       {/* CTA Section - Why We Exist */}
       <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 p-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:p-12">
