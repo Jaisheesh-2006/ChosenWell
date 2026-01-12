@@ -40,7 +40,7 @@ export async function generateMetadata({
   try {
     const category = await getCategoryBySlug(slug);
     const description =
-      `Best ${category.title.toLowerCase()} products in India - curated and scored for safety, ingredients, and value. ${
+      `Best ${category.title.toLowerCase()} products in India - verified for safety, ingredients, and quality. ${
         category.long_description?.substring(0, 100) || ""
       }`.substring(0, 160);
 
@@ -53,7 +53,7 @@ export async function generateMetadata({
       },
       openGraph: {
         title: `${category.title} Products | ChosenWell`,
-        description: `Compare the best ${category.title.toLowerCase()} products with transparent scoring.`,
+        description: `Compare the best ${category.title.toLowerCase()} products with transparent ingredient analysis.`,
         url: `/${hyphenSlug}`,
       },
     };

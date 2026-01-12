@@ -7,16 +7,16 @@ import EmptyState from "../components/EmptyState";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "All Products - Curated Health Products India",
+  title: "All Products - Verified Health Products India",
   description:
-    "Browse all curated health products with transparent scoring. Safe, effective products for everyday use in India - no sponsored rankings, just honest analysis.",
+    "Browse all verified health products. Safe, effective products for everyday use in India - no sponsored rankings, just honest ingredient analysis.",
   alternates: {
     canonical: "/products",
   },
   openGraph: {
     title: "All Products | ChosenWell",
     description:
-      "Browse all curated health products with transparent scoring and detailed ingredient analysis.",
+      "Browse all verified health products with detailed ingredient analysis.",
     url: "/products",
   },
 };
@@ -39,8 +39,8 @@ async function getProductsPageData() {
 export default async function ProductsPage() {
   const { products } = await getProductsPageData();
 
-  // Sort products by score (highest first)
-  const sortedProducts = [...products].sort((a, b) => b.score - a.score);
+  // Use products as-is (alphabetically or by database order)
+  const sortedProducts = [...products];
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -52,8 +52,8 @@ export default async function ProductsPage() {
           All Products
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
-          Browse our curated collection of health products, all evaluated with
-          our transparent scoring methodology.
+          Browse our curated collection of health products, all verified for
+          ingredient safety and quality.
         </p>
       </div>
 
@@ -65,9 +65,6 @@ export default async function ProductsPage() {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 {sortedProducts.length} product
                 {sortedProducts.length !== 1 ? "s" : ""} found
-              </p>
-              <p className="text-sm text-slate-500 dark:text-slate-500">
-                Sorted by score
               </p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

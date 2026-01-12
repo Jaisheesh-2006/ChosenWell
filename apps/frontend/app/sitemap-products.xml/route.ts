@@ -9,7 +9,7 @@
  *
  * SEO Notes:
  * - Product pages are core content (priority 0.7)
- * - Updated weekly as product info/scores may change
+ * - Updated weekly as product info may change
  * - Each product has a unique, SEO-friendly slug
  * - No query strings - clean canonical URLs only
  *
@@ -56,7 +56,7 @@ export async function GET() {
   Total URLs: ${totalProducts}
   
   URL Pattern: /products/{slug}
-  These are the core content pages with product recommendations and scores.
+  These are the core content pages with verified product analysis.
   
   Note: Google recommends max 50,000 URLs per sitemap.
   If you exceed this limit, implement pagination.

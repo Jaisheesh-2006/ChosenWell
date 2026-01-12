@@ -12,72 +12,317 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://chosenwell-production.up.railway.app";
 
+const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
+
+// ============================================================================
+// ERROR HANDLING
+// ============================================================================
+
 /**
- * Optimized fetch function with ISR (Incremental Static Regeneration)
- * - Uses revalidate for caching (default 60 seconds)
- * - Robust JSON extraction to handle Next.js cache issues
+ * Custom error class for API transport errors
  */
-async function fetchApi<T>(
-  endpoint: string,
-  revalidateSeconds: number = 60
-): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
-
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-    next: { revalidate: revalidateSeconds },
-  });
-
-  if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
-  }
-
-  const text = await res.text();
-
-  if (!text || text.trim() === "") {
-    return {} as T;
-  }
-
-  try {
-    // First, try direct JSON parse (fast path for clean responses)
-    return JSON.parse(text) as T;
-  } catch {
-    // If direct parse fails, extract JSON from potentially corrupted cache
-    // Next.js RSC cache can prepend metadata like "59:[]" or "http/1.1{...}"
-    const jsonMatch = text.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
-    if (jsonMatch) {
-      try {
-        return JSON.parse(jsonMatch[1]) as T;
-      } catch (innerError) {
-        console.error(`Failed to extract JSON from ${url}:`, innerError);
-      }
-    }
-    console.error(
-      `Invalid response from ${url} (first 300 chars):`,
-      text.slice(0, 300)
-    );
-    throw new Error(`Invalid JSON response from ${endpoint}`);
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public status?: number,
+    public endpoint?: string
+  ) {
+    super(message);
+    this.name = "ApiError";
   }
 }
+
+/**
+ * Custom error class for schema validation failures
+ */
+export class SchemaValidationError extends Error {
+  constructor(
+    message: string,
+    public endpoint: string,
+    public expected: string,
+    public received: unknown
+  ) {
+    super(message);
+    this.name = "SchemaValidationError";
+  }
+}
+
+// ============================================================================
+// TYPE GUARDS FOR RUNTIME VALIDATION
+// ============================================================================
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isArray(value: unknown): value is unknown[] {
+  return Array.isArray(value);
+}
+
+function hasProperty<K extends string>(
+  obj: Record<string, unknown>,
+  key: K
+): obj is Record<string, unknown> & Record<K, unknown> {
+  return key in obj;
+}
+
+// ============================================================================
+// SCHEMA VALIDATORS (Endpoint-specific)
+// ============================================================================
+
+/**
+ * Validates categories response shape
+ * API can return:
+ * - Array directly: CategorySummary[]
+ * - Wrapped: { categories: CategorySummary[] }
+ * - Wrapped (alternate): { value: CategorySummary[], Count: number }
+ */
+function validateCategoriesResponse(
+  data: unknown,
+  endpoint: string
+): CategorySummary[] {
+  // Direct array
+  if (isArray(data)) {
+    return data as CategorySummary[];
+  }
+
+  if (isObject(data)) {
+    // Check for { value: [...] } format (actual API response)
+    if (hasProperty(data, "value") && isArray(data.value)) {
+      return data.value as CategorySummary[];
+    }
+    // Check for { categories: [...] } format
+    if (hasProperty(data, "categories") && isArray(data.categories)) {
+      return data.categories as CategorySummary[];
+    }
+  }
+
+  throw new SchemaValidationError(
+    `Expected CategorySummary[] or { value: CategorySummary[] } from ${endpoint}`,
+    endpoint,
+    "CategorySummary[] | { value: CategorySummary[] }",
+    data
+  );
+}
+
+/**
+ * Validates products response shape
+ * API can return:
+ * - Array directly: ProductSummary[]
+ * - Wrapped: { products: ProductSummary[] }
+ * - Wrapped (alternate): { value: ProductSummary[], Count: number }
+ */
+function validateProductsResponse(
+  data: unknown,
+  endpoint: string
+): ProductSummary[] {
+  // Direct array
+  if (isArray(data)) {
+    return data as ProductSummary[];
+  }
+
+  if (isObject(data)) {
+    // Check for { value: [...] } format
+    if (hasProperty(data, "value") && isArray(data.value)) {
+      return data.value as ProductSummary[];
+    }
+    // Check for { products: [...] } format
+    if (hasProperty(data, "products") && isArray(data.products)) {
+      return data.products as ProductSummary[];
+    }
+  }
+
+  throw new SchemaValidationError(
+    `Expected ProductSummary[] or { value/products: ProductSummary[] } from ${endpoint}`,
+    endpoint,
+    "ProductSummary[] | { value: ProductSummary[] } | { products: ProductSummary[] }",
+    data
+  );
+}
+
+/**
+ * Validates single object response (Product, Category, Methodology)
+ */
+function validateObjectResponse<T>(
+  data: unknown,
+  endpoint: string,
+  typeName: string
+): T {
+  if (isObject(data)) {
+    return data as T;
+  }
+
+  throw new SchemaValidationError(
+    `Expected ${typeName} object from ${endpoint}`,
+    endpoint,
+    typeName,
+    data
+  );
+}
+
+/**
+ * Validates array response (similar products, etc.)
+ */
+function validateArrayResponse<T>(
+  data: unknown,
+  endpoint: string,
+  typeName: string
+): T[] {
+  if (isArray(data)) {
+    return data as T[];
+  }
+
+  throw new SchemaValidationError(
+    `Expected ${typeName}[] from ${endpoint}`,
+    endpoint,
+    `${typeName}[]`,
+    data
+  );
+}
+
+// ============================================================================
+// TRANSPORT LAYER (Content-Type + HTTP status + JSON parsing ONLY)
+// ============================================================================
+
+/**
+ * Validates Content-Type header for JSON
+ */
+function isJsonContentType(contentType: string | null): boolean {
+  if (!contentType) return false;
+  const normalized = contentType.toLowerCase();
+  return (
+    normalized.includes("application/json") || normalized.includes("text/json")
+  );
+}
+
+/**
+ * Production-ready fetch function - TRANSPORT LAYER ONLY
+ *
+ * Validates:
+ * ✅ HTTP status codes
+ * ✅ Content-Type is application/json
+ * ✅ JSON parsing success
+ *
+ * Does NOT validate:
+ * ❌ Response shape/schema (handled by call sites)
+ *
+ * @returns parsed JSON as `unknown` - call sites must validate shape
+ */
+async function fetchApi(
+  endpoint: string,
+  revalidateSeconds: number = 60
+): Promise<unknown> {
+  const url = `${API_BASE_URL}${endpoint}`;
+
+  // 1. Network request
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Cache-Control": "no-cache",
+      },
+      next: { revalidate: revalidateSeconds },
+    });
+  } catch (networkError) {
+    const message =
+      networkError instanceof Error
+        ? networkError.message
+        : "Network request failed";
+    throw new ApiError(`Network error: ${message}`, undefined, endpoint);
+  }
+
+  // 2. Validate Content-Type BEFORE consuming body
+  const contentType = res.headers.get("content-type");
+  if (!isJsonContentType(contentType)) {
+    if (IS_DEVELOPMENT) {
+      try {
+        const rawText = await res.text();
+        console.error(`[DEV] Non-JSON response from ${endpoint}:`, {
+          status: res.status,
+          contentType,
+          bodyPreview: rawText.slice(0, 500),
+        });
+      } catch {
+        /* ignore */
+      }
+    }
+    throw new ApiError(
+      `Expected application/json but received ${
+        contentType || "no content-type"
+      } from ${endpoint}`,
+      res.status,
+      endpoint
+    );
+  }
+
+  // 3. Check HTTP status
+  if (!res.ok) {
+    let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
+    try {
+      const errorBody = await res.json();
+      if (isObject(errorBody) && typeof errorBody.error === "string") {
+        errorMessage = errorBody.error;
+      }
+    } catch {
+      /* use default message */
+    }
+    throw new ApiError(errorMessage, res.status, endpoint);
+  }
+
+  // 4. Parse JSON
+  let data: unknown;
+  try {
+    data = await res.json();
+  } catch {
+    throw new ApiError(
+      `JSON parsing failed for ${endpoint} (Content-Type was ${contentType})`,
+      res.status,
+      endpoint
+    );
+  }
+
+  // Return as unknown - schema validation happens at call sites
+  return data;
+}
+
+// ============================================================================
+// API ENDPOINTS (with schema validation at call site)
+// ============================================================================
 
 // Health check - no caching needed
 export async function getHealthStatus(): Promise<HealthStatus> {
   const url = `${API_BASE_URL}/health`;
   const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Health check failed: ${res.status}`);
+
+  if (!res.ok) {
+    throw new ApiError("Health check failed", res.status, "/health");
+  }
+
+  const contentType = res.headers.get("content-type");
+  if (!isJsonContentType(contentType)) {
+    throw new ApiError(
+      `Health endpoint returned non-JSON: ${contentType}`,
+      res.status,
+      "/health"
+    );
+  }
+
   return res.json();
 }
 
-// Categories - cache for 5 minutes (categories rarely change)
+// Categories - cache for 5 minutes
 export async function getCategories(): Promise<CategorySummary[]> {
-  return fetchApi<CategorySummary[]>("/categories", 300);
+  const endpoint = "/categories";
+  const data = await fetchApi(endpoint, 300);
+  return validateCategoriesResponse(data, endpoint);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category> {
-  return fetchApi<Category>(`/categories/${encodeURIComponent(slug)}`, 300);
+  const endpoint = `/categories/${encodeURIComponent(slug)}`;
+  const data = await fetchApi(endpoint, 300);
+  return validateObjectResponse<Category>(data, endpoint, "Category");
 }
 
 // Products
@@ -85,11 +330,6 @@ export interface GetProductsParams {
   category?: string;
   tag?: string;
   limit?: number;
-}
-
-interface ProductsResponse {
-  products: ProductSummary[];
-  total?: number;
 }
 
 // Products list - cache for 1 minute
@@ -111,8 +351,8 @@ export async function getProducts(
   const queryString = searchParams.toString();
   const endpoint = queryString ? `/products?${queryString}` : "/products";
 
-  const response = await fetchApi<ProductsResponse>(endpoint, 60);
-  return response.products || [];
+  const data = await fetchApi(endpoint, 60);
+  return validateProductsResponse(data, endpoint);
 }
 
 // Single product - cache for 5 minutes
@@ -121,10 +361,9 @@ export async function getProductBySlug(
   country?: string
 ): Promise<Product> {
   const params = country ? `?country=${encodeURIComponent(country)}` : "";
-  return fetchApi<Product>(
-    `/products/${encodeURIComponent(slug)}${params}`,
-    300
-  );
+  const endpoint = `/products/${encodeURIComponent(slug)}${params}`;
+  const data = await fetchApi(endpoint, 300);
+  return validateObjectResponse<Product>(data, endpoint, "Product");
 }
 
 // Similar products - cache for 5 minutes
@@ -133,18 +372,25 @@ export async function getSimilarProducts(
   limit?: number
 ): Promise<ProductSummary[]> {
   const params = limit ? `?limit=${limit}` : "";
-  return fetchApi<ProductSummary[]>(
-    `/products/${encodeURIComponent(slug)}/similar${params}`,
-    300
+  const endpoint = `/products/${encodeURIComponent(slug)}/similar${params}`;
+  const data = await fetchApi(endpoint, 300);
+  return validateArrayResponse<ProductSummary>(
+    data,
+    endpoint,
+    "ProductSummary"
   );
 }
 
 // Currencies - cache for 1 hour (rarely changes)
 export async function getCurrencies(): Promise<CurrencyList> {
-  return fetchApi<CurrencyList>("/currencies", 3600);
+  const endpoint = "/currencies";
+  const data = await fetchApi(endpoint, 3600);
+  return validateObjectResponse<CurrencyList>(data, endpoint, "CurrencyList");
 }
 
 // Methodology - cache for 1 hour (rarely changes)
 export async function getMethodology(): Promise<Methodology> {
-  return fetchApi<Methodology>("/methodology", 3600);
+  const endpoint = "/methodology";
+  const data = await fetchApi(endpoint, 3600);
+  return validateObjectResponse<Methodology>(data, endpoint, "Methodology");
 }

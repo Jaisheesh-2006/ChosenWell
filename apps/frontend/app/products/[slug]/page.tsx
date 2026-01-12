@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "../../lib/api";
 import { Product } from "../../lib/types";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import ScoreBadge from "../../components/ScoreBadge";
 import TagBadge from "../../components/TagBadge";
 import ProductClientWrapper from "../../components/ProductClientWrapper";
 
@@ -39,9 +38,14 @@ export async function generateMetadata({
 
   try {
     const product = await getProductBySlug(slug);
-    const title = `${product.name}${product.brand ? ` by ${product.brand}` : ""} - Review & Analysis`;
-    const description = `${product.name} review and analysis. Score: ${product.score}/100. ${product.why_recommended?.slice(0, 2).join(" ") || "Curated health product for everyday use in India."}`.substring(0, 160);
-    
+    const title = `${product.name}${
+      product.brand ? ` by ${product.brand}` : ""
+    } - Review & Analysis`;
+    const description = `${product.name} review and analysis. ${
+      product.why_recommended?.slice(0, 2).join(" ") ||
+      "Verified health product for everyday use in India."
+    }`.substring(0, 160);
+
     return {
       title,
       description,
@@ -50,10 +54,12 @@ export async function generateMetadata({
       },
       openGraph: {
         title: `${product.name} | ChosenWell`,
-        description: `${product.name} - Score: ${product.score}/100. Read our detailed analysis.`,
+        description: `${product.name} - Read our detailed ingredient and safety analysis.`,
         url: `/products/${slug}`,
         type: "article",
-        images: product.image_url ? [{ url: product.image_url, alt: product.name }] : undefined,
+        images: product.image_url
+          ? [{ url: product.image_url, alt: product.name }]
+          : undefined,
       },
     };
   } catch {
@@ -146,11 +152,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   ))}
                 </div>
               )}
-            </div>
-
-            {/* Score */}
-            <div className="flex-shrink-0">
-              <ScoreBadge score={product.score} size="lg" />
             </div>
           </div>
         </div>
@@ -432,11 +433,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               : undefined,
             review: {
               "@type": "Review",
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: product.score,
-                bestRating: 100,
-              },
               author: {
                 "@type": "Organization",
                 name: "ChosenWell",
@@ -452,7 +448,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
           slug: product.slug,
           name: product.name,
           brand: product.brand,
-          score: product.score,
           short_reason: product.why_recommended?.[0],
         }}
         slug={product.slug}

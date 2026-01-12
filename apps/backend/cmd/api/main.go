@@ -34,7 +34,7 @@ func main() {
 	router := chi.NewRouter()
 
 	// Health check MUST be before any middleware for Railway/cloud health checks
-	
+
 	// CORS configuration
 	allowedOrigins := []string{
 		"http://localhost:3000",
@@ -53,10 +53,12 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
-	
-	router.Use(middleware.Logger)
-	router.Use(middleware.Recoverer)
-	
+
+	// Use JSON-safe recoverer instead of text-based one
+	router.Use(jsonRecoverer)
+	// RequestID for tracing (doesn't output to response body)
+	router.Use(middleware.RequestID)
+
 	router.Get("/health", healthHandler)
 	// Register routes
 	registerRoutes(router)
@@ -118,6 +120,29 @@ func shutdownServer(server *http.Server) {
 	log.Println("Server shut down successfully")
 }
 
+// jsonRecoverer is a middleware that recovers from panics and returns a JSON error response.
+// This ensures no plain text or stack traces leak into API responses.
+func jsonRecoverer(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Printf("Panic recovered: %v", err)
+
+				// Ensure we always return valid JSON on panic
+				w.Header().Set("Content-Type", "application/json; charset=utf-8")
+				w.Header().Set("X-Content-Type-Options", "nosniff")
+				w.WriteHeader(http.StatusInternalServerError)
+
+				errorResponse := map[string]string{"error": "internal server error"}
+				if jsonBytes, marshalErr := json.Marshal(errorResponse); marshalErr == nil {
+					w.Write(jsonBytes)
+				}
+			}
+		}()
+		next.ServeHTTP(w, r)
+	})
+}
+
 // registerRoutes registers all API endpoints.
 func registerRoutes(router *chi.Mux) {
 	router.Get("/categories", api.GetCategories)
@@ -132,11 +157,17 @@ func registerRoutes(router *chi.Mux) {
 
 // healthHandler returns the health status of the API.
 func healthHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusOK)
 
 	response := map[string]string{"status": "ok", "service": "health-products-api"}
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		log.Printf("Failed to encode health response: %v\n", err)
+	jsonBytes, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("Failed to marshal health response: %v", err)
+		return
+	}
+	if _, err := w.Write(jsonBytes); err != nil {
+		log.Printf("Failed to write health response: %v", err)
 	}
 }

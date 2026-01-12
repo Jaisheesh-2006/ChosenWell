@@ -5,16 +5,16 @@ import { Methodology } from "../lib/types";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Our Methodology - How We Score Products",
+  title: "Our Methodology - How We Verify Products",
   description:
-    "Learn how ChosenWell evaluates and scores health products. Our transparent methodology covers ingredient quality, certifications, full INCI disclosure, and value for money.",
+    "Learn how ChosenWell evaluates health products. Our transparent methodology covers ingredient quality, certifications, full INCI disclosure, and value for money.",
   alternates: {
     canonical: "/methodology",
   },
   openGraph: {
     title: "Our Methodology | ChosenWell",
     description:
-      "Learn how we evaluate and score health products with our transparent, unbiased methodology.",
+      "Learn how we evaluate and verify health products with our transparent, unbiased methodology.",
     url: "/methodology",
   },
 };
@@ -24,12 +24,6 @@ const fallbackMethodology: Methodology = {
   version: "1.0",
   summary:
     "Our evaluation methodology is designed to give you actionable, trustworthy information about health products. We analyze each product across multiple dimensions including ingredient quality, safety certifications, ingredient transparency, and overall value.",
-  scoring: {
-    ingredients: 0.3,
-    certifications: 0.2,
-    transparency: 0.25,
-    value: 0.25,
-  },
   last_updated: new Date().toISOString().split("T")[0],
 };
 
@@ -44,17 +38,6 @@ async function getMethodologyData(): Promise<Methodology> {
 export default async function MethodologyPage() {
   const methodology = await getMethodologyData();
 
-  // Convert scoring object to array for display
-  const scoringFactors = methodology.scoring
-    ? Object.entries(methodology.scoring).map(([factor, weight]) => ({
-        name: factor
-          .replace(/_/g, " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase()),
-        weight: weight as number,
-        percentage: Math.round((weight as number) * 100),
-      }))
-    : [];
-
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Breadcrumbs items={[{ label: "Methodology" }]} />
@@ -65,46 +48,49 @@ export default async function MethodologyPage() {
           Version {methodology.version}
         </p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Our Methodology
+          How We Verify Products
         </h1>
-        <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">
+        {/* <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">
           {methodology.summary}
-        </p>
+        </p> */}
       </header>
 
-      {/* Scoring Breakdown */}
-      {scoringFactors.length > 0 && (
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            Scoring Breakdown
-          </h2>
-          <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Each product is evaluated across multiple factors, with weights
-            assigned based on importance to overall product quality and safety.
-          </p>
-
-          <div className="mt-8 space-y-6">
-            {scoringFactors.map((factor) => (
-              <div key={factor.name} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-slate-900 dark:text-white">
-                    {factor.name}
-                  </span>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">
-                    {factor.percentage}%
-                  </span>
-                </div>
-                <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500"
-                    style={{ width: `${factor.percentage}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Our Approach */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          Our Verification Process
+        </h2>
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
+          Content-first evaluation focusing on ingredient safety, efficacy for stated concerns, 
+          and long-term health. All products must pass a strict safety gate before being featured.
+        </p>
+        
+        <div className="mt-6 space-y-4">
+          <p className="font-medium text-slate-800 dark:text-slate-200">We evaluate:</p>
+          <ol className="list-decimal list-inside space-y-3 text-slate-600 dark:text-slate-400">
+            <li>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Ingredient Safety & Transparency</span>
+              <span className="text-slate-500 dark:text-slate-400"> — Full INCI disclosure required, no hidden bases</span>
+            </li>
+            <li>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Formulation Quality</span>
+              <span className="text-slate-500 dark:text-slate-400"> — Appropriate actives at meaningful concentrations</span>
+            </li>
+            <li>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Efficacy for Concern</span>
+              <span className="text-slate-500 dark:text-slate-400"> — Evidence-based effectiveness for primary concerns</span>
+            </li>
+            <li>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Long-term Health</span>
+              <span className="text-slate-500 dark:text-slate-400"> — No dependency cycles, rebound effects, or cumulative harm</span>
+            </li>
+            <li>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Certifications & Trust Signals</span>
+              <span className="text-slate-500 dark:text-slate-400"> — Third-party validations valued</span>
+            </li>
+          </ol>
+        </div>
+      </section>
 
       {/* Detailed Explanation */}
       <section className="mb-16 space-y-8">
@@ -152,7 +138,7 @@ export default async function MethodologyPage() {
                 </svg>
               ),
               description:
-                "Products with recognized certifications (USDA Organic, NSF, etc.) receive higher scores for meeting established standards.",
+                "We verify certifications (FSSAI, USDA Organic, BIS, etc.) and check if products meet established safety standards relevant to India.",
             },
             {
               title: "Ingredient Transparency",
@@ -213,71 +199,56 @@ export default async function MethodologyPage() {
         </div>
       </section>
 
-      {/* Score Ranges */}
+      {/* What We Look For */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-          Understanding Scores
+          Our Verification Standards
         </h2>
         <p className="mt-4 text-slate-600 dark:text-slate-400">
-          Our 0-100 scoring system is designed to be intuitive and actionable.
+          Products must meet these criteria to be featured on our platform.
         </p>
 
         <div className="mt-8 space-y-4">
           {[
             {
-              range: "90-100",
-              label: "Excellent",
-              color: "from-emerald-500 to-green-500",
-              description: "Best-in-class products that exceed expectations",
+              icon: "✓",
+              label: "Full Ingredient Disclosure",
+              description: "Complete INCI list with no hidden ingredients or vague terms",
             },
             {
-              range: "80-89",
-              label: "Great",
-              color: "from-emerald-500 to-green-500",
-              description: "High-quality products we confidently recommend",
+              icon: "✓",
+              label: "Valid Certifications",
+              description: "Verified regulatory compliance (FSSAI, BIS, etc.) for Indian market",
             },
             {
-              range: "70-79",
-              label: "Good",
-              color: "from-cyan-500 to-blue-500",
-              description: "Solid options with minor areas for improvement",
+              icon: "✓",
+              label: "No Harmful Additives",
+              description: "Free from ingredients flagged by health authorities",
             },
             {
-              range: "60-69",
-              label: "Fair",
-              color: "from-cyan-500 to-blue-500",
-              description: "Acceptable products with notable trade-offs",
+              icon: "✓",
+              label: "Honest Marketing",
+              description: "Claims that match the actual product formulation",
             },
             {
-              range: "50-59",
-              label: "Average",
-              color: "from-yellow-500 to-orange-500",
-              description:
-                "Products that meet basic standards but lack distinction",
+              icon: "✓",
+              label: "Clear Pricing",
+              description: "Transparent pricing with no hidden costs",
             },
-            {
-              range: "Below 50",
-              label: "Below Average",
-              color: "from-orange-500 to-red-500",
-              description:
-                "Products with significant concerns we don't recommend",
-            },
-          ].map((tier) => (
+          ].map((item) => (
             <div
-              key={tier.range}
-              className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900/30"
+              key={item.label}
+              className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900/30"
             >
-              <div
-                className={`flex h-12 w-16 items-center justify-center rounded-lg bg-gradient-to-br ${tier.color} text-sm font-bold text-white`}
-              >
-                {tier.range}
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-500 text-white font-bold text-sm">
+                {item.icon}
               </div>
               <div>
                 <p className="font-medium text-slate-900 dark:text-white">
-                  {tier.label}
+                  {item.label}
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {tier.description}
+                  {item.description}
                 </p>
               </div>
             </div>

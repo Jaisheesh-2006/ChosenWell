@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ProductSummary } from "../lib/types";
-import ScoreBadge from "./ScoreBadge";
 
 interface ProductCardProps {
   product: ProductSummary;
@@ -27,7 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         <div className="flex flex-1 flex-col p-6">
-          {/* Header with score */}
+          {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
               {product.brand && (
@@ -39,7 +38,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {product.name}
               </h3>
             </div>
-            <ScoreBadge score={product.score} size="sm" />
           </div>
 
           {/* Short reason */}
