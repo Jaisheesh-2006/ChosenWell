@@ -21,7 +21,7 @@ export interface ProductSummary {
   name: string;
   brand?: string;
   image_url?: string;
-  score: number; // 0-100 aggregated score
+  score?: number; // 0-100 aggregated score (optional - being phased out)
   short_reason?: string;
   budget_tier?: string;
   tags?: ProductTags;
@@ -55,7 +55,7 @@ export interface Product {
   brand?: string;
   image_url?: string;
   category?: string; // category slug
-  score: number;
+  score?: number; // 0-100 aggregated score (optional - being phased out)
   why_recommended?: string[];
   pros?: string[];
   cons?: string[];
