@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getCategories, getProducts } from "./lib/api";
 import { CategorySummary, ProductSummary } from "./lib/types";
 import ProductCard from "./components/ProductCard";
-import CategoryCard from "./components/CategoryCard";
 
 // ISR: Revalidate home page every 60 seconds
 export const revalidate = 60;
@@ -134,6 +133,57 @@ export default async function HomePage() {
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
         <div className="absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
       </section>
+
+      {/* Primary Categories Strip - Slim, crawler-friendly, visually minimal */}
+      <nav
+        aria-label="Primary categories"
+        className="mt-6 flex flex-wrap items-center justify-center gap-y-2 text-sm text-slate-500 dark:text-slate-400"
+      >
+        <span className="mr-2 text-slate-400 dark:text-slate-500">
+         <strong>Explore by category:</strong>
+        </span>
+        <a
+          href="/categories/shampoo"
+          className="hover:text-cyan-600 dark:hover:text-cyan-400"
+        >
+          Shampoo
+        </a>
+        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+        <a
+          href="/categories/sunscreen"
+          className="hover:text-cyan-600 dark:hover:text-cyan-400"
+        >
+          Sunscreen
+        </a>
+        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+        <a
+          href="/categories/hair_oil"
+          className="hover:text-cyan-600 dark:hover:text-cyan-400"
+        >
+          Hair Oil
+        </a>
+        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+        <a
+          href="/categories/soap"
+          className="hover:text-cyan-600 dark:hover:text-cyan-400"
+        >
+          Soap
+        </a>
+        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+        <a
+          href="/categories/toothpaste"
+          className="hover:text-cyan-600 dark:hover:text-cyan-400"
+        >
+          Toothpaste
+        </a>
+        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+        <a
+          href="/categories"
+          className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300"
+        >
+          View all categories →
+        </a>
+      </nav>
 
       {/* How ChosenWell Evaluates Products - System-First Credibility */}
       <section className="mt-16">
@@ -306,7 +356,7 @@ export default async function HomePage() {
         ))}
       </section> */}
 
-            {/* Featured Products */}
+      {/* Featured Products */}
       <section className="mt-20">
         <div className="flex items-end justify-between">
           <div>
@@ -365,46 +415,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      
-
-      {/* Categories */}
-      <section className="mt-20">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              Browse by
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
-              Categories
-            </h2>
-          </div>
-          <Link
-            href="/categories"
-            className="hidden items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white sm:flex"
-          >
-            View all categories
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.slice(0, 6).map((category) => (
-            <CategoryCard key={category.slug} category={category} />
-          ))}
-        </div>
-      </section>
-
       {/* Learn-First Section - Before You Buy, Understand This */}
       <section className="mt-20">
         <div className="text-center mb-10">
@@ -416,7 +426,21 @@ export default async function HomePage() {
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
             Labels and marketing can be confusing. These guides help you
-            understand what actually matters when evaluating products.
+            understand what actually matters when evaluating products like{" "}
+            <a
+              href="/categories/shampoo"
+              className="text-emerald-600 dark:text-emerald-400 hover:underline"
+            >
+              shampoos
+            </a>{" "}
+            and{" "}
+            <a
+              href="/categories/sunscreen"
+              className="text-emerald-600 dark:text-emerald-400 hover:underline"
+            >
+              sunscreens
+            </a>
+            .
           </p>
         </div>
 
@@ -504,8 +528,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-
-
       {/* CTA Section - Why We Exist */}
       <section className="mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 p-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:p-12">
         <div className="flex flex-col items-center text-center">
@@ -517,6 +539,16 @@ export default async function HomePage() {
             check before a product appears on ChosenWell, or explore our
             educational content to better understand ingredient labels and
             certifications.
+          </p>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
+            This methodology applies across all{" "}
+            <a
+              href="/categories"
+              className="text-cyan-600 dark:text-cyan-400 hover:underline"
+            >
+              product categories
+            </a>{" "}
+            we evaluate.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link

@@ -61,32 +61,60 @@ export default async function MethodologyPage() {
           Our Verification Process
         </h2>
         <p className="mt-4 text-slate-600 dark:text-slate-400">
-          Content-first evaluation focusing on ingredient safety, efficacy for stated concerns, 
-          and long-term health. All products must pass a strict safety gate before being featured.
+          Content-first evaluation focusing on ingredient safety, efficacy for
+          stated concerns, and long-term health. All products must pass a strict
+          safety gate before being featured.
         </p>
-        
+
         <div className="mt-6 space-y-4">
-          <p className="font-medium text-slate-800 dark:text-slate-200">We evaluate:</p>
+          <p className="font-medium text-slate-800 dark:text-slate-200">
+            We evaluate:
+          </p>
           <ol className="list-decimal list-inside space-y-3 text-slate-600 dark:text-slate-400">
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Ingredient Safety & Transparency</span>
-              <span className="text-slate-500 dark:text-slate-400"> — Full INCI disclosure required, no hidden bases</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                Ingredient Safety & Transparency
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
+                {" "}
+                — Full INCI disclosure required, no hidden bases
+              </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Formulation Quality</span>
-              <span className="text-slate-500 dark:text-slate-400"> — Appropriate actives at meaningful concentrations</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                Formulation Quality
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
+                {" "}
+                — Appropriate actives at meaningful concentrations
+              </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Efficacy for Concern</span>
-              <span className="text-slate-500 dark:text-slate-400"> — Evidence-based effectiveness for primary concerns</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                Efficacy for Concern
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
+                {" "}
+                — Evidence-based effectiveness for primary concerns
+              </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Long-term Health</span>
-              <span className="text-slate-500 dark:text-slate-400"> — No dependency cycles, rebound effects, or cumulative harm</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                Long-term Health
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
+                {" "}
+                — No dependency cycles, rebound effects, or cumulative harm
+              </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Certifications & Trust Signals</span>
-              <span className="text-slate-500 dark:text-slate-400"> — Third-party validations valued</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                Certifications & Trust Signals
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
+                {" "}
+                — Third-party validations valued
+              </span>
             </li>
           </ol>
         </div>
@@ -213,17 +241,20 @@ export default async function MethodologyPage() {
             {
               icon: "✓",
               label: "Full Ingredient Disclosure",
-              description: "Complete INCI list with no hidden ingredients or vague terms",
+              description:
+                "Complete INCI list with no hidden ingredients or vague terms",
             },
             {
               icon: "✓",
               label: "Valid Certifications",
-              description: "Verified regulatory compliance (FSSAI, BIS, etc.) for Indian market",
+              description:
+                "Verified regulatory compliance (FSSAI, BIS, etc.) for Indian market",
             },
             {
               icon: "✓",
               label: "No Harmful Additives",
-              description: "Free from ingredients flagged by health authorities",
+              description:
+                "Free from ingredients flagged by health authorities",
             },
             {
               icon: "✓",
@@ -256,21 +287,82 @@ export default async function MethodologyPage() {
         </div>
       </section>
 
-      {/* Last Updated */}
-      {methodology.last_updated && (
-        <section className="mb-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            This methodology was last updated on{" "}
-            <span className="text-slate-900 dark:text-white">
-              {new Date(methodology.last_updated).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-          </p>
-        </section>
-      )}
+      {/* How we evaluate products in each category - SEO Rule 4 compliance */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          How we evaluate products in each category
+        </h2>
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
+          Our evaluation framework is applied consistently across different
+          product categories, with category-specific considerations for
+          ingredients, safety, and efficacy.
+        </p>
+        <ul className="mt-6 space-y-3">
+          <li>
+            <a
+              href="/categories/shampoo"
+              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+            >
+              How we evaluate shampoos
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/categories/sunscreen"
+              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+            >
+              How we evaluate sunscreens
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/categories/hair_oil"
+              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+            >
+              How we evaluate hair oils
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </section>
 
       {/* CTA */}
       <section className="rounded-2xl bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 p-8 text-center">
@@ -309,6 +401,22 @@ export default async function MethodologyPage() {
           </Link>
         </div>
       </section>
+
+            {/* Last Updated */}
+      {methodology.last_updated && (
+        <section className="mt-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            This methodology was last updated on{" "}
+            <span className="text-slate-900 dark:text-white">
+              {new Date(methodology.last_updated).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+          </p>
+        </section>
+      )}
     </div>
   );
 }

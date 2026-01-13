@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getProductBySlug, getProducts } from "../../lib/api";
-import { Product } from "../../lib/types";
+import {
+  getProductBySlug,
+  getProducts,
+  getCategoryBySlug,
+} from "../../lib/api";
+import { Product, ProductSummary } from "../../lib/types";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TagBadge from "../../components/TagBadge";
 import ProductClientWrapper from "../../components/ProductClientWrapper";
@@ -77,6 +81,29 @@ async function getProductData(slug: string): Promise<Product | null> {
   }
 }
 
+/**
+ * Get related products from the same category (server-side, SEO-friendly)
+ * Excludes the current product and limits to 3 products
+ */
+async function getRelatedProducts(
+  categorySlug: string | undefined,
+  currentProductSlug: string
+): Promise<ProductSummary[]> {
+  if (!categorySlug) return [];
+
+  try {
+    const category = await getCategoryBySlug(categorySlug);
+    if (!category.curated_products) return [];
+
+    // Filter out current product and limit to 3
+    return category.curated_products
+      .filter((p) => p.slug !== currentProductSlug)
+      .slice(0, 3);
+  } catch {
+    return [];
+  }
+}
+
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   const product = await getProductData(slug);
@@ -84,6 +111,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     notFound();
   }
+
+  // Fetch related products server-side for SEO
+  const relatedProducts = await getRelatedProducts(product.category, slug);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -131,6 +161,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
                 {product.name}
               </h1>
+
+              {/* SEO: Product evaluation summary - unique per product, visible above fold */}
+              <p className="mt-4 text-slate-600 dark:text-slate-400">
+                {product.why_recommended?.[0] ||
+                  `This ${
+                    product.category || "product"
+                  } has been evaluated for ingredient safety, formulation quality, and transparency.`}{" "}
+                It appears on ChosenWell because it passed our verification
+                standards
+                {product.category
+                  ? ` for ${product.category.replace(/_/g, " ")} products`
+                  : ""}
+                .
+              </p>
 
               {/* Tags */}
               {product.tags && (
@@ -441,6 +485,54 @@ export default async function ProductPage({ params }: ProductPageProps) {
           }),
         }}
       />
+
+      {/* Related Products - Server-rendered for SEO (Rule 3 compliance) */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-16">
+          <h3 className="mb-6 text-xl font-semibold text-slate-900 dark:text-white">
+            Related Products
+          </h3>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedProducts.map((relatedProduct) => (
+              <li key={relatedProduct.slug}>
+                <a
+                  href={`/products/${relatedProduct.slug}`}
+                  className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-cyan-500/50 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-900/50 dark:hover:border-cyan-500/30 dark:hover:bg-slate-800/50"
+                >
+                  <div className="flex-1 min-w-0">
+                    {relatedProduct.brand && (
+                      <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                        {relatedProduct.brand}
+                      </p>
+                    )}
+                    <p className="font-medium text-slate-900 dark:text-white truncate">
+                      {relatedProduct.name}
+                    </p>
+                    {relatedProduct.short_reason && (
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
+                        {relatedProduct.short_reason}
+                      </p>
+                    )}
+                  </div>
+                  <svg
+                    className="h-5 w-5 flex-shrink-0 text-slate-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Client-side components: Similar products, Recently viewed, and tracking */}
       <ProductClientWrapper

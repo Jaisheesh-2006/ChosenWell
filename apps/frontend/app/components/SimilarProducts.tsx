@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ProductSummary } from "../lib/types";
-import { getSimilarProducts } from "../lib/api";
 import ProductCard from "./ProductCard";
 
 interface SimilarProductsProps {
@@ -10,34 +9,72 @@ interface SimilarProductsProps {
   limit?: number;
 }
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://chosenwell-production.up.railway.app";
+
 export default function SimilarProducts({
   productSlug,
   limit = 4,
 }: SimilarProductsProps) {
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchSimilarProducts() {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getSimilarProducts(productSlug, limit);
-        setProducts(data);
-      } catch (err) {
-        console.error("Failed to fetch similar products:", err);
-        setError("Failed to load similar products");
-      } finally {
-        setLoading(false);
-      }
+  const fetchSimilarProducts = useCallback(async () => {
+    // Skip if no slug
+    if (!productSlug) {
+      setLoading(false);
+      return;
     }
 
-    if (productSlug) {
-      fetchSimilarProducts();
+    try {
+      setLoading(true);
+      const params = limit ? `?limit=${limit}` : "";
+      const endpoint = `/products/${encodeURIComponent(
+        productSlug
+      )}/similar${params}`;
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+      const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        // Silently fail - non-critical feature
+        setProducts([]);
+        return;
+      }
+
+      const data = await res.json();
+
+      // Validate response is an array
+      if (Array.isArray(data)) {
+        setProducts(data as ProductSummary[]);
+      } else {
+        setProducts([]);
+      }
+    } catch {
+      // Silently fail for network errors, CORS, timeouts, etc.
+      // This is a non-critical enhancement feature
+      setProducts([]);
+    } finally {
+      setLoading(false);
     }
   }, [productSlug, limit]);
 
+  useEffect(() => {
+    fetchSimilarProducts();
+  }, [fetchSimilarProducts]);
+
+  // Don't render anything while loading or if no products
   if (loading) {
     return (
       <section className="mt-16">
@@ -56,7 +93,8 @@ export default function SimilarProducts({
     );
   }
 
-  if (error || products.length === 0) {
+  // Silently hide if no products or error occurred
+  if (products.length === 0) {
     return null;
   }
 

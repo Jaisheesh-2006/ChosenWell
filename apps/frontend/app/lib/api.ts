@@ -81,6 +81,16 @@ function validateCategoriesResponse(
   data: unknown,
   endpoint: string
 ): CategorySummary[] {
+  // Handle null/undefined gracefully - return empty array
+  if (data === null || data === undefined) {
+    if (IS_DEVELOPMENT) {
+      console.warn(
+        `[API] ${endpoint} returned null/undefined, returning empty array`
+      );
+    }
+    return [];
+  }
+
   // Direct array
   if (isArray(data)) {
     return data as CategorySummary[];
@@ -95,6 +105,24 @@ function validateCategoriesResponse(
     if (hasProperty(data, "categories") && isArray(data.categories)) {
       return data.categories as CategorySummary[];
     }
+    // Check for { data: [...] } format (common API pattern)
+    if (hasProperty(data, "data") && isArray(data.data)) {
+      return data.data as CategorySummary[];
+    }
+    // If object has no recognized array property but is empty, return empty array
+    if (Object.keys(data).length === 0) {
+      return [];
+    }
+  }
+
+  // Log detailed error info in development
+  if (IS_DEVELOPMENT) {
+    console.error(`[API] Unexpected response shape from ${endpoint}:`, {
+      type: typeof data,
+      isArray: Array.isArray(data),
+      keys: isObject(data) ? Object.keys(data) : "N/A",
+      preview: JSON.stringify(data)?.slice(0, 200),
+    });
   }
 
   throw new SchemaValidationError(
@@ -116,6 +144,16 @@ function validateProductsResponse(
   data: unknown,
   endpoint: string
 ): ProductSummary[] {
+  // Handle null/undefined gracefully - return empty array
+  if (data === null || data === undefined) {
+    if (IS_DEVELOPMENT) {
+      console.warn(
+        `[API] ${endpoint} returned null/undefined, returning empty array`
+      );
+    }
+    return [];
+  }
+
   // Direct array
   if (isArray(data)) {
     return data as ProductSummary[];
@@ -130,6 +168,24 @@ function validateProductsResponse(
     if (hasProperty(data, "products") && isArray(data.products)) {
       return data.products as ProductSummary[];
     }
+    // Check for { data: [...] } format (common API pattern)
+    if (hasProperty(data, "data") && isArray(data.data)) {
+      return data.data as ProductSummary[];
+    }
+    // If object has no recognized array property but is empty, return empty array
+    if (Object.keys(data).length === 0) {
+      return [];
+    }
+  }
+
+  // Log detailed error info in development
+  if (IS_DEVELOPMENT) {
+    console.error(`[API] Unexpected response shape from ${endpoint}:`, {
+      type: typeof data,
+      isArray: Array.isArray(data),
+      keys: isObject(data) ? Object.keys(data) : "N/A",
+      preview: JSON.stringify(data)?.slice(0, 200),
+    });
   }
 
   throw new SchemaValidationError(
@@ -206,6 +262,55 @@ function isJsonContentType(contentType: string | null): boolean {
  * Does NOT validate:
  * ❌ Response shape/schema (handled by call sites)
  *
+/**
+ * Fetch with retry logic for transient failures
+ */
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit & { next?: { revalidate: number } },
+  retries: number = 2
+): Promise<Response> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      // Don't retry on client errors (4xx) except 408 (timeout) and 429 (rate limit)
+      if (
+        res.ok ||
+        (res.status >= 400 &&
+          res.status < 500 &&
+          res.status !== 408 &&
+          res.status !== 429)
+      ) {
+        return res;
+      }
+      // Server error or timeout - retry
+      lastError = new Error(`HTTP ${res.status}`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error("Network error");
+    }
+
+    // Wait before retry (exponential backoff: 500ms, 1000ms)
+    if (attempt < retries) {
+      await new Promise((resolve) => setTimeout(resolve, 500 * (attempt + 1)));
+    }
+  }
+
+  throw lastError || new Error("Request failed after retries");
+}
+
+/**
+ * Production-ready fetch function - TRANSPORT LAYER ONLY
+ *
+ * Validates:
+ * ✅ HTTP status codes
+ * ✅ Content-Type is application/json
+ * ✅ JSON parsing success
+ *
+ * Does NOT validate:
+ * ❌ Response shape/schema (handled by call sites)
+ *
  * @returns parsed JSON as `unknown` - call sites must validate shape
  */
 async function fetchApi(
@@ -214,14 +319,16 @@ async function fetchApi(
 ): Promise<unknown> {
   const url = `${API_BASE_URL}${endpoint}`;
 
-  // 1. Network request
+  // 1. Network request with retry
   let res: Response;
   try {
-    res = await fetch(url, {
+    res = await fetchWithRetry(url, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Cache-Control": "no-cache",
+        // Add timestamp to help bust stale caches
+        "X-Request-Time": Date.now().toString(),
       },
       next: { revalidate: revalidateSeconds },
     });

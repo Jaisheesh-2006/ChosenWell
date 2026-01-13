@@ -23,14 +23,57 @@ export const metadata: Metadata = {
 // ISR: Revalidate categories page every 5 minutes
 export const revalidate = 300;
 
-// No fallback data - only use database
+// Fallback categories for when API fails
+const fallbackCategories: CategorySummary[] = [
+  {
+    slug: "shampoo",
+    name: "Shampoo",
+    title: "Shampoo",
+    description:
+      "Clean hair care products evaluated for scalp health and ingredient safety.",
+  },
+  {
+    slug: "sunscreen",
+    name: "Sunscreen",
+    title: "Sunscreen",
+    description:
+      "Sun protection products analyzed for UVA/UVB coverage, reef safety, and skin compatibility.",
+  },
+  {
+    slug: "hair_oil",
+    name: "Hair Oil",
+    title: "Hair Oil",
+    description:
+      "Premium hair oils evaluated for nourishment, scalp health, and natural ingredient quality.",
+  },
+  {
+    slug: "soap",
+    name: "Soap",
+    title: "Soap",
+    description:
+      "Natural body soaps and cleansing bars analyzed for skin-friendly ingredients and pH balance.",
+  },
+  {
+    slug: "toothpaste",
+    name: "Toothpaste",
+    title: "Toothpaste",
+    description:
+      "Natural and effective oral care products analyzed for safety and efficacy.",
+  },
+];
 
 async function getCategoriesData(): Promise<CategorySummary[]> {
   try {
-    return await getCategories();
+    const categories = await getCategories();
+    // If API returns empty, use fallback
+    if (!categories || categories.length === 0) {
+      console.warn("[Categories] API returned empty, using fallback data");
+      return fallbackCategories;
+    }
+    return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);
-    return [];
+    return fallbackCategories;
   }
 }
 
@@ -46,10 +89,12 @@ export default async function CategoriesPage() {
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Product Categories
         </h1>
+        {/* SEO-optimized explanatory content - above the fold */}
         <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
-          Explore our curated collection of health products organized by
-          category. Each category features in-depth analysis and our top picks
-          based on ingredients, certifications, and value.
+          Find products that meet our safety and transparency standards,
+          organized by category. Each category is independently evaluated using
+          our methodology—covering ingredient safety, regulatory compliance, and
+          real-world efficacy for Indian consumers.
         </p>
       </div>
 

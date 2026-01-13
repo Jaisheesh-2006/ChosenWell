@@ -4,8 +4,15 @@ import Image from "next/image";
 const footerLinks = {
   explore: [
     { name: "All Products", href: "/products" },
-    { name: "Categories", href: "/categories" },
     { name: "Methodology", href: "/methodology" },
+  ],
+  categories: [
+    { name: "Shampoo", href: "/categories/shampoo" },
+    { name: "Toothpaste", href: "/categories/toothpaste" },
+    { name: "Sunscreen", href: "/categories/sunscreen" },
+    { name: "Soap", href: "/categories/soap" },
+    { name: "Hair Oil", href: "/categories/hair_oil" },
+    { name: "View all categories", href: "/categories" },
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -18,7 +25,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-5">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3">
@@ -63,6 +70,16 @@ export default function Footer() {
                   >
                     {link.name}
                   </Link>
+                </li>
+              ))}
+              {footerLinks.categories.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  >
+                    {link.name}
+                  </a>
                 </li>
               ))}
             </ul>
