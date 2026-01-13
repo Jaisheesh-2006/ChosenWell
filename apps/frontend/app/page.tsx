@@ -140,49 +140,49 @@ export default async function HomePage() {
         className="mt-6 flex flex-wrap items-center justify-center gap-y-2 text-sm text-slate-500 dark:text-slate-400"
       >
         <span className="mr-2 text-slate-400 dark:text-slate-500">
-         <strong>Explore by category:</strong>
+          <strong>Explore by category:</strong>
         </span>
-        <a
+        <Link
           href="/categories/shampoo"
           className="hover:text-cyan-600 dark:hover:text-cyan-400"
         >
           Shampoo
-        </a>
+        </Link>
         <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-        <a
+        <Link
           href="/categories/sunscreen"
           className="hover:text-cyan-600 dark:hover:text-cyan-400"
         >
           Sunscreen
-        </a>
+        </Link>
         <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-        <a
+        <Link
           href="/categories/hair_oil"
           className="hover:text-cyan-600 dark:hover:text-cyan-400"
         >
           Hair Oil
-        </a>
+        </Link>
         <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-        <a
+        <Link
           href="/categories/soap"
           className="hover:text-cyan-600 dark:hover:text-cyan-400"
         >
           Soap
-        </a>
+        </Link>
         <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-        <a
+        <Link
           href="/categories/toothpaste"
           className="hover:text-cyan-600 dark:hover:text-cyan-400"
         >
           Toothpaste
-        </a>
+        </Link>
         <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-        <a
+        <Link
           href="/categories"
           className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300"
         >
           View all categories →
-        </a>
+        </Link>
       </nav>
 
       {/* How ChosenWell Evaluates Products - System-First Credibility */}
@@ -427,19 +427,19 @@ export default async function HomePage() {
           <p className="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
             Labels and marketing can be confusing. These guides help you
             understand what actually matters when evaluating products like{" "}
-            <a
+            <Link
               href="/categories/shampoo"
               className="text-emerald-600 dark:text-emerald-400 hover:underline"
             >
               shampoos
-            </a>{" "}
+            </Link>{" "}
             and{" "}
-            <a
+            <Link
               href="/categories/sunscreen"
               className="text-emerald-600 dark:text-emerald-400 hover:underline"
             >
               sunscreens
-            </a>
+            </Link>
             .
           </p>
         </div>
@@ -542,12 +542,12 @@ export default async function HomePage() {
           </p>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
             This methodology applies across all{" "}
-            <a
+            <Link
               href="/categories"
               className="text-cyan-600 dark:text-cyan-400 hover:underline"
             >
               product categories
-            </a>{" "}
+            </Link>{" "}
             we evaluate.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
