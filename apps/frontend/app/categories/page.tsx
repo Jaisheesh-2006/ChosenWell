@@ -27,35 +27,30 @@ export const revalidate = 300;
 const fallbackCategories: CategorySummary[] = [
   {
     slug: "shampoo",
-    name: "Shampoo",
     title: "Shampoo",
     description:
       "Clean hair care products evaluated for scalp health and ingredient safety.",
   },
   {
     slug: "sunscreen",
-    name: "Sunscreen",
     title: "Sunscreen",
     description:
       "Sun protection products analyzed for UVA/UVB coverage, reef safety, and skin compatibility.",
   },
   {
     slug: "hair_oil",
-    name: "Hair Oil",
     title: "Hair Oil",
     description:
       "Premium hair oils evaluated for nourishment, scalp health, and natural ingredient quality.",
   },
   {
     slug: "soap",
-    name: "Soap",
     title: "Soap",
     description:
       "Natural body soaps and cleansing bars analyzed for skin-friendly ingredients and pH balance.",
   },
   {
     slug: "toothpaste",
-    name: "Toothpaste",
     title: "Toothpaste",
     description:
       "Natural and effective oral care products analyzed for safety and efficacy.",
