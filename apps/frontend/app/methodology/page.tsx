@@ -299,7 +299,7 @@ export default async function MethodologyPage() {
         </p>
         <ul className="mt-6 space-y-3">
           <li>
-            <a
+            <Link
               href="/categories/shampoo"
               className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
             >
@@ -317,10 +317,10 @@ export default async function MethodologyPage() {
                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                 />
               </svg>
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/categories/sunscreen"
               className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
             >
@@ -338,10 +338,10 @@ export default async function MethodologyPage() {
                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                 />
               </svg>
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/categories/hair_oil"
               className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
             >
@@ -359,7 +359,7 @@ export default async function MethodologyPage() {
                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                 />
               </svg>
-            </a>
+            </Link>
           </li>
         </ul>
       </section>
@@ -402,7 +402,7 @@ export default async function MethodologyPage() {
         </div>
       </section>
 
-            {/* Last Updated */}
+      {/* Last Updated */}
       {methodology.last_updated && (
         <section className="mt-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
           <p className="text-sm text-slate-600 dark:text-slate-400">
