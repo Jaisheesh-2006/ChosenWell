@@ -124,6 +124,24 @@ func logQuery(name string, start time.Time, rowCount int) {
 	}
 }
 
+// SaveFeedback stores a customer feedback submission.
+func (r *Repository) SaveFeedback(ctx context.Context, email string, feedback string) (int64, error) {
+	start := time.Now()
+	query := `
+		INSERT INTO customer_feedback (customer_email, feedback)
+		VALUES ($1, $2)
+		RETURNING id
+	`
+
+	var id int64
+	if err := r.db.QueryRowContext(ctx, query, email, feedback).Scan(&id); err != nil {
+		return 0, fmt.Errorf("failed to insert feedback: %w", err)
+	}
+
+	logQuery("SaveFeedback", start, 1)
+	return id, nil
+}
+
 // =====================
 // CATEGORIES
 // =====================

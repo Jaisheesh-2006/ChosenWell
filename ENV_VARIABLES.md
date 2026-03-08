@@ -27,16 +27,43 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 Set these in your Railway project under **Variables** tab.
 
-| Variable       | Required | Description                                   | Example                                          |
-| -------------- | -------- | --------------------------------------------- | ------------------------------------------------ |
-| `DATABASE_URL` | ✅ Yes   | PostgreSQL connection string (Neon DB)        | `postgresql://user:pass@host/db?sslmode=require` |
-| `PORT`         | Optional | Server port (Railway sets this automatically) | `8080`                                           |
+| Variable            | Required | Description                                   | Example                                          |
+| ------------------- | -------- | --------------------------------------------- | ------------------------------------------------ |
+| `DATABASE_URL`      | ✅ Yes   | PostgreSQL connection string (Neon DB)        | `postgresql://user:pass@host/db?sslmode=require` |
+| `PORT`              | Optional | Server port (Railway sets this automatically) | `8080`                                           |
+| `FRONTEND_URL`      | Optional | Extra frontend origin added to CORS           | `http://localhost:3000`                          |
+| `AI_SERVICE_URL`    | ✅ Yes   | LangChain feedback classifier URL             | `http://localhost:8000`                          |
+| `RESEND_API_KEY`    | ✅ Yes   | Resend API key used for reply emails          | `re_xxxxxxxxx`                                   |
+| `RESEND_FROM_EMAIL` | ✅ Yes   | Verified Resend sender address                | `feedback@chosenwell.co.in`                      |
+| `RESEND_FROM_NAME`  | Optional | Display name for outgoing replies             | `ChosenWell`                                     |
+| `RESEND_API_URL`    | Optional | Resend API base URL                           | `https://api.resend.com`                         |
+
+### LangChain Feedback Service
+
+Run the LangChain service separately from the Go backend.
+
+| Variable             | Required | Description                          | Example                 |
+| -------------------- | -------- | ------------------------------------ | ----------------------- |
+| `GOOGLE_API_KEY`     | ✅ Yes   | Google AI API key for LangChain      | `AIza...`               |
+| `GEMINI_MODEL`       | Optional | Gemini model name                    | `gemini-2.5-flash-lite` |
+| `GEMINI_TEMPERATURE` | Optional | Model temperature for classification | `1.7`                   |
 
 ### Example `.env` for local development:
 
 ```env
 DATABASE_URL=postgresql://healthuser:healthpass@localhost:5432/healthiswealth?sslmode=disable
 PORT=8080
+FRONTEND_URL=http://localhost:3000
+AI_SERVICE_URL=http://localhost:8000
+RESEND_API_KEY=your-resend-api-key
+RESEND_FROM_EMAIL=feedback@your-domain.com
+RESEND_FROM_NAME=ChosenWell
+RESEND_API_URL=https://api.resend.com
+
+# LangChain service
+GOOGLE_API_KEY=your-google-ai-api-key
+GEMINI_MODEL=gemini-2.5-flash-lite
+GEMINI_TEMPERATURE=1.7
 ```
 
 ---
@@ -69,6 +96,15 @@ postgresql://[user]:[password]@[host]/[database]?sslmode=require
 ### Railway (Backend)
 
 - [ ] `DATABASE_URL` → Your Neon PostgreSQL connection string
+- [ ] `AI_SERVICE_URL` → Your LangChain service URL
+- [ ] `RESEND_API_KEY` → Your Resend API key
+- [ ] `RESEND_FROM_EMAIL` → Your verified sender email in Resend
+
+### LangChain Service
+
+- [ ] `GOOGLE_API_KEY` → Your Google AI API key
+- [ ] `GEMINI_MODEL` → `gemini-2.5-flash-lite` (or your preferred Gemini model)
+- [ ] `GEMINI_TEMPERATURE` → `1.7`
 
 ---
 

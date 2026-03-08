@@ -48,7 +48,7 @@ func main() {
 
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   allowedOrigins,
-		AllowedMethods:   []string{"GET", "OPTIONS"},
+		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type"},
 		AllowCredentials: false,
 		MaxAge:           300,
@@ -145,6 +145,7 @@ func jsonRecoverer(next http.Handler) http.Handler {
 
 // registerRoutes registers all API endpoints.
 func registerRoutes(router *chi.Mux) {
+	router.Post("/feedback", api.PostFeedback)
 	router.Get("/categories", api.GetCategories)
 	router.Get("/categories/{slug}", api.GetCategory)
 	router.Get("/products", api.GetProducts)

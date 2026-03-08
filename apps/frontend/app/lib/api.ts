@@ -25,7 +25,7 @@ export class ApiError extends Error {
   constructor(
     message: string,
     public status?: number,
-    public endpoint?: string
+    public endpoint?: string,
   ) {
     super(message);
     this.name = "ApiError";
@@ -40,11 +40,20 @@ export class SchemaValidationError extends Error {
     message: string,
     public endpoint: string,
     public expected: string,
-    public received: unknown
+    public received: unknown,
   ) {
     super(message);
     this.name = "SchemaValidationError";
   }
+}
+
+export interface SubmitFeedbackPayload {
+  email: string;
+  feedback: string;
+}
+
+export interface SubmitFeedbackResponse {
+  status: string;
 }
 
 // ============================================================================
@@ -61,7 +70,7 @@ function isArray(value: unknown): value is unknown[] {
 
 function hasProperty<K extends string>(
   obj: Record<string, unknown>,
-  key: K
+  key: K,
 ): obj is Record<string, unknown> & Record<K, unknown> {
   return key in obj;
 }
@@ -79,13 +88,13 @@ function hasProperty<K extends string>(
  */
 function validateCategoriesResponse(
   data: unknown,
-  endpoint: string
+  endpoint: string,
 ): CategorySummary[] {
   // Handle null/undefined gracefully - return empty array
   if (data === null || data === undefined) {
     if (IS_DEVELOPMENT) {
       console.warn(
-        `[API] ${endpoint} returned null/undefined, returning empty array`
+        `[API] ${endpoint} returned null/undefined, returning empty array`,
       );
     }
     return [];
@@ -129,7 +138,7 @@ function validateCategoriesResponse(
     `Expected CategorySummary[] or { value: CategorySummary[] } from ${endpoint}`,
     endpoint,
     "CategorySummary[] | { value: CategorySummary[] }",
-    data
+    data,
   );
 }
 
@@ -142,13 +151,13 @@ function validateCategoriesResponse(
  */
 function validateProductsResponse(
   data: unknown,
-  endpoint: string
+  endpoint: string,
 ): ProductSummary[] {
   // Handle null/undefined gracefully - return empty array
   if (data === null || data === undefined) {
     if (IS_DEVELOPMENT) {
       console.warn(
-        `[API] ${endpoint} returned null/undefined, returning empty array`
+        `[API] ${endpoint} returned null/undefined, returning empty array`,
       );
     }
     return [];
@@ -192,7 +201,7 @@ function validateProductsResponse(
     `Expected ProductSummary[] or { value/products: ProductSummary[] } from ${endpoint}`,
     endpoint,
     "ProductSummary[] | { value: ProductSummary[] } | { products: ProductSummary[] }",
-    data
+    data,
   );
 }
 
@@ -202,7 +211,7 @@ function validateProductsResponse(
 function validateObjectResponse<T>(
   data: unknown,
   endpoint: string,
-  typeName: string
+  typeName: string,
 ): T {
   if (isObject(data)) {
     return data as T;
@@ -212,7 +221,7 @@ function validateObjectResponse<T>(
     `Expected ${typeName} object from ${endpoint}`,
     endpoint,
     typeName,
-    data
+    data,
   );
 }
 
@@ -222,7 +231,7 @@ function validateObjectResponse<T>(
 function validateArrayResponse<T>(
   data: unknown,
   endpoint: string,
-  typeName: string
+  typeName: string,
 ): T[] {
   if (isArray(data)) {
     return data as T[];
@@ -232,7 +241,7 @@ function validateArrayResponse<T>(
     `Expected ${typeName}[] from ${endpoint}`,
     endpoint,
     `${typeName}[]`,
-    data
+    data,
   );
 }
 
@@ -268,7 +277,7 @@ function isJsonContentType(contentType: string | null): boolean {
 async function fetchWithRetry(
   url: string,
   options: RequestInit & { next?: { revalidate: number } },
-  retries: number = 2
+  retries: number = 2,
 ): Promise<Response> {
   let lastError: Error | null = null;
 
@@ -315,7 +324,7 @@ async function fetchWithRetry(
  */
 async function fetchApi(
   endpoint: string,
-  revalidateSeconds: number = 60
+  revalidateSeconds: number = 60,
 ): Promise<unknown> {
   const url = `${API_BASE_URL}${endpoint}`;
 
@@ -360,7 +369,7 @@ async function fetchApi(
         contentType || "no content-type"
       } from ${endpoint}`,
       res.status,
-      endpoint
+      endpoint,
     );
   }
 
@@ -386,7 +395,7 @@ async function fetchApi(
     throw new ApiError(
       `JSON parsing failed for ${endpoint} (Content-Type was ${contentType})`,
       res.status,
-      endpoint
+      endpoint,
     );
   }
 
@@ -412,7 +421,7 @@ export async function getHealthStatus(): Promise<HealthStatus> {
     throw new ApiError(
       `Health endpoint returned non-JSON: ${contentType}`,
       res.status,
-      "/health"
+      "/health",
     );
   }
 
@@ -441,7 +450,7 @@ export interface GetProductsParams {
 
 // Products list - cache for 1 minute
 export async function getProducts(
-  params?: GetProductsParams
+  params?: GetProductsParams,
 ): Promise<ProductSummary[]> {
   const searchParams = new URLSearchParams();
 
@@ -465,7 +474,7 @@ export async function getProducts(
 // Single product - cache for 5 minutes
 export async function getProductBySlug(
   slug: string,
-  country?: string
+  country?: string,
 ): Promise<Product> {
   const params = country ? `?country=${encodeURIComponent(country)}` : "";
   const endpoint = `/products/${encodeURIComponent(slug)}${params}`;
@@ -476,7 +485,7 @@ export async function getProductBySlug(
 // Similar products - cache for 5 minutes
 export async function getSimilarProducts(
   slug: string,
-  limit?: number
+  limit?: number,
 ): Promise<ProductSummary[]> {
   const params = limit ? `?limit=${limit}` : "";
   const endpoint = `/products/${encodeURIComponent(slug)}/similar${params}`;
@@ -484,7 +493,7 @@ export async function getSimilarProducts(
   return validateArrayResponse<ProductSummary>(
     data,
     endpoint,
-    "ProductSummary"
+    "ProductSummary",
   );
 }
 
@@ -500,4 +509,48 @@ export async function getMethodology(): Promise<Methodology> {
   const endpoint = "/methodology";
   const data = await fetchApi(endpoint, 3600);
   return validateObjectResponse<Methodology>(data, endpoint, "Methodology");
+}
+
+export async function submitFeedback(
+  payload: SubmitFeedbackPayload,
+): Promise<SubmitFeedbackResponse> {
+  const endpoint = "/feedback";
+  const url = `${API_BASE_URL}${endpoint}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+    body: JSON.stringify(payload),
+  });
+
+  const contentType = res.headers.get("content-type");
+  if (!isJsonContentType(contentType)) {
+    throw new ApiError(
+      `Expected application/json but received ${
+        contentType || "no content-type"
+      } from ${endpoint}`,
+      res.status,
+      endpoint,
+    );
+  }
+
+  const data = (await res.json()) as unknown;
+
+  if (!res.ok) {
+    if (isObject(data) && typeof data.error === "string") {
+      throw new ApiError(data.error, res.status, endpoint);
+    }
+
+    throw new ApiError("Failed to submit feedback", res.status, endpoint);
+  }
+
+  return validateObjectResponse<SubmitFeedbackResponse>(
+    data,
+    endpoint,
+    "SubmitFeedbackResponse",
+  );
 }

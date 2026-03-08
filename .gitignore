@@ -32,7 +32,6 @@ apps/frontend/*.tsbuildinfo
 
 # Env files (keep templates like .env.example if you add them)
 apps/frontend/.env*
-!apps/frontend/.env.example
 
 # --- Go (backend) ---
 # Binaries
@@ -51,25 +50,11 @@ coverage.*
 # (Usually nothing to ignore, but keep local override files out of git)
 docker-compose.override.yml
 
-# --- Database ---
-apps/database/.env
-!apps/database/.env.example
-
 # --- Backend ---
 apps/backend/.env
-!apps/backend/.env.example
 
-# PostgreSQL data (if running locally without Docker)
-apps/database/data/
-apps/database/pgdata/
-
-# Database dumps and backups
-apps/database/*.dump
-apps/database/*.sql.gz
-apps/database/backups/
-
-# pgAdmin session data
-apps/database/pgadmin/
+# Python cache
+apps/feedback-ai/app/__pycache__/
 
 # --- Misc ---
 .tmp/

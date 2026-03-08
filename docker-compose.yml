@@ -1,39 +1,39 @@
 version: "3.9"
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: healthiswealth-db
-    restart: unless-stopped
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-healthuser}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-healthpass}
-      POSTGRES_DB: ${POSTGRES_DB:-healthiswealth}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./apps/database/migrations:/docker-entrypoint-initdb.d/migrations:ro
-      - ./apps/database/seeds:/docker-entrypoint-initdb.d/seeds:ro
-      - ./apps/database/init-db.sh:/docker-entrypoint-initdb.d/00-init-db.sh:ro
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-healthuser} -d ${POSTGRES_DB:-healthiswealth}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   backend:
     build:
       context: ./apps/backend
     ports:
-      - "8081:8081"
+      - "8080:8080"
     environment:
-      - PORT=8081
-      - DATABASE_URL=postgresql://healthuser:healthpass@postgres:5432/healthiswealth
+      - PORT=8080
+      - DATABASE_URL=${DATABASE_URL}
+      - AI_SERVICE_URL=http://feedback-ai:8000
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-}
+      - RESEND_FROM_NAME=${RESEND_FROM_NAME:-ChosenWell}
+      - RESEND_API_URL=${RESEND_API_URL:-https://api.resend.com}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
     depends_on:
-      postgres:
-        condition: service_healthy
+      feedback-ai:
+        condition: service_started
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      retries: 3
+      timeout: 5s
+
+  feedback-ai:
+    build:
+      context: ./apps/feedback-ai
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash-lite}
+      - GEMINI_TEMPERATURE=${GEMINI_TEMPERATURE:-1.7}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s
       retries: 3
       timeout: 5s
@@ -47,7 +47,6 @@ services:
       - "3000:3000"
     environment:
       - NEXT_TELEMETRY_DISABLED=1
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8080}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
     command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3000"]
-
-volumes:
-  postgres_data:
