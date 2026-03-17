@@ -12,6 +12,8 @@ Desktop.ini
 .env.local
 .env.production
 !.env.example
+.venv/
+venv/
 
 # --- Logs ---
 *.log
@@ -55,6 +57,13 @@ apps/backend/.env
 
 # Python cache
 apps/feedback-ai/app/__pycache__/
+**/__pycache__/
+
+# Private keys and cert artifacts
+*.pem
+*.key
+*.p12
+*.pfx
 
 # --- Misc ---
 .tmp/

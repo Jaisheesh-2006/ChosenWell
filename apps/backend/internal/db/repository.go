@@ -69,7 +69,7 @@ type Repository struct {
 func New() (*Repository, error) {
 	connStr := os.Getenv("DATABASE_URL")
 	if connStr == "" {
-		connStr = "postgresql://healthuser:healthpass@localhost:5432/healthiswealth?sslmode=disable"
+		connStr = "postgresql://localhost:5432/healthiswealth?sslmode=disable"
 	}
 
 	// Add binary_parameters=yes for better Neon/PgBouncer compatibility
