@@ -11,6 +11,7 @@ import (
 )
 
 const defaultResendAPIURL = "https://api.resend.com"
+const defaultFeedbackAdminEmail = "jaicodes2006@gmail.com"
 
 type resendEmailRequest struct {
 	From    string   `json:"from"`
@@ -24,6 +25,7 @@ func SendFeedbackReply(toEmail string, sentiment string) error {
 	fromEmail := strings.TrimSpace(os.Getenv("RESEND_FROM_EMAIL"))
 	fromName := strings.TrimSpace(os.Getenv("RESEND_FROM_NAME"))
 	apiURL := strings.TrimRight(strings.TrimSpace(os.Getenv("RESEND_API_URL")), "/")
+	adminEmail := strings.TrimSpace(os.Getenv("FEEDBACK_ADMIN_EMAIL"))
 
 	if apiKey == "" {
 		return fmt.Errorf("RESEND_API_KEY is not configured")
@@ -37,15 +39,37 @@ func SendFeedbackReply(toEmail string, sentiment string) error {
 	if apiURL == "" {
 		apiURL = defaultResendAPIURL
 	}
+	if adminEmail == "" {
+		adminEmail = defaultFeedbackAdminEmail
+	}
 
 	subject, body := buildReplyTemplate(sentiment)
-	payload := resendEmailRequest{
+	userPayload := resendEmailRequest{
 		From:    fmt.Sprintf("%s <%s>", fromName, fromEmail),
 		To:      []string{toEmail},
 		Subject: subject,
 		Text:    body,
 	}
+	if err := sendResendEmail(apiKey, apiURL, userPayload); err != nil {
+		return err
+	}
 
+	adminPayload := resendEmailRequest{
+		From:    fmt.Sprintf("%s <%s>", fromName, fromEmail),
+		To:      []string{adminEmail},
+		Subject: "[Feedback Reply Copy] " + subject,
+		Text: fmt.Sprintf(
+			"User email: %s\n\nSentiment: %s\n\nReply content sent to user:\n\n%s",
+			toEmail,
+			sentiment,
+			body,
+		),
+	}
+
+	return sendResendEmail(apiKey, apiURL, adminPayload)
+}
+
+func sendResendEmail(apiKey string, apiURL string, payload resendEmailRequest) error {
 	requestBody, err := json.Marshal(payload)
 	if err != nil {
 		return fmt.Errorf("failed to marshal resend payload: %w", err)
