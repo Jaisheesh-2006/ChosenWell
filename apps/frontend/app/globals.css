@@ -1,62 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* ===== Design Tokens ===== */
+
+  :root {
+    /* Primary palette */
+    --color-primary:          #1B4D3E;
+    --color-primary-light:    #2A7B5F;
+    --color-primary-lighter:  #E6F2ED;
+
+    /* Accent */
+    --color-accent:           #D4A853;
+    --color-accent-light:     #F5EEDC;
+
+    /* Text */
+    --color-text:             #1A1A2E;
+    --color-text-muted:       #6B7280;
+
+    /* Background & surfaces */
+    --color-background:       #FAFAF7;
+    --color-surface:          #F3F1EC;
+    --color-surface-raised:   #FFFFFF;
+
+    /* Borders */
+    --color-border:           #E5E2DB;
+    --color-border-strong:    #D1CDC4;
+
+    /* Hero gradients */
+    --color-hero-start:       #0F2E23;
+    --color-hero-end:         #1B4D3E;
+
+    /* Semantic */
+    --color-success:          #16A34A;
+    --color-warning:          #D97706;
+    --color-danger:           #DC2626;
+
+    /* Scrollbar */
+    --scrollbar-track:        #F3F1EC;
+    --scrollbar-thumb:        #D1CDC4;
+    --scrollbar-thumb-hover:  #1B4D3E;
+
+    /* Typography */
+    --font-sans:    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  }
+
   body {
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-background);
+    color: var(--color-text);
   }
 
-  /* Dark mode (default) */
-  .dark body,
-  body {
-    background-color: #020617;
-    color: #e2e8f0;
-  }
-
-  /* Light mode */
-  .light body {
-    background-color: #f8fafc;
-    color: #1e293b;
-  }
-
-  /* Custom scrollbar - Dark mode */
-  .dark ::-webkit-scrollbar,
+  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
-  .dark ::-webkit-scrollbar-track,
   ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: var(--scrollbar-track);
   }
 
-  .dark ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: var(--scrollbar-thumb);
     border-radius: 4px;
   }
 
-  .dark ::-webkit-scrollbar-thumb:hover,
   ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: var(--scrollbar-thumb-hover);
   }
 
-  /* Custom scrollbar - Light mode */
-  .light ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-  }
-
-  .light ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-  }
-
-  .light ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+  /* Selection */
+  ::selection {
+    background-color: var(--color-primary-lighter);
+    color: var(--color-primary);
   }
 }
 
@@ -85,26 +108,88 @@
   .scroll-smooth {
     scroll-behavior: smooth;
   }
+
+  /* Display heading font */
+  .font-display {
+    font-family: var(--font-display);
+    font-style: italic;
+  }
 }
 
 @layer components {
-  /* Focus ring utility */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950;
-  }
+  /* ===== Reusable Component Classes ===== */
 
-  .light .focus-ring {
-    @apply focus:ring-offset-slate-50;
+  /* Card — base container */
+  .card {
+    @apply rounded-xl border border-border bg-surface-raised shadow-card transition-all duration-300;
   }
 
   /* Card hover effect */
   .card-hover {
-    @apply transition-all duration-200 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/5;
+    @apply transition-all duration-300 hover:border-primary-light/30 hover:shadow-card-hover hover:-translate-y-0.5;
   }
 
-  /* Gradient text */
+  /* Primary CTA button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-semibold text-white shadow-md transition-all duration-200 hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20 active:scale-[0.97];
+  }
+
+  /* Secondary CTA button — outlined */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-border-strong bg-surface-raised px-7 py-3 font-semibold text-text transition-all duration-200 hover:border-primary/40 hover:bg-primary-lighter active:scale-[0.97];
+  }
+
+  /* Section eyebrow / label text */
+  .section-label {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-accent;
+  }
+
+  /* CTA section — soft background */
+  .cta-section {
+    @apply rounded-2xl bg-hero-start px-8 py-14 text-center md:py-16;
+  }
+
+  /* CTA section text overrides */
+  .cta-section h2 {
+    @apply text-white;
+  }
+
+  .cta-section p {
+    @apply text-white/70;
+  }
+
+  /* Navigation link */
+  .nav-link {
+    @apply text-sm text-text-muted transition-colors duration-200 hover:text-primary;
+  }
+
+  /* Form input / textarea field */
+  .input-field {
+    @apply w-full rounded-xl border border-border bg-surface-raised px-4 py-3 text-sm text-text outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:shadow-glow;
+  }
+
+  /* Focus ring utility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Gradient text — accent gold */
   .gradient-text {
-    @apply bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent font-bold;
+  }
+
+  /* Page heading — serif display font */
+  .page-heading {
+    font-family: var(--font-display);
+    font-style: italic;
+    @apply text-4xl tracking-tight text-text md:text-5xl;
+  }
+
+  /* Section heading */
+  .section-heading {
+    font-family: var(--font-display);
+    font-style: italic;
+    @apply text-2xl font-bold text-text sm:text-3xl font-display;
   }
 
   /* Prose customization for markdown content */
@@ -113,51 +198,31 @@
   }
 
   .prose-custom h1,
-  .prose-custom h2,
+  .prose-custom h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    @apply font-bold text-text font-display;
+  }
+
   .prose-custom h3,
   .prose-custom h4 {
-    @apply font-bold text-white;
+    @apply font-bold text-text;
   }
 
   .prose-custom p {
-    @apply text-slate-300;
+    @apply text-text-muted leading-relaxed;
   }
 
   .prose-custom a {
-    @apply text-cyan-400 no-underline hover:underline;
+    @apply text-primary no-underline hover:underline;
   }
 
   .prose-custom strong {
-    @apply text-white;
+    @apply text-text;
   }
 
   .prose-custom ul,
   .prose-custom ol {
-    @apply text-slate-300;
-  }
-
-  /* Light mode prose */
-  .light .prose-custom h1,
-  .light .prose-custom h2,
-  .light .prose-custom h3,
-  .light .prose-custom h4 {
-    @apply text-slate-900;
-  }
-
-  .light .prose-custom p {
-    @apply text-slate-600;
-  }
-
-  .light .prose-custom a {
-    @apply text-cyan-600;
-  }
-
-  .light .prose-custom strong {
-    @apply text-slate-900;
-  }
-
-  .light .prose-custom ul,
-  .light .prose-custom ol {
-    @apply text-slate-600;
+    @apply text-text-muted;
   }
 }

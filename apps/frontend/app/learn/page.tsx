@@ -3,7 +3,7 @@ import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Learn - Understand Products Before You Buy | ChosenWell",
+  title: "Learn - Understand Products Before You Buy",
   description:
     "Educational resources to help Indian consumers understand ingredient labels, certifications, and product claims. Make informed decisions about daily-use products.",
   alternates: {
@@ -149,26 +149,24 @@ function getCategoryColors(color: string) {
     { badge: string; border: string; text: string }
   > = {
     cyan: {
-      badge: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
-      border: "border-cyan-200 dark:border-cyan-800/30",
-      text: "text-cyan-600 dark:text-cyan-400",
+      badge: "bg-primary/10 text-primary",
+      border: "border-primary/20",
+      text: "text-primary",
     },
     emerald: {
-      badge:
-        "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-      border: "border-emerald-200 dark:border-emerald-800/30",
-      text: "text-emerald-600 dark:text-emerald-400",
+      badge: "bg-primary/10 text-primary",
+      border: "border-primary/20",
+      text: "text-primary",
     },
     amber: {
-      badge:
-        "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-      border: "border-amber-200 dark:border-amber-800/30",
-      text: "text-amber-600 dark:text-amber-400",
+      badge: "bg-amber-100 text-amber-700",
+      border: "border-amber-200",
+      text: "text-amber-600",
     },
     rose: {
-      badge: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400",
-      border: "border-rose-200 dark:border-rose-800/30",
-      text: "text-rose-600 dark:text-rose-400",
+      badge: "bg-rose-100 text-rose-700",
+      border: "border-rose-200",
+      text: "text-rose-600",
     },
   };
   return colors[color] || colors.cyan;
@@ -181,26 +179,26 @@ export default function LearnPage() {
 
       {/* Header */}
       <header className="mb-12 max-w-3xl">
-        <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+        <p className="section-label">
           Consumer Education
         </p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="mt-2 page-heading">
           Understand Before You Buy
         </h1>
-        <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">
+        <p className="mt-6 text-xl text-text-muted">
           Labels, certifications, and marketing claims can be confusing. We
           break down what they actually mean for Indian consumers — so you can
           make informed decisions, not emotional ones.
         </p>
-        <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-4 text-sm text-text-muted">
           All content is educational and neutral. No brand accusations, no
           fear-mongering — just clear, India-relevant information.
         </p>
       </header>
 
       {/* Why This Matters */}
-      <section className="mb-16 rounded-2xl bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 p-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+      <section className="mb-16 rounded-xl bg-surface p-8 border border-border">
+        <h2 className="section-heading">
           Why Understanding Labels Matters
         </h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
@@ -224,13 +222,13 @@ export default function LearnPage() {
             },
           ].map((item) => (
             <div key={item.label}>
-              <p className="text-3xl font-bold text-cyan-600 dark:text-cyan-400">
+              <p className="text-3xl font-bold text-primary">
                 {item.stat}
               </p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="font-medium text-text">
                 {item.label}
               </p>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-1 text-sm text-text-muted">
                 {item.description}
               </p>
             </div>
@@ -245,10 +243,10 @@ export default function LearnPage() {
           return (
             <div key={category.id}>
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="section-heading">
                   {category.title}
                 </h2>
-                <p className="mt-2 text-slate-600 dark:text-slate-400">
+                <p className="mt-2 text-text-muted">
                   {category.description}
                 </p>
               </div>
@@ -258,20 +256,20 @@ export default function LearnPage() {
                   <Link
                     key={article.slug}
                     href={`/learn/${article.slug}`}
-                    className={`group rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md dark:bg-slate-900/50 ${colors.border}`}
+                    className={`group card p-6 transition-all duration-300 hover:shadow-card-hover hover:border-primary-light/30 hover:-translate-y-0.5`}
                   >
                     <span
                       className={`inline-block text-xs font-medium px-2 py-1 rounded mb-3 ${colors.badge}`}
                     >
                       {category.title.split(" ")[0]}
                     </span>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    <h3 className="text-lg font-semibold text-text group-hover:text-primary transition-colors duration-200 leading-snug">
                       {article.title}
                     </h3>
-                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                    <p className="mt-2 text-sm text-text-muted">
                       {article.excerpt}
                     </p>
-                    <p className="mt-4 text-xs text-slate-500 dark:text-slate-500">
+                    <p className="mt-4 text-xs text-text-muted">
                       {article.readTime}
                     </p>
                   </Link>
@@ -283,11 +281,11 @@ export default function LearnPage() {
       </section>
 
       {/* CTA - Connect to Products */}
-      <section className="mt-20 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 p-8 text-center dark:from-cyan-500/5 dark:via-emerald-500/5 dark:to-cyan-500/5">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+      <section className="mt-20 cta-section">
+        <h2 className="text-2xl font-display text-white">
           Ready to apply what you&apos;ve learned?
         </h2>
-        <p className="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+        <p className="mt-4 max-w-2xl mx-auto text-white/70">
           Browse products that have been evaluated using the standards discussed
           in our educational content. Only products meeting our criteria are
           shown.
@@ -295,7 +293,7 @@ export default function LearnPage() {
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+            className="btn-primary"
           >
             See Evaluated Products
             <svg
@@ -314,7 +312,7 @@ export default function LearnPage() {
           </Link>
           <Link
             href="/methodology"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            className="btn-secondary"
           >
             See Our Evaluation Criteria
           </Link>

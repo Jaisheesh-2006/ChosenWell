@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import ThemeToggle from "./ThemeToggle";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -15,66 +15,70 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-lg dark:border-white/10 dark:bg-slate-950/80">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface-raised/90 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          {/* Light mode logo - shown in light mode, hidden in dark mode */}
-          <Image
-            src="/Logo-light.jpeg"
-            alt="ChosenWell Logo"
-            width={140}
-            height={40}
-            className="h-10 w-auto object-contain dark:hidden"
-            priority
-          />
-          {/* Dark mode logo - hidden in light mode, shown in dark mode */}
+        <Link href="/" className="flex items-center gap-2.5 group">
           <Image
             src="/Logo-dark.jpeg"
             alt="ChosenWell Logo"
             width={140}
             height={40}
-            className="hidden h-10 w-auto object-contain dark:block"
+            className="h-10 w-auto object-contain rounded-lg"
             priority
           />
-          <span className="text-xl font-bold text-slate-900 dark:text-white">
-            ChosenWell
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 lg:flex">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Theme Toggle (Desktop) */}
-        <div className="hidden lg:flex lg:items-center lg:gap-4">
-          <ThemeToggle />
+        <div className="hidden items-center gap-1 lg:flex">
+          {navigation.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
+                  active
+                    ? "text-primary bg-primary-lighter"
+                    : "text-text-muted hover:text-primary hover:bg-primary-lighter/50"
+                }`}
+              >
+                {item.name}
+                {active && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-5 rounded-full bg-accent" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile menu button */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-slate-600 dark:text-slate-400 lg:hidden"
+          className="inline-flex items-center justify-center rounded-xl p-2.5 text-text-muted hover:bg-surface hover:text-text transition-colors lg:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           <span className="sr-only">Open main menu</span>
           {mobileMenuOpen ? (
             <svg
-              className="h-6 w-6"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={2}
               stroke="currentColor"
             >
               <path
@@ -85,10 +89,10 @@ export default function Header() {
             </svg>
           ) : (
             <svg
-              className="h-6 w-6"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={2}
               stroke="currentColor"
             >
               <path
@@ -103,21 +107,25 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-slate-200 bg-white dark:border-white/10 dark:bg-slate-950 lg:hidden">
-          <div className="space-y-1 px-4 pb-4 pt-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="block rounded-lg px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <div className="flex items-center gap-4 border-t border-slate-200 px-3 pt-4 dark:border-white/10">
-              <ThemeToggle />
-            </div>
+        <div className="border-t border-border bg-surface-raised lg:hidden animate-fade-in">
+          <div className="space-y-1 px-4 pb-4 pt-3">
+            {navigation.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                    active
+                      ? "bg-primary-lighter text-primary"
+                      : "text-text-muted hover:bg-surface hover:text-text"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

@@ -94,7 +94,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       {/* Header */}
       <header className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="text-4xl font-bold tracking-tight text-text">
           {category.title}
         </h1>
 
@@ -104,7 +104,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {category.criteria.map((criterion) => (
               <span
                 key={criterion}
-                className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-600 dark:text-emerald-400"
+                className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary"
               >
                 <svg
                   className="mr-1.5 h-4 w-4"
@@ -129,7 +129,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Long description - SEO rich content
       <section className="mb-16">
         <div
-          className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-cyan-600 prose-strong:text-slate-900 dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-slate-300 dark:prose-a:text-cyan-400 dark:prose-strong:text-white"
+          className="prose prose-lg max-w-none prose-headings:text-text prose-p:text-text-muted prose-a:text-primary prose-strong:text-text"
           dangerouslySetInnerHTML={{ __html: category.long_description }}
         />
       </section> */}
@@ -146,16 +146,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <section>
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+            <p className="section-label">
               Our Picks
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+            <h2 className="mt-2 text-2xl font-bold text-text font-display">
               Top {category.title} Products
             </h2>
+            {category.curated_products && category.curated_products.length > 0 && (
+              <p className="mt-1 text-sm text-text-muted">
+                {category.curated_products.length} product
+                {category.curated_products.length !== 1 ? "s" : ""} evaluated
+              </p>
+            )}
           </div>
           <Link
-            href="/products"
-            className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-600 transition-colors hover:bg-cyan-500/20 dark:text-cyan-400 dark:hover:bg-cyan-500/20"
+            href={`/products?category=${encodeURIComponent(category.slug)}`}
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20"
           >
             View all products
             <svg
@@ -181,10 +187,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+          <div className="card p-8 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-surface">
               <svg
-                className="h-8 w-8 text-slate-400"
+                className="h-8 w-8 text-text-muted"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -197,23 +203,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text">
               No products yet
             </h3>
-            <p className="mt-2 text-slate-600 dark:text-slate-400">
+            <p className="mt-2 text-text-muted">
               We&apos;re still curating products for this category. Check back
               soon!
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+                className="btn-primary px-5 py-2 text-sm"
               >
                 Browse all products
               </Link>
               <Link
                 href="/categories"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2 text-sm font-semibold text-text transition-colors hover:bg-surface"
               >
                 View other categories
               </Link>
@@ -223,13 +229,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* Navigation Section */}
-      <section className="mt-16 rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 p-8 dark:border-white/10 dark:from-slate-900/50 dark:to-slate-800/30">
+      <section className="mt-16 rounded-2xl border border-border bg-surface p-8">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text">
               Explore more
             </h3>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-sm text-text-muted">
               Discover products across all categories or learn about our
               methodology.
             </p>
@@ -237,7 +243,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+              className="btn-primary px-5 py-2.5 text-sm"
             >
               All Products
               <svg
@@ -256,13 +262,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Link>
             <Link
               href="/categories"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold text-text transition-colors hover:bg-surface"
             >
               All Categories
             </Link>
             <Link
               href="/methodology"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold text-text transition-colors hover:bg-surface"
             >
               Our Methodology
             </Link>
@@ -279,7 +285,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             "@type": "CollectionPage",
             name: category.title,
             description: category.long_description?.substring(0, 200),
-            url: `https://www.chosenwell.co.in/${slug.replace(/_/g, "-")}`,
+            url: `https://www.chosenwell.co.in/categories/${slug.replace(/_/g, "-")}`,
           }),
         }}
       />

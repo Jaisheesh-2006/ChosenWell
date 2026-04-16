@@ -25,6 +25,7 @@ export interface ProductSummary {
   short_reason?: string;
   budget_tier?: string;
   tags?: ProductTags;
+  last_reviewed?: string; // date format
 }
 
 export interface ProductTags {

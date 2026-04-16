@@ -19,12 +19,12 @@ export default function CriteriaSection({
     <section className="mb-16">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 p-6 text-left transition-all hover:border-cyan-300 hover:shadow-lg dark:border-white/10 dark:from-slate-900/50 dark:to-slate-800/30 dark:hover:border-cyan-500/30"
+        className="group flex w-full items-center justify-between rounded-2xl border border-border bg-surface p-6 text-left transition-all hover:border-primary/30 hover:shadow-lg"
       >
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
             <svg
-              className="h-5 w-5 text-cyan-600 dark:text-cyan-400"
+              className="h-5 w-5 text-primary"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
@@ -37,12 +37,12 @@ export default function CriteriaSection({
               />
             </svg>
           </div>
-          <span className="text-lg font-semibold text-slate-900 dark:text-white">
+          <span className="text-lg font-semibold text-text">
             How we evaluate {title}
           </span>
         </div>
         <svg
-          className={`h-5 w-5 text-slate-500 transition-transform duration-300 ${
+          className={`h-5 w-5 text-text-muted transition-transform duration-300 ${
             isExpanded ? "rotate-180" : ""
           }`}
           fill="none"
@@ -63,9 +63,9 @@ export default function CriteriaSection({
           isExpanded ? "mt-4 max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
+        <div className="card p-6">
           <div
-            className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-h2:mt-8 prose-h2:text-xl prose-h3:mt-6 prose-h3:text-lg prose-p:text-slate-600 prose-strong:text-slate-900 prose-ul:text-slate-600 prose-li:marker:text-cyan-500 dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-slate-300 dark:prose-strong:text-white dark:prose-ul:text-slate-300"
+            className="prose prose-slate max-w-none prose-headings:text-text prose-h2:mt-8 prose-h2:text-xl prose-h3:mt-6 prose-h3:text-lg prose-p:text-text-muted prose-strong:text-text prose-ul:text-text-muted prose-li:marker:text-primary"
             dangerouslySetInnerHTML={{ __html: formatMarkdown(content) }}
           />
         </div>
@@ -89,12 +89,12 @@ function formatMarkdown(text: string): string {
     normalized
       // Headers
       .replace(/^### (.*$)/gm, '<h3 class="font-semibold mt-6 mb-2">$1</h3>')
-      .replace(/^## (.*$)/gm, '<h2 class="font-bold text-xl mt-8 mb-3">$1</h2>')
-      .replace(/^# (.*$)/gm, '<h1 class="font-bold text-2xl mt-8 mb-4">$1</h1>')
+      .replace(/^## (.*$)/gm, '<h2 class="font-bold text-xl mt-8 mb-3 font-display">$1</h2>')
+      .replace(/^# (.*$)/gm, '<h1 class="font-bold text-2xl mt-8 mb-4 font-display">$1</h1>')
       // Horizontal rules
       .replace(
         /^---$/gm,
-        '<hr class="my-6 border-slate-200 dark:border-slate-700" />'
+        '<hr class="my-6 border-border" />'
       )
       // Bold
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")

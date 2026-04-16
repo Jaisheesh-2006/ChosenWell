@@ -11,12 +11,12 @@ interface BreadcrumbsProps {
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
+    <nav aria-label="Breadcrumb" className="mb-8">
       <ol className="flex flex-wrap items-center gap-2 text-sm">
         <li>
           <Link
             href="/"
-            className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            className="text-text-muted transition-colors duration-200 hover:text-primary"
           >
             Home
           </Link>
@@ -24,7 +24,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         {items.map((item, index) => (
           <li key={item.label} className="flex items-center gap-2">
             <svg
-              className="h-4 w-4 text-slate-400 dark:text-slate-600"
+              className="h-3.5 w-3.5 text-border-strong"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
@@ -39,12 +39,12 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
             {item.href && index < items.length - 1 ? (
               <Link
                 href={item.href}
-                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                className="text-text-muted transition-colors duration-200 hover:text-primary"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-slate-700 dark:text-slate-200">{item.label}</span>
+              <span className="font-medium text-text">{item.label}</span>
             )}
           </li>
         ))}

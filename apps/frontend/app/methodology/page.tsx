@@ -44,74 +44,74 @@ export default async function MethodologyPage() {
 
       {/* Header */}
       <header className="mb-12">
-        <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+        <p className="section-label">
           Version {methodology.version}
         </p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="mt-2 page-heading">
           How We Verify Products
         </h1>
-        {/* <p className="mt-6 text-xl text-slate-600 dark:text-slate-300">
+        {/* <p className="mt-6 text-xl text-text-muted">
           {methodology.summary}
         </p> */}
       </header>
 
       {/* Our Approach */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="section-heading">
           Our Verification Process
         </h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-text-muted">
           Content-first evaluation focusing on ingredient safety, efficacy for
           stated concerns, and long-term health. All products must pass a strict
           safety gate before being featured.
         </p>
 
         <div className="mt-6 space-y-4">
-          <p className="font-medium text-slate-800 dark:text-slate-200">
+          <p className="font-medium text-text">
             We evaluate:
           </p>
-          <ol className="list-decimal list-inside space-y-3 text-slate-600 dark:text-slate-400">
+          <ol className="list-decimal list-inside space-y-3 text-text-muted">
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-text">
                 Ingredient Safety & Transparency
               </span>
-              <span className="text-slate-500 dark:text-slate-400">
+              <span className="text-text-muted">
                 {" "}
                 — Full INCI disclosure required, no hidden bases
               </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-text">
                 Formulation Quality
               </span>
-              <span className="text-slate-500 dark:text-slate-400">
+              <span className="text-text-muted">
                 {" "}
                 — Appropriate actives at meaningful concentrations
               </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-text">
                 Efficacy for Concern
               </span>
-              <span className="text-slate-500 dark:text-slate-400">
+              <span className="text-text-muted">
                 {" "}
                 — Evidence-based effectiveness for primary concerns
               </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-text">
                 Long-term Health
               </span>
-              <span className="text-slate-500 dark:text-slate-400">
+              <span className="text-text-muted">
                 {" "}
                 — No dependency cycles, rebound effects, or cumulative harm
               </span>
             </li>
             <li>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-text">
                 Certifications & Trust Signals
               </span>
-              <span className="text-slate-500 dark:text-slate-400">
+              <span className="text-text-muted">
                 {" "}
                 — Third-party validations valued
               </span>
@@ -122,7 +122,7 @@ export default async function MethodologyPage() {
 
       {/* Detailed Explanation */}
       <section className="mb-16 space-y-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="section-heading">
           What We Evaluate
         </h2>
 
@@ -211,15 +211,15 @@ export default async function MethodologyPage() {
           ].map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50"
+              className="card p-6"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-600 dark:text-cyan-400">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 {item.icon}
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
+              <h3 className="mt-4 text-lg font-semibold text-text">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-2 text-sm text-text-muted">
                 {item.description}
               </p>
             </div>
@@ -229,10 +229,10 @@ export default async function MethodologyPage() {
 
       {/* What We Look For */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="section-heading">
           Our Verification Standards
         </h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-text-muted">
           Products must meet these criteria to be featured on our platform.
         </p>
 
@@ -269,16 +269,16 @@ export default async function MethodologyPage() {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900/30"
+              className="flex items-start gap-4 card p-4"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-500 text-white font-bold text-sm">
                 {item.icon}
               </div>
               <div>
-                <p className="font-medium text-slate-900 dark:text-white">
+                <p className="font-medium text-text">
                   {item.label}
                 </p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-text-muted">
                   {item.description}
                 </p>
               </div>
@@ -289,10 +289,10 @@ export default async function MethodologyPage() {
 
       {/* How we evaluate products in each category - SEO Rule 4 compliance */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-text font-display">
           How we evaluate products in each category
         </h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-text-muted">
           Our evaluation framework is applied consistently across different
           product categories, with category-specific considerations for
           ingredients, safety, and efficacy.
@@ -301,7 +301,7 @@ export default async function MethodologyPage() {
           <li>
             <Link
               href="/categories/shampoo"
-              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-light hover:underline"
             >
               How we evaluate shampoos
               <svg
@@ -322,7 +322,7 @@ export default async function MethodologyPage() {
           <li>
             <Link
               href="/categories/sunscreen"
-              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-light hover:underline"
             >
               How we evaluate sunscreens
               <svg
@@ -343,7 +343,7 @@ export default async function MethodologyPage() {
           <li>
             <Link
               href="/categories/hair_oil"
-              className="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:underline"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-light hover:underline"
             >
               How we evaluate hair oils
               <svg
@@ -365,18 +365,18 @@ export default async function MethodologyPage() {
       </section>
 
       {/* CTA */}
-      <section className="rounded-2xl bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 p-8 text-center">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+      <section className="cta-section">
+        <h2 className="text-2xl font-display text-white">
           Ready to find better products?
         </h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-white/70">
           Browse our curated collection of health products, all evaluated with
           this methodology.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+            className="btn-primary"
           >
             Browse Products
             <svg
@@ -395,7 +395,7 @@ export default async function MethodologyPage() {
           </Link>
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            className="btn-secondary"
           >
             View Categories
           </Link>
@@ -404,10 +404,10 @@ export default async function MethodologyPage() {
 
       {/* Last Updated */}
       {methodology.last_updated && (
-        <section className="mt-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+        <section className="card mt-16 p-6 border-l-4 border-l-accent">
+          <p className="text-sm text-text-muted">
             This methodology was last updated on{" "}
-            <span className="text-slate-900 dark:text-white">
+            <span className="text-text">
               {new Date(methodology.last_updated).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",

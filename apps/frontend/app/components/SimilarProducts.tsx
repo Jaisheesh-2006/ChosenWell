@@ -78,14 +78,14 @@ export default function SimilarProducts({
   if (loading) {
     return (
       <section className="mt-16">
-        <h2 className="mb-8 text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="mb-8 text-2xl font-bold text-text font-display">
           Similar Products
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[...Array(limit)].map((_, i) => (
             <div
               key={i}
-              className="h-64 animate-pulse rounded-2xl bg-slate-200 dark:bg-white/5"
+              className="h-64 animate-pulse rounded-2xl bg-surface"
             />
           ))}
         </div>
@@ -100,7 +100,7 @@ export default function SimilarProducts({
 
   return (
     <section className="mt-16">
-      <h2 className="mb-8 text-2xl font-bold text-slate-900 dark:text-white">
+      <h2 className="mb-8 text-2xl font-bold text-text font-display">
         Similar Products
       </h2>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

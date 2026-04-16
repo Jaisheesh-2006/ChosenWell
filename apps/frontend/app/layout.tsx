@@ -1,11 +1,27 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Providers } from "./context";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chosenwell.co.in";
 
 export const metadata: Metadata = {
@@ -48,9 +64,6 @@ export const metadata: Metadata = {
   authors: [{ name: "ChosenWell" }],
   creator: "ChosenWell",
   publisher: "ChosenWell",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -59,6 +72,14 @@ export const metadata: Metadata = {
     title: "ChosenWell - Curated Health Products for Everyday Use in India",
     description:
       "Find genuinely safe, transparent health products curated for long-term use in India. We analyze ingredients, certifications, and value - no sponsored rankings.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "ChosenWell - Curated Health Products for Everyday Use in India",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -84,14 +105,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon-light.jpeg",
-        type: "image/jpeg",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/favicon-dark.jpeg",
-        type: "image/jpeg",
-        media: "(prefers-color-scheme: dark)",
+        url: "/android-chrome-192x192.png",
+        type: "image/png",
+        sizes: "192x192",
       },
     ],
     apple: [
@@ -115,11 +131,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <html lang="en-IN" className={`scroll-smooth ${inter.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col bg-background text-text antialiased">
         <Providers>
           <Header />
-          <main className="flex-1 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+          <main className="flex-1">
             {children}
           </main>
           <Footer />

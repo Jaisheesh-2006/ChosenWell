@@ -3,15 +3,15 @@ export default function CategoryLoading() {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Breadcrumb skeleton */}
       <div className="mb-8 flex items-center gap-2">
-        <div className="h-4 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-        <div className="h-4 w-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-        <div className="h-4 w-24 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="h-4 w-20 animate-pulse rounded bg-surface" />
+        <div className="h-4 w-4 animate-pulse rounded bg-surface" />
+        <div className="h-4 w-24 animate-pulse rounded bg-surface" />
       </div>
 
       {/* Header skeleton */}
       <div className="mb-12 space-y-4">
-        <div className="h-10 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-        <div className="h-5 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="h-10 w-48 animate-pulse rounded bg-surface" />
+        <div className="h-5 w-3/4 animate-pulse rounded bg-surface" />
       </div>
 
       {/* Products grid skeleton */}
@@ -19,23 +19,18 @@ export default function CategoryLoading() {
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+            className="overflow-hidden rounded-xl border border-border bg-white"
           >
             {/* Image skeleton */}
-            <div className="aspect-square w-full animate-pulse bg-gray-200 dark:bg-gray-700" />
+            <div className="aspect-square w-full animate-pulse bg-surface" />
 
             {/* Content skeleton */}
             <div className="p-4 space-y-3">
-              {/* Brand */}
-              <div className="h-3 w-16 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-
-              {/* Title */}
-              <div className="h-5 w-full animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-
-              {/* Score */}
+              <div className="h-3 w-16 animate-pulse rounded bg-surface" />
+              <div className="h-5 w-full animate-pulse rounded bg-surface" />
               <div className="flex items-center gap-2">
-                <div className="h-8 w-12 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700" />
-                <div className="h-4 w-24 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                <div className="h-8 w-12 animate-pulse rounded-full bg-surface" />
+                <div className="h-4 w-24 animate-pulse rounded bg-surface" />
               </div>
             </div>
           </div>

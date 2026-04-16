@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { getProducts } from "../lib/api";
+import { Suspense } from "react";
+import { getProducts, getCategories } from "../lib/api";
 import { ProductSummary } from "../lib/types";
 import ProductCard from "../components/ProductCard";
 import Breadcrumbs from "../components/Breadcrumbs";
 import EmptyState from "../components/EmptyState";
+import ProductsFilters from "../components/ProductsFilters";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -24,23 +26,57 @@ export const metadata: Metadata = {
 // ISR: Revalidate products page every 60 seconds
 export const revalidate = 60;
 
-// No fallback data - only use database
+interface ProductsPageProps {
+  searchParams: Promise<{
+    search?: string;
+    category?: string;
+    sort?: string;
+  }>;
+}
 
-async function getProductsPageData() {
+async function getProductsPageData(category?: string) {
   try {
-    const products = await getProducts({});
-    return { products };
+    const [products, categories] = await Promise.all([
+      getProducts(category ? { category } : {}),
+      getCategories(),
+    ]);
+    return { products, categories };
   } catch (error) {
     console.error("Error fetching products data:", error);
-    return { products: [] };
+    return { products: [], categories: [] };
   }
 }
 
-export default async function ProductsPage() {
-  const { products } = await getProductsPageData();
+function applyFilters(
+  products: ProductSummary[],
+  search?: string,
+  sort?: string,
+): ProductSummary[] {
+  let result = [...products];
 
-  // Use products as-is (alphabetically or by database order)
-  const sortedProducts = [...products];
+  if (search) {
+    const query = search.toLowerCase();
+    result = result.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        (p.brand && p.brand.toLowerCase().includes(query)),
+    );
+  }
+
+  if (sort === "name-asc") {
+    result.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sort === "name-desc") {
+    result.sort((a, b) => b.name.localeCompare(a.name));
+  }
+
+  return result;
+}
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const { search, category, sort } = await searchParams;
+
+  const { products, categories } = await getProductsPageData(category);
+  const filtered = applyFilters(products, search, sort);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -48,54 +84,59 @@ export default async function ProductsPage() {
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="page-heading">
           All Products
         </h1>
-        <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-4 max-w-3xl text-lg text-text-muted">
           Browse our curated collection of health products, all verified for
           ingredient safety and quality.
         </p>
       </div>
 
+      {/* Filters */}
+      <Suspense>
+        <ProductsFilters
+          categories={categories}
+          totalCount={products.length}
+          filteredCount={filtered.length}
+        />
+      </Suspense>
+
       {/* Products Grid */}
       <div>
-        {sortedProducts.length > 0 ? (
-          <>
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                {sortedProducts.length} product
-                {sortedProducts.length !== 1 ? "s" : ""} found
-              </p>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {sortedProducts.map((product) => (
-                <ProductCard key={product.slug} product={product} />
-              ))}
-            </div>
-          </>
+        {filtered.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filtered.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
         ) : (
           <EmptyState
             title="No products found"
-            description="Check back later for new products."
+            description={
+              search || category
+                ? "Try adjusting your filters."
+                : "Check back later for new products."
+            }
           />
         )}
       </div>
 
       {/* Navigation Section */}
-      <section className="mt-16 rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 p-8 dark:border-white/10 dark:from-slate-900/50 dark:to-slate-800/30">
+      <section className="mt-16 card p-8">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text">
               Looking for something specific?
             </h3>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-sm text-text-muted">
               Browse by category or learn how we evaluate products.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/categories"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30"
+              className="btn-primary px-5 py-2.5 text-sm"
             >
               Browse Categories
               <svg
@@ -114,7 +155,7 @@ export default async function ProductsPage() {
             </Link>
             <Link
               href="/methodology"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              className="btn-secondary px-5 py-2.5 text-sm"
             >
               Our Methodology
             </Link>

@@ -10,9 +10,7 @@ export default function ProductNotFound() {
 
   const handleRetry = () => {
     setIsRetrying(true);
-    // Force a hard refresh bypassing cache
     router.refresh();
-    // Also try reloading after a short delay
     setTimeout(() => {
       window.location.reload();
     }, 500);
@@ -21,9 +19,9 @@ export default function ProductNotFound() {
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center px-4 py-16">
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-emerald-500/20">
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
           <svg
-            className="h-10 w-10 text-cyan-600 dark:text-cyan-400"
+            className="h-10 w-10 text-primary"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -36,13 +34,13 @@ export default function ProductNotFound() {
             />
           </svg>
         </div>
-        <p className="text-sm font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+        <p className="text-sm font-medium uppercase tracking-wider text-primary">
           Product Not Found
         </p>
-        <h1 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
+        <h1 className="mt-2 text-3xl font-bold text-text">
           We couldn&apos;t find this product
         </h1>
-        <p className="mt-4 max-w-md mx-auto text-slate-600 dark:text-slate-400">
+        <p className="mt-4 max-w-md mx-auto text-text-muted">
           This product may have been removed, renamed, or there might be a
           temporary loading issue. Try refreshing the page or browse our other
           products.
@@ -51,7 +49,7 @@ export default function ProductNotFound() {
           <button
             onClick={handleRetry}
             disabled={isRetrying}
-            className="inline-flex items-center gap-2 rounded-full bg-cyan-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isRetrying ? (
               <>
@@ -97,18 +95,18 @@ export default function ProductNotFound() {
           </button>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 transition-colors hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            className="btn-secondary"
           >
             Browse Products
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 font-semibold text-slate-900 transition-colors hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            className="btn-secondary"
           >
             Go Home
           </Link>
         </div>
-        <p className="mt-6 text-sm text-slate-500 dark:text-slate-500">
+        <p className="mt-6 text-sm text-text-muted">
           If this problem persists, the product may no longer be available.
         </p>
       </div>

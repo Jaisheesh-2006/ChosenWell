@@ -39,38 +39,36 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const product = await getProductData(slug);
 
-  try {
-    const product = await getProductBySlug(slug);
-    const title = `${product.name}${
-      product.brand ? ` by ${product.brand}` : ""
-    } - Review & Analysis`;
-    const description = `${product.name} review and analysis. ${
-      product.why_recommended?.slice(0, 2).join(" ") ||
-      "Verified health product for everyday use in India."
-    }`.substring(0, 160);
-
-    return {
-      title,
-      description,
-      alternates: {
-        canonical: `/products/${slug}`,
-      },
-      openGraph: {
-        title: `${product.name} | ChosenWell`,
-        description: `${product.name} - Read our detailed ingredient and safety analysis.`,
-        url: `/products/${slug}`,
-        type: "article",
-        images: product.image_url
-          ? [{ url: product.image_url, alt: product.name }]
-          : undefined,
-      },
-    };
-  } catch {
-    return {
-      title: "Product Not Found",
-    };
+  if (!product) {
+    return { title: "Product Not Found" };
   }
+
+  const title = `${product.name}${
+    product.brand ? ` by ${product.brand}` : ""
+  } - Review & Analysis`;
+  const description = `${product.name} review and analysis. ${
+    product.why_recommended?.slice(0, 2).join(" ") ||
+    "Verified health product for everyday use in India."
+  }`.substring(0, 160);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/products/${slug}`,
+    },
+    openGraph: {
+      title: `${product.name} | ChosenWell`,
+      description: `${product.name} - Read our detailed ingredient and safety analysis.`,
+      url: `/products/${slug}`,
+      type: "article",
+      images: product.image_url
+        ? [{ url: product.image_url, alt: product.name }]
+        : undefined,
+    },
+  };
 }
 
 async function getProductData(slug: string): Promise<Product | null> {
@@ -123,9 +121,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           ...(product.category
             ? [
                 {
-                  label:
-                    product.category.charAt(0).toUpperCase() +
-                    product.category.slice(1),
+                  label: product.category
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (c) => c.toUpperCase()),
                   href: `/categories/${product.category}`,
                 },
               ]
@@ -139,7 +137,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           {/* Product Image */}
           {product.image_url && (
-            <div className="relative h-72 w-full lg:h-80 lg:w-80 flex-shrink-0 rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/60 overflow-hidden">
+            <div className="relative h-72 w-full lg:h-80 lg:w-80 flex-shrink-0 rounded-2xl border border-border bg-white shadow-sm overflow-hidden">
               <Image
                 src={product.image_url}
                 alt={product.name}
@@ -154,19 +152,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex-1">
               {product.brand && (
-                <p className="text-sm font-medium uppercase tracking-wider text-slate-500">
+                <p className="text-sm font-medium uppercase tracking-wider text-text-muted">
                   {product.brand}
                 </p>
               )}
-              <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+              <h1 className="mt-1 text-3xl font-bold tracking-tight text-text sm:text-4xl">
                 {product.name}
               </h1>
 
               {/* SEO: Product evaluation summary - unique per product, visible above fold */}
-              <p className="mt-4 text-slate-600 dark:text-slate-400">
+              <p className="mt-4 text-text-muted">
                 {product.why_recommended?.[0] ||
                   `This ${
-                    product.category || "product"
+                    product.category?.replace(/_/g, " ") || "product"
                   } has been evaluated for ingredient safety, formulation quality, and transparency.`}{" "}
                 It appears on ChosenWell because it passed our verification
                 standards
@@ -207,9 +205,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Why Recommended */}
           {product.why_recommended && product.why_recommended.length > 0 && (
             <section>
-              <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
+              <h2 className="flex items-center gap-2 text-xl font-semibold text-text">
                 <svg
-                  className="h-6 w-6 text-cyan-600 dark:text-cyan-400"
+                  className="h-6 w-6 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -227,7 +225,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.why_recommended.map((reason, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-600 dark:text-cyan-400"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2}
@@ -239,7 +237,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="text-slate-600 dark:text-slate-300">
+                    <span className="text-text-muted">
                       {reason}
                     </span>
                   </li>
@@ -253,7 +251,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Pros */}
             {product.pros && product.pros.length > 0 && (
               <section className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
-                <h3 className="flex items-center gap-2 font-semibold text-emerald-600 dark:text-emerald-400">
+                <h3 className="flex items-center gap-2 font-semibold text-emerald-600">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -273,7 +271,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {product.pros.map((pro, index) => (
                     <li
                       key={index}
-                      className="text-sm text-slate-600 dark:text-slate-300"
+                      className="text-sm text-text-muted"
                     >
                       • {pro}
                     </li>
@@ -285,7 +283,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Cons */}
             {product.cons && product.cons.length > 0 && (
               <section className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6">
-                <h3 className="flex items-center gap-2 font-semibold text-amber-600 dark:text-amber-400">
+                <h3 className="flex items-center gap-2 font-semibold text-amber-600">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -305,7 +303,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {product.cons.map((con, index) => (
                     <li
                       key={index}
-                      className="text-sm text-slate-600 dark:text-slate-300"
+                      className="text-sm text-text-muted"
                     >
                       • {con}
                     </li>
@@ -318,9 +316,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {/* Ingredients Summary */}
           {product.ingredients_summary && (
             <section>
-              <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
+              <h2 className="flex items-center gap-2 text-xl font-semibold text-text">
                 <svg
-                  className="h-6 w-6 text-cyan-600 dark:text-cyan-400"
+                  className="h-6 w-6 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -334,8 +332,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </svg>
                 Ingredients Analysis
               </h2>
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-                <p className="text-slate-600 dark:text-slate-300">
+              <div className="mt-4 rounded-2xl border border-border bg-white p-6 shadow-sm">
+                <p className="text-text-muted">
                   {product.ingredients_summary}
                 </p>
               </div>
@@ -347,8 +345,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <aside className="space-y-6">
           {/* Buy Links */}
           {product.buy_links && product.buy_links.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
+            <section className="card p-6">
+              <h3 className="font-semibold text-text">
                 Where to Buy
               </h3>
               <div className="mt-4 space-y-3">
@@ -358,13 +356,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 transition-colors hover:border-cyan-500/50 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:hover:border-cyan-500/30 dark:hover:bg-white/10"
+                    className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-3 transition-colors hover:border-primary/50 hover:bg-surface"
                   >
-                    <span className="font-medium text-slate-900 dark:text-white">
+                    <span className="font-medium text-text">
                       {link.vendor || "Buy Now"}
                     </span>
                     <svg
-                      className="h-5 w-5 text-slate-400"
+                      className="h-5 w-5 text-text-muted"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2}
@@ -384,15 +382,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Certifications */}
           {product.certifications && product.certifications.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
+            <section className="card p-6">
+              <h3 className="font-semibold text-text">
                 Certifications
               </h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {product.certifications.map((cert) => (
                   <span
                     key={cert}
-                    className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-600 dark:text-emerald-400"
+                    className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-600"
                   >
                     <svg
                       className="h-4 w-4"
@@ -416,11 +414,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Last Reviewed */}
           {product.last_reviewed && (
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
+            <section className="card p-6">
+              <h3 className="font-semibold text-text">
                 Last Reviewed
               </h3>
-              <p className="mt-2 text-slate-500 dark:text-slate-400">
+              <p className="mt-2 text-text-muted">
                 {new Date(product.last_reviewed).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -434,17 +432,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {product.category && (
             <Link
               href={`/categories/${product.category}`}
-              className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-colors hover:border-cyan-500/50 dark:border-white/10 dark:bg-slate-900/50 dark:hover:border-cyan-500/30"
+              className="flex items-center justify-between rounded-2xl border border-border bg-white p-6 shadow-sm transition-colors hover:border-primary/50"
             >
               <div>
-                <p className="text-sm text-slate-500">Category</p>
-                <p className="font-medium text-slate-900 dark:text-white">
-                  {product.category.charAt(0).toUpperCase() +
-                    product.category.slice(1)}
+                <p className="text-sm text-text-muted">Category</p>
+                <p className="font-medium text-text">
+                  {product.category
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}
                 </p>
               </div>
               <svg
-                className="h-5 w-5 text-slate-400"
+                className="h-5 w-5 text-text-muted"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
@@ -469,10 +468,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
             "@context": "https://schema.org",
             "@type": "Product",
             name: product.name,
+            description: product.ingredients_summary || undefined,
             brand: product.brand
               ? {
                   "@type": "Brand",
                   name: product.brand,
+                }
+              : undefined,
+            aggregateRating: product.score
+              ? {
+                  "@type": "AggregateRating",
+                  ratingValue: (product.score / 20).toFixed(1),
+                  bestRating: "5",
+                  worstRating: "1",
+                  ratingCount: "1",
                 }
               : undefined,
             review: {
@@ -481,6 +490,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 "@type": "Organization",
                 name: "ChosenWell",
               },
+              reviewBody:
+                product.why_recommended?.join(" ") ||
+                product.pros?.join(" ") ||
+                undefined,
+              datePublished: product.last_reviewed || undefined,
             },
           }),
         }}
@@ -489,7 +503,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {/* Related Products - Server-rendered for SEO (Rule 3 compliance) */}
       {relatedProducts.length > 0 && (
         <section className="mt-16">
-          <h3 className="mb-6 text-xl font-semibold text-slate-900 dark:text-white">
+          <h3 className="mb-6 text-xl font-semibold text-text">
             Related Products
           </h3>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -497,25 +511,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <li key={relatedProduct.slug}>
                 <a
                   href={`/products/${relatedProduct.slug}`}
-                  className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-cyan-500/50 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-900/50 dark:hover:border-cyan-500/30 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-4 rounded-xl border border-border bg-white p-4 transition-colors hover:border-primary/50 hover:bg-surface"
                 >
                   <div className="flex-1 min-w-0">
                     {relatedProduct.brand && (
-                      <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                      <p className="text-xs font-medium uppercase tracking-wider text-text-muted">
                         {relatedProduct.brand}
                       </p>
                     )}
-                    <p className="font-medium text-slate-900 dark:text-white truncate">
+                    <p className="font-medium text-text truncate">
                       {relatedProduct.name}
                     </p>
                     {relatedProduct.short_reason && (
-                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
+                      <p className="mt-1 text-sm text-text-muted line-clamp-1">
                         {relatedProduct.short_reason}
                       </p>
                     )}
                   </div>
                   <svg
-                    className="h-5 w-5 flex-shrink-0 text-slate-400"
+                    className="h-5 w-5 flex-shrink-0 text-text-muted"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={2}

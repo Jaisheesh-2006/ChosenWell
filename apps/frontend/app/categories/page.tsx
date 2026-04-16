@@ -81,11 +81,11 @@ export default async function CategoriesPage() {
 
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="page-heading">
           Product Categories
         </h1>
         {/* SEO-optimized explanatory content - above the fold */}
-        <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-4 max-w-3xl text-lg text-text-muted">
           Find products that meet our safety and transparency standards,
           organized by category. Each category is independently evaluated using
           our methodology—covering ingredient safety, regulatory compliance, and
@@ -108,11 +108,11 @@ export default async function CategoriesPage() {
       )}
 
       {/* Info Section */}
-      <section className="mt-16 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-slate-900/50">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+      <section className="card mt-16 p-8 border-l-4 border-l-accent">
+        <h2 className="text-xl font-semibold text-text">
           How we organize categories
         </h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-text-muted">
           Each category page includes detailed criteria specific to that product
           type, a curated list of top-rated products, and long-form content
           explaining what to look for when shopping. Our experts research

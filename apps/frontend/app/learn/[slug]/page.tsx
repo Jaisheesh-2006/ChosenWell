@@ -341,23 +341,44 @@ export default async function LearnArticlePage({ params }: Props) {
         items={[{ label: "Learn", href: "/learn" }, { label: article.title }]}
       />
 
+      {/* Back link above the fold */}
+      <Link
+        href="/learn"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-text-muted hover:text-primary"
+      >
+        <svg
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+          />
+        </svg>
+        Back to all articles
+      </Link>
+
       {/* Article Header */}
       <header className="mb-10">
         <div className="flex items-center gap-3 mb-4">
-          <span className="inline-block text-xs font-medium text-cyan-700 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-2 py-1 rounded">
+          <span className="inline-block text-xs font-medium text-primary bg-primary-lighter px-2 py-1 rounded">
             {article.category}
           </span>
-          <span className="text-sm text-slate-500 dark:text-slate-400">
+          <span className="text-sm text-text-muted">
             {article.readTime}
           </span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+        <h1 className="page-heading">
           {article.title}
         </h1>
-        <p className="mt-4 text-xl text-slate-600 dark:text-slate-300">
+        <p className="mt-4 text-xl text-text-muted">
           {article.description}
         </p>
-        <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-4 text-sm text-text-muted">
           Last updated:{" "}
           {new Date(article.publishedDate).toLocaleDateString("en-IN", {
             year: "numeric",
@@ -368,13 +389,13 @@ export default async function LearnArticlePage({ params }: Props) {
       </header>
 
       {/* Article Content */}
-      <article className="prose prose-slate dark:prose-invert max-w-none">
+      <article className="prose prose-slate max-w-none">
         {article.content.map((block, index) => {
           if (block.type === "paragraph") {
             return (
               <p
                 key={index}
-                className="text-slate-600 dark:text-slate-300 leading-relaxed"
+                className="text-text-muted leading-relaxed"
               >
                 {block.text}
               </p>
@@ -385,7 +406,7 @@ export default async function LearnArticlePage({ params }: Props) {
             return (
               <h2
                 key={index}
-                className="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4"
+                className="text-xl font-bold text-text mt-8 mb-4"
               >
                 {block.text}
               </h2>
@@ -398,9 +419,9 @@ export default async function LearnArticlePage({ params }: Props) {
                 {block.items.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-slate-600 dark:text-slate-300"
+                    className="flex items-start gap-2 text-text-muted"
                   >
-                    <span className="text-cyan-500 mt-1">•</span>
+                    <span className="text-primary mt-1">•</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -410,10 +431,10 @@ export default async function LearnArticlePage({ params }: Props) {
 
           if (block.type === "callout") {
             const variants = {
-              info: "bg-cyan-50 border-cyan-200 text-cyan-800 dark:bg-cyan-900/20 dark:border-cyan-800/30 dark:text-cyan-200",
+              info: "bg-primary-lighter border-primary/20 text-primary",
               warning:
-                "bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800/30 dark:text-amber-200",
-              tip: "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/20 dark:border-emerald-800/30 dark:text-emerald-200",
+                "bg-amber-50 border-amber-200 text-amber-800",
+              tip: "bg-emerald-50 border-emerald-200 text-emerald-800",
             };
             const variant = block.variant || "info";
             return (
@@ -432,11 +453,11 @@ export default async function LearnArticlePage({ params }: Props) {
 
       {/* Related Products CTA */}
       {article.relatedCategories.length > 0 && (
-        <section className="mt-12 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 p-6 dark:from-cyan-500/5 dark:via-emerald-500/5 dark:to-cyan-500/5">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+        <section className="cta-section mt-12 p-6">
+          <h3 className="text-lg font-semibold text-white">
             See products evaluated using these criteria
           </h3>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          <p className="mt-2 text-sm text-white/70">
             Browse products in related categories that meet our evaluation
             standards.
           </p>
@@ -445,7 +466,7 @@ export default async function LearnArticlePage({ params }: Props) {
               <Link
                 key={category}
                 href={`/categories/${category}`}
-                className="inline-flex items-center gap-1 rounded-full bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 shadow-sm hover:shadow transition-all"
+                className="inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-sm font-medium text-text shadow-sm hover:shadow transition-all"
               >
                 {category
                   .replace("_", " ")
@@ -472,7 +493,7 @@ export default async function LearnArticlePage({ params }: Props) {
       {/* Related Articles */}
       {article.relatedArticles.length > 0 && (
         <section className="mt-12">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+          <h3 className="text-lg font-semibold text-text mb-4">
             Continue learning
           </h3>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -484,15 +505,15 @@ export default async function LearnArticlePage({ params }: Props) {
                   <Link
                     key={slug}
                     href={`/learn/${slug}`}
-                    className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-white/10 dark:bg-slate-900/50"
+                    className="group card p-4 transition-all duration-300 hover:shadow-card-hover hover:border-primary-light/30"
                   >
-                    <span className="inline-block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
+                    <span className="inline-block text-xs font-medium text-text-muted mb-2">
                       {related.category}
                     </span>
-                    <h4 className="font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    <h4 className="font-semibold text-text group-hover:text-primary transition-colors">
                       {related.title}
                     </h4>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    <p className="mt-1 text-sm text-text-muted">
                       {related.readTime}
                     </p>
                   </Link>
@@ -503,10 +524,10 @@ export default async function LearnArticlePage({ params }: Props) {
       )}
 
       {/* Back to Learn */}
-      <div className="mt-12 pt-8 border-t border-slate-200 dark:border-white/10">
+      <div className="mt-12 pt-8 border-t border-border">
         <Link
           href="/learn"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400"
+          className="inline-flex items-center gap-2 text-sm font-medium text-text-muted hover:text-primary"
         >
           <svg
             className="h-4 w-4"

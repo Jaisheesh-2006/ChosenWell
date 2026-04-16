@@ -4,10 +4,10 @@ interface TagBadgeProps {
 }
 
 const variantStyles: Record<string, string> = {
-  default: "bg-slate-200 text-slate-700 border-slate-300 dark:bg-slate-700/50 dark:text-slate-300 dark:border-slate-600",
-  organic: "bg-emerald-500/10 text-emerald-600 border-emerald-500/30 dark:text-emerald-400",
-  budget: "bg-amber-500/10 text-amber-600 border-amber-500/30 dark:text-amber-400",
-  kids: "bg-pink-500/10 text-pink-600 border-pink-500/30 dark:text-pink-400",
+  default: "bg-surface text-text border-border",
+  organic: "bg-primary-lighter text-primary border-primary/20",
+  budget: "bg-amber-50 text-amber-700 border-amber-200",
+  kids: "bg-pink-50 text-pink-700 border-pink-200",
 };
 
 function getVariantFromTag(tag: string): string {
